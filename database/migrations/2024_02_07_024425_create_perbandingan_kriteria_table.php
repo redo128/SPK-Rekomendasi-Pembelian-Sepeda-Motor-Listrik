@@ -17,7 +17,7 @@ return new class extends Migration
             $table->foreignId('kriteria_1')->references('id')->on('kriteria_alternatif');
             // $table->unsignedSmallInteger('kriteria_2');
             $table->foreignId('kriteria_2')->references('id')->on('kriteria_alternatif');
-            $table->float('rating');
+            $table->float('rating')->default(0);
             $table->timestamps();
         });
     }

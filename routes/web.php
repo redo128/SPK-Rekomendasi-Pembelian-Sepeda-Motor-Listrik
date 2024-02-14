@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\BrandController;
+use App\Http\Controllers\KriteriaController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\PembeliController;
 use App\Http\Controllers\PenjualController;
@@ -38,6 +39,7 @@ Route::middleware(['auth'])->group(function(){
     // Route::post('/uwu',[LoginController::class,'login'])->name('login.auth');
     Route::resource('toko', TokoController::class)->middleware('userAkses:superadmin');
     Route::resource('brand', BrandController::class)->middleware('userAkses:superadmin');
+    Route::resource('kriteria', KriteriaController::class)->middleware('userAkses:superadmin');
     Route::get('/logout',[LoginController::class,'logout'])->name('logout');
     Route::get('/superadmin',[SuperAdminController::class,'index'])->name('SuperAdmin.beranda')->middleware('userAkses:superadmin');
     Route::get('/superadmin/bobot',[SuperAdminController::class,'penentuan_bobot'])->name('SuperAdmin.bobot')->middleware('userAkses:superadmin');
