@@ -2,11 +2,13 @@
 
 use App\Http\Controllers\BrandController;
 use App\Http\Controllers\KriteriaController;
+use App\Http\Controllers\KriteriaPerbandinganController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\PembeliController;
 use App\Http\Controllers\PenjualController;
 use App\Http\Controllers\SuperAdminController;
 use App\Http\Controllers\TokoController;
+use App\Models\KriteriaPerbandingan;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -40,6 +42,7 @@ Route::middleware(['auth'])->group(function(){
     Route::resource('toko', TokoController::class)->middleware('userAkses:superadmin');
     Route::resource('brand', BrandController::class)->middleware('userAkses:superadmin');
     Route::resource('kriteria', KriteriaController::class)->middleware('userAkses:superadmin');
+    Route::resource('kriteriaperbandingan', KriteriaPerbandinganController::class)->middleware('userAkses:superadmin');
     Route::get('/logout',[LoginController::class,'logout'])->name('logout');
     Route::get('/superadmin',[SuperAdminController::class,'index'])->name('SuperAdmin.beranda')->middleware('userAkses:superadmin');
     Route::get('/superadmin/bobot',[SuperAdminController::class,'penentuan_bobot'])->name('SuperAdmin.bobot')->middleware('userAkses:superadmin');

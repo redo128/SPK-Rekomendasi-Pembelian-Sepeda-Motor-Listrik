@@ -14,9 +14,9 @@ return new class extends Migration
         Schema::create('perbandingan_kriteria', function (Blueprint $table) {
             $table->id();
             // $table->unsignedSmallInteger('kriteria_1');
-            $table->foreignId('kriteria_1')->references('id')->on('kriteria_alternatif');
+            $table->foreignId('kriteria_1')->references('id')->on('kriteria_alternatif')->onDelete('cascade');
             // $table->unsignedSmallInteger('kriteria_2');
-            $table->foreignId('kriteria_2')->references('id')->on('kriteria_alternatif');
+            $table->foreignId('kriteria_2')->references('id')->on('kriteria_alternatif')->onDelete('cascade');
             $table->float('rating')->default(0);
             $table->timestamps();
         });

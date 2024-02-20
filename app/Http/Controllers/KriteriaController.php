@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Brand;
 use App\Models\Kriteria;
+use App\Models\KriteriaPerbandingan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -35,9 +36,24 @@ class KriteriaController extends Controller
         $kriteria=new Kriteria;
         $kriteria->nama_kriteria=$request->get('nama_kriteria');
         $kriteria->save();
+        $getcountkriteria=Kriteria::all();
+        $temp=Kriteria::latest('id')->first();
+        foreach($getcountkriteria as $count){
+            $perbandingan= new KriteriaPerbandingan;
+            $perbandingan->kriteria_1=$temp->id;
+            $perbandingan->kriteria_2=$count->id;
+            $perbandingan->rating=0;
+            $perbandingan->save();
+        }
         return redirect()->route('kriteria.index');
     }
+    public function storeget(){
+        $kriteria=Kriteria::all();
 
+    }
+    public function storenext(Request $request){
+
+    }
     /**
      * Display the specified resource.
      */
