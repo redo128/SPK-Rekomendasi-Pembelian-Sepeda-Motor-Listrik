@@ -6,9 +6,9 @@ use App\Http\Controllers\KriteriaPerbandinganController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\PembeliController;
 use App\Http\Controllers\PenjualController;
+use App\Http\Controllers\SepedaSuperAdminController;
 use App\Http\Controllers\SuperAdminController;
 use App\Http\Controllers\TokoController;
-use App\Models\KriteriaPerbandingan;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -41,6 +41,7 @@ Route::middleware(['auth'])->group(function(){
     // Route::post('/uwu',[LoginController::class,'login'])->name('login.auth');
     Route::resource('toko', TokoController::class)->middleware('userAkses:superadmin');
     Route::resource('brand', BrandController::class)->middleware('userAkses:superadmin');
+    Route::resource('sepeda_sa', SepedaSuperAdminController::class)->middleware('userAkses:superadmin');
     Route::resource('kriteria', KriteriaController::class)->middleware('userAkses:superadmin');
     Route::resource('kriteriaperbandingan', KriteriaPerbandinganController::class)->middleware('userAkses:superadmin');
     Route::get('/logout',[LoginController::class,'logout'])->name('logout');

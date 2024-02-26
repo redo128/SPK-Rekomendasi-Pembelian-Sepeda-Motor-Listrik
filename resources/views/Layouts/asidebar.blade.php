@@ -36,6 +36,12 @@
           <span>Perbandingan Kriteria</span>
         </a>
       </li>
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="{{route('sepeda_sa.index')}}">
+          <i class="bi bi-person"></i>
+          <span>Sepeda Listrik</span>
+        </a>
+      </li>
       
 
     </ul>
