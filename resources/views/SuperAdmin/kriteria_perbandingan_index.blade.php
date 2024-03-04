@@ -54,6 +54,10 @@
         @foreach($index as $data)
       <th scope="col">{{$data->nama_kriteria}}</th>
       @endforeach
+      <th scope="col">|</th>
+      <th scope="col">Jumlah</th>
+      <th scope="col">Eigen Vektor</th>
+      <th scope="col">Matriks X EV</th>
     </tr>
   </thead>
   <tbody>
@@ -61,10 +65,13 @@
     <tr>
       <th scope="row">{{$data->nama_kriteria}}</th>
       @foreach($simpan_normalisasi["kriteria-".$angka] as $data2)
-      <td>{{$data2}}</td>
+      <td>{{round($data2,2)}}</td>
       @endforeach
-      <td>
-  </td>
+      <td>|</td>
+      <td>{{round($total_per_row_normalisasi["Row".$angka],2)}}</td>
+      <td>{{round($average_per_row_normalisasi["Row".$angka],2)}}</td>
+      <td>{{round($MatrixXEv["Row".$angka],2)}}</td>
+      
 </tr>
   @endforeach
   <tr>
@@ -88,7 +95,7 @@
   <tr>
     <th scope="col">RI</th>
     @foreach($ri as $index => $data)
-    <th>{{$data[1]}}</th>
+    <th>{{$data[0]}}</th>
 
     @endforeach
   </tr>
@@ -98,23 +105,23 @@
   <thead>
     <tr>
       <th>N</th>
-      <td>as</td>
+      <td>{{$n}}</td>
     </tr>
     <tr>
       <th>N max</th>
-      <td>as</td>
+      <td>{{$nMax}}</td>
     </tr>
     <tr>
       <th>CI</th>
-      <td>as</td>
+      <td>{{$CI_Konsisten}}</td>
     </tr>
     <tr>
       <th>RI</th>
-      <td>as</td>
+      <td>{{$RI_Konsisten[0]}}</td>
     </tr>
     <tr>
       <th>CR</th>
-      <td>as</td>
+      <td>{{$CR_Konsisten}}</td>
     </tr>
 
   </thead>

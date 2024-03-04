@@ -14,6 +14,7 @@ class KriteriaPerbandinganController extends Controller
     public function index()
     {
         $index=Kriteria::all();
+        $n=Kriteria::all()->count();
         // dd($index);
         // $temp=KriteriaPerbandingan::all();
         // $temp=KriteriaPerbandingan::where('kriteria_1',1)->count();
@@ -88,25 +89,28 @@ class KriteriaPerbandinganController extends Controller
         // dd($total_per_kolom);
         $ri=array();
         $ri=array(
-            array(1,0.00),
-            array(2,0.00),
-            array(3,0.58),
-            array(4,0.90),
-            array(5,1.12),
-            array(6,1.24),
-            array(7,1.32),
-            array(8,1.41),
-            array(9,1.45),
-            array(10,1.49),
-            array(11,1.51),
-            array(12,1.48),
-            array(13,1.56),
-            array(14,1.57),
-            array(15,1.59),
+            array(0.00),
+            array(0.00),
+            array(0.58),
+            array(0.90),
+            array(1.12),
+            array(1.24),
+            array(1.32),
+            array(1.41),
+            array(1.45),
+            array(1.49),
+            array(1.51),
+            array(1.48),
+            array(1.56),
+            array(1.57),
+            array(1.59),
         );
+        // dd($ri[4]);
         //Mencari Eigen Vektor
         $simpan_normalisasi=array();
         $total_per_kolom_normalisasi=array();
+        $total_per_row_normalisasi=array();
+        $average_per_row_normalisasi=array();
         foreach($index as $a => $data){
             foreach($simpan["kriteria-".$a] as $a2 => $data2){
                 $simpan_normalisasi["kriteria-".$a][$a2]=$data2/$total_per_kolom["Kolom".$a2];
@@ -117,18 +121,52 @@ class KriteriaPerbandinganController extends Controller
                     $total_per_kolom_normalisasi["Kolom".$a2]=0;
                     $total_per_kolom_normalisasi["Kolom".$a2]+=$simpan_normalisasi["kriteria-".$a][$a2];
                 
-                } 
+                }
+                if(isset($total_per_row_normalisasi["Row".$a])){
+                    $total_per_row_normalisasi["Row".$a]+=$simpan_normalisasi["kriteria-".$a][$a2];
                 
+                }else{
+                    $total_per_row_normalisasi["Row".$a]=0;
+                    $total_per_row_normalisasi["Row".$a]+=$simpan_normalisasi["kriteria-".$a][$a2];
+                
+                }  
             }
+            $average_per_row_normalisasi["Row".$a]=$total_per_row_normalisasi["Row".$a]/$n;
         };
-        // dd($total_per_kolom_normalisasi);
+        // Mencari Matriks X EV
+        $MatrixXEv=array();
+        $nMax=0;
+        foreach($index as $a => $data){
+            $MatrixXEv["Row".$a]=0;
+            foreach($simpan["kriteria-".$a] as $a2 => $data2){
+                $MatrixXEv["Row".$a]+=$data2*$average_per_row_normalisasi["Row".$a2];
+            }
+            $nMax+=$MatrixXEv["Row".$a]/$average_per_row_normalisasi["Row".$a];
+        }
+        $nMax=$nMax/$n;
+        $CI_Konsisten=($nMax-$n)/($n-1);
+        // dd($CI_Konsisten);
+        $RI_Konsisten=$ri[$n-1];
+        // dd($CI_Konsisten/$RI_Konsisten[0]);
+        $CR_Konsisten=$CI_Konsisten/$RI_Konsisten[0];
+        // dd($ri);
+        // dd($CR_Konsisten);
+        // dd($nMax);
+        // dd($MatrixXEv);
+        // dd($total_per_row_normalisasi);
+        //Cari Eigen Vektor Pt 2
+
+        
+        // dd($simpan_normalisasi);
+        // dd($total_per_row_normalisasi);
         // dump($simpan_normalisasi);
         // dump($simpan);
         // dd($ri[0][0]);
 
-        $n=Kriteria::all()->count();
+
         
-        return view('SuperAdmin.kriteria_perbandingan_index',compact('simpan','index','total_per_kolom','ri','total_per_kolom_normalisasi','simpan_normalisasi'));
+        return view('SuperAdmin.kriteria_perbandingan_index',compact('simpan','index','total_per_kolom','ri','total_per_kolom_normalisasi','simpan_normalisasi',
+    'n','total_per_row_normalisasi','average_per_row_normalisasi','MatrixXEv','nMax','CI_Konsisten','RI_Konsisten','CR_Konsisten'));
         
     }
     // public function normalisasi(){
@@ -213,6 +251,7 @@ class KriteriaPerbandinganController extends Controller
                 $dataperbandingan->save();
             }
         }
+        return redirect()->route('kriteriaperbandingan.index');
         
     }
 

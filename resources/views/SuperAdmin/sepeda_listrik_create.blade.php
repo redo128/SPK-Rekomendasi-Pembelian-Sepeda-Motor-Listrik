@@ -12,7 +12,7 @@
                         <div class="row">
                             <label for="inputText" class="col-sm-3 col-form-label">Nama Sepeda Listrik</label>
                             <div class="col-sm-8">
-                                <input type="text" name="nama_sepeda" class="form-control">
+                                <input type="text" name="nama_sepeda" class="form-control" required>
                             </div>
                             <label for="inputText" class="col-sm-3"> Tipe Sepeda</label>
                                 <div class="col-sm-8">
@@ -40,11 +40,11 @@
                                         @endforeach
                                     </select>
                                 </div>
-                                <label for="inputText" class="col-sm-3 col-form-label">Harga</label>
+                                <!-- <label for="inputText" class="col-sm-3 col-form-label">Harga</label>
                             <div class="col-sm-8">
                                 <div class="row">
                                     <div class="col-sm-1">Rp.</div>
-                                    <div class="col-sm-11"><input type="number" name="harga" id="harga" class="form-control"></div>
+                                    <div class="col-sm-11"><input type="text" name="harga" id="harga" class="form-control"></div>
                                 </div>
                                 
                             </div>
@@ -59,7 +59,17 @@
                                 <label for="inputText" class="col-sm-3 col-form-label">Maksimal Beban</label>
                             <div class="col-sm-8">
                                 <input type="number" min="0" name="maksimal beban" max="200" class="form-control">
+                            </div> -->
+                            @foreach($kriteria as $data)
+                            <label for="inputText" class="col-sm-3 col-form-label">{{$data->nama_kriteria}}</label>
+                            <div class="col-sm-8">
+                                @if($data->nama_kriteria == "harga")
+                                <input type="text" min="0" name="value[{{$data->nama_kriteria}}]" id="{{$data->nama_kriteria}}" class="form-control">
+                                @else
+                                <input type="number" min="0" name="value[{{$data->nama_kriteria}}]" id="{{$data->nama_kriteria}}" class="form-control">
+                                @endif
                             </div>
+                            @endforeach
                         </div>
                         <br><br>
                             <div class="col-sm-10">
@@ -72,11 +82,18 @@
         </div>
         </div>
     </div>
-    <!-- <script>
-        var dengan_rupiah = document.getElementById('harga');
+    <script>
+         var tanpa_rupiah = document.getElementById('harga');
+    tanpa_rupiah.addEventListener('keyup', function(e)
+    {
+        tanpa_rupiah.value = formatRupiah(this.value);
+    });
+    
+    /* Dengan Rupiah */
+    var dengan_rupiah = document.getElementById('dengan-rupiah');
     dengan_rupiah.addEventListener('keyup', function(e)
     {
-        dengan_rupiah.value = formatRupiah(this.value, 'Rp.');
+        dengan_rupiah.value = formatRupiah(this.value, 'Rp. ');
     });
     
     /* Fungsi */
@@ -96,5 +113,5 @@
         rupiah = split[1] != undefined ? rupiah + ',' + split[1] : rupiah;
         return prefix == undefined ? rupiah : (rupiah ? 'Rp. ' + rupiah : '');
     }
-    </script> -->
+    </script>
 @endsection

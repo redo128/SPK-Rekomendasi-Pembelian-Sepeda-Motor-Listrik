@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\AlternatifValue;
 use App\Models\Brand;
 use App\Models\Kriteria;
 use App\Models\SepedaListrik;
@@ -37,13 +38,33 @@ class SepedaSuperAdminController extends Controller
      */
     public function store(Request $request)
     {
-        dd($request->get('harga'));
+        // dd($request->get('harga'));
+        $value = $request->input('value'); 
+
+        //Inputan Sepeda listrik
         $sepeda=new SepedaListrik();
+        $kriteria=Kriteria::all();
         $sepeda->nama_sepeda=$request->get('nama_sepeda');
         $sepeda->tipe=$request->get('tipe');
         $sepeda->toko_id=$request->get('toko_id');
         $sepeda->brand_id=$request->get('brand_id');
         $sepeda->save();
+        // dd($sepeda->id);
+        //Inputan Spesifikasi Sepeda Listrik
+        foreach($kriteria as $loop){
+            $speksifikasi=new AlternatifValue();
+            $speksifikasi->kriteria_id=$loop->id;
+            $speksifikasi->alternatif_id=$sepeda->id;
+            if($loop->nama_kriteria=="harga"){
+                $harga=str_replace(".", "", $value[$loop->nama_kriteria]);
+                // dd($harga);
+                $speksifikasi->value=$harga;
+            }else{
+            $speksifikasi->value=$value[$loop->nama_kriteria];
+            }
+            $speksifikasi->save();
+        }
+        
         return redirect()->route('sepeda_sa.index');
     }
 
