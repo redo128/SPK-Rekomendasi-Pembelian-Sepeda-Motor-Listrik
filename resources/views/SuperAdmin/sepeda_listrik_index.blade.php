@@ -13,20 +13,28 @@
 
 <table class="table">
   <thead>
-    <tr>
-        @foreach($columns as $data =>$name)
-      <th scope="col">{{$name}}</th>
+    <tr>  
+      <th scope="col">No</th>
+      <th scope="col">Nama Kendaraan</th>
+      <th scope="col">Tipe</th>
+      <th scope="col">Toko</th>
+      <th scope="col">Brand</th>
+      @foreach($kriteria as $a)
+      <th scope="col">{{$a->nama_kriteria}}</th>
       @endforeach
       <th scope="col">Action</th>
     </tr>
   </thead>
   <tbody>
-    <tr>
     @foreach($index as $data)
+    <tr>
       <th scope="row">{{$data->id}}</th>
       <td>{{$data->nama_sepeda}}</td>
       <td>{{$data->brand->nama_brand}}</td>
       <td>{{$data->toko->nama_toko}}</td>
+      @foreach($sepeda->where('alternatif_id',$data->id) as $data2)
+      <td>{{$data2->value}}</td>
+      @endforeach
       <td>
       <form action="{{ route('sepeda_sa.destroy', $data->id) }}" method="POST">
     @csrf

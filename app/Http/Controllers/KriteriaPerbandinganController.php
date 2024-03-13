@@ -222,7 +222,7 @@ class KriteriaPerbandinganController extends Controller
         // dd("TEST");
         $index=Kriteria::all();
         // dd($index);
-        $dataperbandingan=KriteriaPerbandingan::where('kriteria_1',$id);
+        $dataperbandingan=KriteriaPerbandingan::all()->where("kriteria_1",$id);
         $find=Kriteria::find($id);
         return view('SuperAdmin.kriteria_perbandingan_edit',compact('index','dataperbandingan','find'));
     }

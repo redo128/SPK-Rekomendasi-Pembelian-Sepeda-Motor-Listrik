@@ -18,8 +18,10 @@ class SepedaSuperAdminController extends Controller
     public function index()
     {
         $index = SepedaListrik::all();
-        $columns = DB::getSchemaBuilder()->getColumnListing('sepeda_listrik');
-        return view('Superadmin.sepeda_listrik_index',compact('index','columns'));
+        $kriteria= Kriteria::all();
+        // $columns = DB::getSchemaBuilder()->getColumnListing('sepeda_listrik');
+        $sepeda = AlternatifValue::all();
+        return view('Superadmin.sepeda_listrik_index',compact('index','sepeda','kriteria'));
     }
 
     /**

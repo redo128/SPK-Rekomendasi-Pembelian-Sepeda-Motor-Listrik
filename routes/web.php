@@ -6,6 +6,7 @@ use App\Http\Controllers\KriteriaPerbandinganController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\PembeliController;
 use App\Http\Controllers\PenjualController;
+use App\Http\Controllers\PerhitunganSuperAdmin;
 use App\Http\Controllers\SepedaSuperAdminController;
 use App\Http\Controllers\SuperAdminController;
 use App\Http\Controllers\TokoController;
@@ -45,6 +46,7 @@ Route::middleware(['auth'])->group(function(){
     Route::resource('kriteria', KriteriaController::class)->middleware('userAkses:superadmin');
     Route::resource('kriteriaperbandingan', KriteriaPerbandinganController::class)->middleware('userAkses:superadmin');
     Route::get('/logout',[LoginController::class,'logout'])->name('logout');
+    Route::get('/perhitungan',[PerhitunganSuperAdmin::class,'index'])->name('Sa.perhitungan')->middleware('userAkses:superadmin');
     Route::get('/superadmin',[SuperAdminController::class,'index'])->name('SuperAdmin.beranda')->middleware('userAkses:superadmin');
     Route::get('/superadmin/bobot',[SuperAdminController::class,'penentuan_bobot'])->name('SuperAdmin.bobot')->middleware('userAkses:superadmin');
     // Route::get('/superadmin/toko',[SuperAdminController::class,'toko_index'])->name('SuperAdmin.toko')->middleware('userAkses:superadmin');
@@ -53,7 +55,6 @@ Route::middleware(['auth'])->group(function(){
     Route::get('/penjual',[PenjualController::class,'index'])->name('Penjual.beranda')->middleware('userAkses:penjual');
     Route::get('/pembeli',[PembeliController::class,'index'])->name('Pembeli.beranda')->middleware('userAkses:pembeli');
 });
-
 Route::get('/tw',function(){
     return view('Layouts.main');
 });

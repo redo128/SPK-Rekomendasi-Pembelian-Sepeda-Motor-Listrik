@@ -22,9 +22,9 @@
                     <tbody>
                       <tr>
                         <th>{{$find->nama_kriteria }}</th>
-                      @foreach($index as $angka => $data)
+                      @foreach($dataperbandingan as $angka => $data)
                 <th scope="row">
-                  <input type="text" name="rating[{{$find->id}}][{{$data->id}}]" class="form-control" value="">
+                  <input type="text" name="rating[{{$find->id}}][{{$data->id}}]" class="form-control" value="{{$data->rating}}">
                 </th>
                 @endforeach
               </tr>

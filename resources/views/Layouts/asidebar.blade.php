@@ -42,6 +42,12 @@
           <span>Sepeda Listrik</span>
         </a>
       </li>
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="{{route('Sa.perhitungan')}}">
+          <i class="bi bi-person"></i>
+          <span>Perhitungan</span>
+        </a>
+      </li>
       
 
     </ul>
