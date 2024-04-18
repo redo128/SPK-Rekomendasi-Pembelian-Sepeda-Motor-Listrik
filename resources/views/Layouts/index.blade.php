@@ -52,13 +52,17 @@
   </aside><!-- End Sidebar-->
 
   <main id="main" class="main">
+  @if (\Session::has('success'))
+    <div class="alert alert-success">
+        <ul>
+            <li>{!! \Session::get('success') !!}</li>
+        </ul>
+    </div>
+@endif
     @yield('content')
   </main><!-- End #main -->
 
   <!-- ======= Footer ======= -->
-  <footer id="footer" class="footer">
-  @include('Layouts.footer')
-  </footer><!-- End Footer -->
 
   <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
@@ -76,5 +80,8 @@
   <script src="assets/js/main.js"></script>
 
 </body>
+<footer id="footer" class="footer">
+  @include('Layouts.footer')
+  </footer><!-- End Footer -->
 
 </html>

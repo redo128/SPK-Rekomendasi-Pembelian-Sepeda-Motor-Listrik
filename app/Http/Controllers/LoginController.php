@@ -29,7 +29,7 @@ class LoginController extends Controller
         }elseif(Auth::user()->role=='penjual'){
             return redirect()->route('Penjual.beranda');
         }elseif(Auth::user()->role=='pembeli'){
-            return redirect()->route('Pembeli.beranda');
+            return redirect()->route('pembeli.index');
         }
         }
         else{

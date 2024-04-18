@@ -12,6 +12,10 @@ class PerhitunganSuperAdmin extends Controller
 {
     public function index()
     {
+        $temp_data_check=SepedaListrik::all();
+        if($temp_data_check->isEmpty()){
+            return redirect()->route('sepeda_sa.index')->with('success', 'Data Sepeda Belum Ada');   
+        }
         $index=Kriteria::all();
         $n=Kriteria::all()->count();
         //Panggil Perbandingan antar kriteria table 1
@@ -93,6 +97,7 @@ class PerhitunganSuperAdmin extends Controller
         $CR_Konsisten=$CI_Konsisten/$RI_Konsisten[0];
         //----------------------------------------------------------
         $data_sepeda = SepedaListrik::all();
+        
         // $columns = DB::getSchemaBuilder()->getColumnListing('sepeda_listrik');
         $sepeda = AlternatifValue::all();
         //Tahap Pembagi dan X Y

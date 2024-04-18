@@ -1,11 +1,11 @@
 <ul class="sidebar-nav" id="sidebar-nav">
-
-      <li class="nav-item">
-        <a class="nav-link " href="index.html">
-          <i class="bi bi-grid"></i>
-          <span>Dashboard</span>
-        </a>
-      </li><!-- End Dashboard Nav -->
+  <li class="nav-item">
+    <a class="nav-link " href="index.html">
+      <i class="bi bi-grid"></i>
+      <span>Dashboard</span>
+    </a>
+  </li><!-- End Dashboard Nav -->
+  @if(auth()->user()->role=="superadmin")
       <li class="nav-item">
         <a class="nav-link collapsed" href="{{route('SuperAdmin.bobot')}}">
           <i class="bi bi-person"></i>
@@ -48,6 +48,25 @@
           <span>Perhitungan</span>
         </a>
       </li>
-      
-
+      @endif
+      @if(auth()->user()->role=="pembeli")
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="{{route('sepeda_pembeli.index')}}">
+          <i class="bi bi-person"></i>
+          <span>List Sepeda Listrik</span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="{{route('list_antrian')}}">
+          <i class="bi bi-person"></i>
+          <span>List Antrian</span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="{{route('perhitungan_pembeli',auth()->user()->id)}}">
+          <i class="bi bi-person"></i>
+          <span>Perhitungan</span>
+        </a>
+      </li>
+      @endif
     </ul>

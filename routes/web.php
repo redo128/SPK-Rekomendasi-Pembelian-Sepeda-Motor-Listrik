@@ -7,6 +7,7 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\PembeliController;
 use App\Http\Controllers\PenjualController;
 use App\Http\Controllers\PerhitunganSuperAdmin;
+use App\Http\Controllers\SepedaPembeliController;
 use App\Http\Controllers\SepedaSuperAdminController;
 use App\Http\Controllers\SuperAdminController;
 use App\Http\Controllers\TokoController;
@@ -53,7 +54,12 @@ Route::middleware(['auth'])->group(function(){
     // Route::get('/superadmin/toko/create',[SuperAdminController::class,'toko_create'])->name('Toko.create')->middleware('userAkses:superadmin');
     // Route::POST('/superadmin/toko/store',[SuperAdminController::class,'toko_store'])->name('Toko.store')->middleware('userAkses:superadmin');
     Route::get('/penjual',[PenjualController::class,'index'])->name('Penjual.beranda')->middleware('userAkses:penjual');
-    Route::get('/pembeli',[PembeliController::class,'index'])->name('Pembeli.beranda')->middleware('userAkses:pembeli');
+    // Route::get('/pembeli',[PembeliController::class,'index'])->name('Pembeli.beranda')->middleware('userAkses:pembeli');
+    Route::resource('pembeli', Pembelicontroller::class)->middleware('userAkses:pembeli');
+    Route::get('/list-antrian',[PembeliController::class,'list_antrian'])->name('list_antrian')->middleware('userAkses:pembeli');
+    Route::get('/perhitungan-pembeli/{id}',[PembeliController::class,'perhitungan'])->name('perhitungan_pembeli')->middleware('userAkses:pembeli');
+    Route::post('/pembeli/sepeda/{data}', [PembeliController::class,'custom_store'])->name('pembeli.custom.store');
+    Route::resource('sepeda_pembeli', SepedaPembeliController::class)->middleware('userAkses:pembeli');
 });
 Route::get('/tw',function(){
     return view('Layouts.main');
