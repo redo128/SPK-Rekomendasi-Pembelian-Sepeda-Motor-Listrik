@@ -14,8 +14,9 @@ return new class extends Migration
         Schema::create('kriteria_rating', function (Blueprint $table) {
             $table->id();
             $table->foreignId('kriteria_id')->references('id')->on('kriteria_alternatif');
-            $table->string('deskripsi');
-            $table->float('rating');
+            $table->integer('min_rating');
+            $table->integer('max_rating');
+            $table->integer('value');
             $table->timestamps();
         });
     }
@@ -25,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('kriteria_harga');
+        Schema::dropIfExists('range_harga');
     }
 };

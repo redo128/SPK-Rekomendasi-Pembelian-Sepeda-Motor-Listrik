@@ -14,12 +14,29 @@ class TokoSeeder extends Seeder
     public function run(): void
     {
         DB::table('toko')->insert([[
-            'nama_toko' => 'kecepatan',
-            'alamat'=>'benefit'
+            'id' => 1,
+            'nama_toko' => 'bukan_penjual',
+            'alamat'=>'kosong'
         ],[
-            'nama_toko' => 'kecepatan2',
-            'alamat'=>'benefit2',
-        ]
+            'id' => 2,
+            'nama_toko' => 'merkurius',
+            'alamat'=>'planet 1' 
+        ],
+        [
+            'id' => 3,
+            'nama_toko' => 'venus',
+            'alamat'=>'planet 2' 
+        ],
+        [
+            'id' => 4,
+            'nama_toko' => 'bumi',
+            'alamat'=>'planet 3' 
+        ],
+        [
+            'id' => 5,
+            'nama_toko' => 'mars',
+            'alamat'=>'planet 4' 
+        ],
         ]);
     }
 }

@@ -179,6 +179,7 @@ class PerhitunganSuperAdmin extends Controller
             $nilai_D_positif["Row".$angka]=sqrt($nilai_D_positif["Row".$angka]);
             $nilai_D_negatif["Row".$angka]=sqrt($nilai_D_negatif["Row".$angka]);
         }
+        // dd($nilai_D_negatif);
         $nilai_preferensi=array();
         foreach($data_sepeda as $angka => $data){
             $nilai_preferensi[$angka]["Result"]=$nilai_D_negatif["Row".$angka]/($nilai_D_negatif["Row".$angka]+$nilai_D_positif["Row".$angka]);

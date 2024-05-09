@@ -7,7 +7,7 @@
   </li><!-- End Dashboard Nav -->
   @if(auth()->user()->role=="superadmin")
       <li class="nav-item">
-        <a class="nav-link collapsed" href="{{route('SuperAdmin.bobot')}}">
+        <a class="nav-link collapsed"  href="{{route('SuperAdmin.bobot')}}">
           <i class="bi bi-person"></i>
           <span>Menentukan Bobot</span>
         </a>
@@ -51,6 +51,12 @@
       @endif
       @if(auth()->user()->role=="pembeli")
       <li class="nav-item">
+        <a class="nav-link collapsed" href="{{route('preferensi_kriteria')}}">
+          <i class="bi bi-person"></i>
+          <span>Preferensi Kriteria</span>
+        </a>
+      </li>
+      <li class="nav-item">
         <a class="nav-link collapsed" href="{{route('sepeda_pembeli.index')}}">
           <i class="bi bi-person"></i>
           <span>List Sepeda Listrik</span>
@@ -68,5 +74,26 @@
           <span>Perhitungan</span>
         </a>
       </li>
+      @endif
+      @if(auth()->user()->role=="penjual")
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="{{route('sepeda_penjual.index')}}">
+          <i class="bi bi-person"></i>
+          <span>List Sepeda Listrik </span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="{{route('sepeda_pembeli.index')}}">
+          <i class="bi bi-person"></i>
+          <span>Sepeda yang banyak dibandingkan </span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="{{route('list_antrian')}}">
+          <i class="bi bi-person"></i>
+          <span>List Sub Admin</span>
+        </a>
+      </li>
+
       @endif
     </ul>

@@ -8,6 +8,7 @@ use App\Http\Controllers\PembeliController;
 use App\Http\Controllers\PenjualController;
 use App\Http\Controllers\PerhitunganSuperAdmin;
 use App\Http\Controllers\SepedaPembeliController;
+use App\Http\Controllers\SepedaPenjualController;
 use App\Http\Controllers\SepedaSuperAdminController;
 use App\Http\Controllers\SuperAdminController;
 use App\Http\Controllers\TokoController;
@@ -38,6 +39,7 @@ Route::middleware(['guest'])->group(function (){
 Route::get('/home',function(){
     return redirect('/login');
 });
+Route::get('/login-auth',[LoginController::class,'login_auth'])->name('login-masuk');
 Route::middleware(['auth'])->group(function(){
     // Route::get('/uwu',[LoginController::class,'index'])->name('login');
     // Route::post('/uwu',[LoginController::class,'login'])->name('login.auth');
@@ -53,13 +55,19 @@ Route::middleware(['auth'])->group(function(){
     // Route::get('/superadmin/toko',[SuperAdminController::class,'toko_index'])->name('SuperAdmin.toko')->middleware('userAkses:superadmin');
     // Route::get('/superadmin/toko/create',[SuperAdminController::class,'toko_create'])->name('Toko.create')->middleware('userAkses:superadmin');
     // Route::POST('/superadmin/toko/store',[SuperAdminController::class,'toko_store'])->name('Toko.store')->middleware('userAkses:superadmin');
-    Route::get('/penjual',[PenjualController::class,'index'])->name('Penjual.beranda')->middleware('userAkses:penjual');
+    // Route::get('/penjual',[PenjualController::class,'index'])->name('Penjual.beranda')->middleware('userAkses:penjual');
     // Route::get('/pembeli',[PembeliController::class,'index'])->name('Pembeli.beranda')->middleware('userAkses:pembeli');
     Route::resource('pembeli', Pembelicontroller::class)->middleware('userAkses:pembeli');
     Route::get('/list-antrian',[PembeliController::class,'list_antrian'])->name('list_antrian')->middleware('userAkses:pembeli');
+    Route::get('/preferensi-kriteria',[PembeliController::class,'preferensi_kriteria'])->name('preferensi_kriteria')->middleware('userAkses:pembeli');
     Route::get('/perhitungan-pembeli/{id}',[PembeliController::class,'perhitungan'])->name('perhitungan_pembeli')->middleware('userAkses:pembeli');
+    Route::post('/api/value-brand-dropdown', [PembeliController::class,'kriteria_brand']);
+    Route::post('/api/value-kriteria-dropdown', [PembeliController::class,'kriteria_value']);
+    Route::get('/preferensi/kriteria-value', [PembeliController::class,'preferensi_kriteria_view'])->name('preferensi.value');
     Route::post('/pembeli/sepeda/{data}', [PembeliController::class,'custom_store'])->name('pembeli.custom.store');
     Route::resource('sepeda_pembeli', SepedaPembeliController::class)->middleware('userAkses:pembeli');
+    Route::resource('penjual', PenjualController::class)->middleware('userAkses:penjual');
+    Route::resource('sepeda_penjual', SepedaPenjualController::class)->middleware('userAkses:penjual');
 });
 Route::get('/tw',function(){
     return view('Layouts.main');

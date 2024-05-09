@@ -4,9 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Models\AlternatifSelectPembeli;
 use App\Models\AlternatifValue;
+use App\Models\Brand;
 use App\Models\Kriteria;
 use App\Models\KriteriaPerbandingan;
+use App\Models\KriteriaRating;
 use App\Models\SepedaListrik;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -20,6 +23,47 @@ class PembeliController extends Controller
        
         $namauser=Auth::user()->name;
         return view('Pembeli.beranda',compact('namauser'));
+    }
+    public function preferensi_kriteria()
+    {
+       $data=Kriteria::all();
+       foreach($data as $index => $ril){
+           $test[$index]=$ril->nama_kriteria;
+       }
+        return view('Pembeli.preferensi_kriteria',compact('data'),['test'=>$test]);
+    }
+    public function kriteria_brand(Request $request)
+    {
+        $data =  Brand::all();
+        return response()->json($data);
+    }
+    public function kriteria_value(Request $request)
+    {
+        $data = KriteriaRating::where("kriteria_id", $request->kriteria_id)->get(["id","min_rating", "max_rating","value"]);
+        return response()->json($data);
+    }
+    public function preferensi_kriteria_view(Request $request){
+        // dd($request->value_dropdown_id);
+        // dd("asdsa");
+    $data_preferensi=KriteriaRating::find($request->value_dropdown_id);
+    // dd($data_preferensi->min_rating);
+    $data_sepeda=AlternatifValue::where('kriteria_id',$data_preferensi->kriteria_id)
+    ->where('value', '>=', $data_preferensi->min_rating)
+    ->where('value', '<', $data_preferensi->max_rating)
+    ->get();
+    // dd($data_sepeda);
+    $temp_value_id=array();
+    foreach($data_sepeda as $id => $ex){
+        // dd($ex->value);
+        if($ex->value >= $data_preferensi->min_ratin AND $ex->value < $data_preferensi->max_rating){
+            $temp_value_id[$id] = $ex;
+        }
+    }
+    $data_sepeda=SepedaListrik::all();
+    $data_alternatif=AlternatifValue::all();
+    $data_katalog=AlternatifSelectPembeli::all();
+    // dd($temp_value_id);
+    return view('Pembeli.preferensi_kriteria_pilihan',compact('data_sepeda','data_alternatif','data_katalog','temp_value_id'));
     }
     /**
      * Show the form for creating a new resource.

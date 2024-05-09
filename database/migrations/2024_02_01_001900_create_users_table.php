@@ -18,6 +18,8 @@ return new class extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->enum('role',['superadmin','penjual','pembeli'])->default('pembeli');
+            // $table->foreignId('subadmin_toko_id')->references('id')->on('toko');
+            $table->foreignId('toko_id')->references('id')->on('toko')->onDelete('cascade');
             $table->rememberToken();
             $table->timestamps();
         });

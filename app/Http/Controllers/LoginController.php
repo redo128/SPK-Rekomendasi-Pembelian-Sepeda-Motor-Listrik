@@ -27,14 +27,22 @@ class LoginController extends Controller
         if(Auth::user()->role=='superadmin'){
             return redirect()->route('SuperAdmin.beranda');
         }elseif(Auth::user()->role=='penjual'){
-            return redirect()->route('Penjual.beranda');
+            return redirect()->route('penjual.index');
         }elseif(Auth::user()->role=='pembeli'){
             return redirect()->route('pembeli.index');
-        }
         }
         else{
             // return redirect('')->withErrors('Email dan Password tidak ada');
             return back()->withErrors('Email dan Password tidak ada');
+        }
+        }else{
+            if(Auth::user()->role=='superadmin'){
+                return redirect()->route('superadmin.beranda');
+            }elseif(Auth::user()->role=='penjual'){
+                return redirect()->route('penjual.index');
+            }elseif(Auth::user()->role=='pembeli'){
+                return redirect()->route('pembeli.index');
+            }
         }
     }
     function logout(Request $request){
@@ -42,5 +50,28 @@ class LoginController extends Controller
         $request->session()->invalidate();
         $request->session()->regenerateToken();
         return redirect()->route('login');
+    }
+    function login_auth(){
+        if (Auth::check()) {
+            // Pengguna sudah terautentikasi, lakukan pengecekan tambahan
+            $user = Auth::user();
+            // Pengecekan apakah pengguna memiliki peran tertentu
+            if ($user->role=='superadmin') {
+                // Lakukan tindakan untuk pengguna dengan peran superadmin
+                return redirect()->route('SuperAdmin.beranda');
+            } elseif ($user->role=='penjual') {
+                // Lakukan tindakan untuk pengguna dengan peran penjual
+                return redirect()->route('penjual.index');
+            }
+             elseif ($user->role=='pembeli') {
+                // Lakukan tindakan untuk pengguna dengan peran pembeli
+                return redirect()->route('pembeli.index');
+            } else {
+                return redirect()->route('home')->with('error', 'Anda tidak memiliki izin untuk mengakses halaman ini.');
+            }
+        } else {
+            // Pengguna belum terautentikasi, arahkan ke halaman login
+            return redirect()->route('login');
+        }
     }
 }
