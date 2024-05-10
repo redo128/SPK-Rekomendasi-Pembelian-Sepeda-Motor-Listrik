@@ -50,7 +50,7 @@
                             </div>
                                 <label for="inputText" class="col-sm-3 col-form-label">Kecepatan</label>
                             <div class="col-sm-8">
-                                <input type="number" min="0" name="kecepatan" class="form-control">
+                                <input type="c" min="0" name="kecepatan" class="form-control">
                             </div>
                                 <label for="inputText" class="col-sm-3 col-form-label">jarak tempuh</label>
                             <div class="col-sm-8">

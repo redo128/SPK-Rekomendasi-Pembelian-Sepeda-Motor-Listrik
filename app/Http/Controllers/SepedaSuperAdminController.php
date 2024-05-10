@@ -86,7 +86,8 @@ class SepedaSuperAdminController extends Controller
         $data=SepedaListrik::find($id);
         $toko=Toko::all();
         $brand=Brand::all();
-        return view('Superadmin.sepeda_listrik_edit',compact('data','toko','brand'));
+        $value=AlternatifValue::where('alternatif_id',$id)->get();
+        return view('Superadmin.sepeda_listrik_edit',compact('data','toko','brand','value'));
     }
 
     /**
@@ -94,17 +95,22 @@ class SepedaSuperAdminController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        // $validated = $request->validate([
-        //     'nama_toko' => 'required|unique:Toko,nama_toko,'.$id,'|max:255',
-        // ],[
-        //     'nama_toko.unique'=>'This Brand Name Already Taken',
-            
-        // ]);
         $sepeda=SepedaListrik::find($id);
         $sepeda->nama_sepeda=$request->get('nama_sepeda');
         $sepeda->tipe=$request->get('tipe');
         $sepeda->toko_id=$request->get('toko_id');
         $sepeda->brand_id=$request->get('brand_id');
+        // $sepeda_value=AlternatifValue::where('alternatif_id',$id)->get();
+        // dd($sepeda_value);
+        $kriteria = $request->input('kriteria'); 
+        // dd($kriteria);
+        foreach($kriteria as $index => $loop_k){
+            $sepeda_value=AlternatifValue::where('alternatif_id',$id)->where('kriteria_id',$index)->first();
+            // dd($sepeda_value);
+            $sepeda_value->value=$loop_k;
+            $sepeda_value->save();
+
+        }
         $sepeda->save();
         return redirect()->route('sepeda_sa.index');
     }

@@ -17,8 +17,8 @@
       <th scope="col">No</th>
       <th scope="col">Nama Kendaraan</th>
       <th scope="col">Tipe</th>
-      <th scope="col">Toko</th>
       <th scope="col">Brand</th>
+      <th scope="col">Toko</th>
       @foreach($kriteria as $a)
       <th scope="col">{{$a->nama_kriteria}}</th>
       @endforeach
@@ -30,6 +30,7 @@
     <tr>
       <th scope="row">{{$data->id}}</th>
       <td>{{$data->nama_sepeda}}</td>
+      <td>{{$data->tipe}}</td>
       <td>{{$data->brand->nama_brand}}</td>
       <td>{{$data->toko->nama_toko}}</td>
       @foreach($sepeda->where('alternatif_id',$data->id) as $data2)

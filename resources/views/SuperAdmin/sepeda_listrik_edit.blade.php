@@ -41,6 +41,13 @@
                                         @endforeach
                                     </select>
                                 </div>
+                                
+                                @foreach($value as $index => $value_alternatif)
+                            <label for="inputText" class="col-sm-3 col-form-label">{{$value_alternatif->kriteria->nama_kriteria}}</label>
+                                <div class="col-sm-8">
+                                    <input type="number" value="{{$value_alternatif->value}}" name="kriteria[{{$value_alternatif->kriteria_id}}]" class="form-control">
+                                </div>
+                                @endforeach            
                         </div>
                         <br><br>
                             <div class="col-sm-10">
