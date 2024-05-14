@@ -14,9 +14,8 @@
 <table class="table">
   <thead>
     <tr>
-        @foreach($columns as $data =>$name)
-      <th scope="col">{{$name}}</th>
-      @endforeach
+      <th>No</th>
+      <th>Nama Kriteria</th>
       <th scope="col">Action</th>
     </tr>
   </thead>

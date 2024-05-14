@@ -36,6 +36,7 @@
             <div class="mb-3 d-grid">
                 <button name="submit" type="submit" class="btn btn-primary">Login</button>
             </div>
+            Belum punya Akun? <a href=""> Daftar Disini </a>
         </form>
     </div> 
     </div>

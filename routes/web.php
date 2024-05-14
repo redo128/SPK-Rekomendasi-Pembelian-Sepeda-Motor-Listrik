@@ -7,6 +7,7 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\PembeliController;
 use App\Http\Controllers\PenjualController;
 use App\Http\Controllers\PerhitunganSuperAdmin;
+use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\SepedaPembeliController;
 use App\Http\Controllers\SepedaPenjualController;
 use App\Http\Controllers\SepedaSuperAdminController;
@@ -33,8 +34,11 @@ Route::middleware(['guest'])->group(function (){
     // Route::get('/', function () {
     //     return view('welcome');
     // });
+    
     Route::get('/login',[LoginController::class,'index'])->name('login');
     Route::post('/login',[LoginController::class,'login'])->name('login.auth');
+    Route::get('/register',[RegisterController::class,'index'])->name('register_account');
+    Route::post('/register-store',[RegisterController::class,'store'])->name('register_account_store');
 });
 Route::get('/home',function(){
     return redirect('/login');
@@ -52,6 +56,11 @@ Route::middleware(['auth'])->group(function(){
     Route::get('/perhitungan',[PerhitunganSuperAdmin::class,'index'])->name('Sa.perhitungan')->middleware('userAkses:superadmin');
     Route::get('/superadmin',[SuperAdminController::class,'index'])->name('SuperAdmin.beranda')->middleware('userAkses:superadmin');
     Route::get('/superadmin/bobot',[SuperAdminController::class,'penentuan_bobot'])->name('SuperAdmin.bobot')->middleware('userAkses:superadmin');
+    Route::get('/superadmin/bobot-create',[SuperAdminController::class,'penentuan_bobot_create'])->name('SuperAdmin.bobot_create')->middleware('userAkses:superadmin');
+    Route::post('/superadmin/bobot-store',[SuperAdminController::class,'penentuan_bobot_store'])->name('SuperAdmin.bobot_store')->middleware('userAkses:superadmin');
+    Route::get('/superadmin/bobot/{id}',[SuperAdminController::class,'penentuan_bobot_edit'])->name('SuperAdmin.bobot_edit')->middleware('userAkses:superadmin');
+    Route::put('/superadmin/bobot/{id}',[SuperAdminController::class,'penentuan_bobot_update'])->name('SuperAdmin.bobot_update')->middleware('userAkses:superadmin');
+    Route::delete('/superadmin/bobot/{id}',[SuperAdminController::class,'penentuan_bobot_delete'])->name('SuperAdmin.bobot_delete')->middleware('userAkses:superadmin');
     // Route::get('/superadmin/toko',[SuperAdminController::class,'toko_index'])->name('SuperAdmin.toko')->middleware('userAkses:superadmin');
     // Route::get('/superadmin/toko/create',[SuperAdminController::class,'toko_create'])->name('Toko.create')->middleware('userAkses:superadmin');
     // Route::POST('/superadmin/toko/store',[SuperAdminController::class,'toko_store'])->name('Toko.store')->middleware('userAkses:superadmin');
