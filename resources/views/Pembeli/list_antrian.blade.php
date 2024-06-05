@@ -1,6 +1,6 @@
 @extends('Layouts.index')
 @section('content')
-<h5 class="card-title">Default Table</h5>
+<h5 class="card-title">List Favorit</h5>
 
 <!-- Default Table -->
 <table class="table">

@@ -18,7 +18,7 @@ class SuperAdminController extends Controller
     }
     function penentuan_bobot(){
         // $namauser=Auth::user()->name;
-        $index=KriteriaRating::all();
+        $index=KriteriaRating::orderBy('kriteria_id','ASC')->get();
         return view('Superadmin.kriteria_rating',compact('index'));
     }
     function penentuan_bobot_create(){

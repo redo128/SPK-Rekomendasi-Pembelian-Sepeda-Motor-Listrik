@@ -73,6 +73,8 @@ Route::middleware(['auth'])->group(function(){
     Route::post('/api/value-brand-dropdown', [PembeliController::class,'kriteria_brand']);
     Route::post('/api/value-kriteria-dropdown', [PembeliController::class,'kriteria_value']);
     Route::get('/preferensi/kriteria-value', [PembeliController::class,'preferensi_kriteria_view'])->name('preferensi.value');
+    Route::get('/perhitungan-preferensi/kriteria-value', [PembeliController::class,'perhitungan_preferensi_kriteria_view'])->name('perhitungan.preferensi.value');
+    Route::post('/api/orderby-users', [PembeliController::class,'testorder']);
     Route::post('/pembeli/sepeda/{data}', [PembeliController::class,'custom_store'])->name('pembeli.custom.store');
     Route::resource('sepeda_pembeli', SepedaPembeliController::class)->middleware('userAkses:pembeli');
     Route::resource('penjual', PenjualController::class)->middleware('userAkses:penjual');
