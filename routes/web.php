@@ -79,6 +79,7 @@ Route::middleware(['auth'])->group(function(){
     Route::resource('sepeda_pembeli', SepedaPembeliController::class)->middleware('userAkses:pembeli');
     Route::resource('penjual', PenjualController::class)->middleware('userAkses:penjual');
     Route::resource('sepeda_penjual', SepedaPenjualController::class)->middleware('userAkses:penjual');
+    Route::get('/wishlist-pembeli',[PenjualController::class, 'wishlist_pembeli'])->name('penjual.wishlist.pebeli')->middleware('userAkses:penjual');
 });
 Route::get('/tw',function(){
     return view('Layouts.main');

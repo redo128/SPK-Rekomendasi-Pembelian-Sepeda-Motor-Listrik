@@ -83,9 +83,9 @@
         </a>
       </li>
       <li class="nav-item">
-        <a class="nav-link collapsed" href="{{route('sepeda_pembeli.index')}}">
+        <a class="nav-link collapsed" href="{{route('penjual.wishlist.pebeli')}}">
           <i class="bi bi-person"></i>
-          <span>Sepeda yang banyak dibandingkan </span>
+          <span>Sepeda yang banyak diinginkan </span>
         </a>
       </li>
       <li class="nav-item">

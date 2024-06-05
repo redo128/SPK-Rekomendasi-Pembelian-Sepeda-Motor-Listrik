@@ -11,9 +11,9 @@ class AlternatifSelectPembeli extends Model
     use HasFactory;
     protected $table = 'alternatif_select_user';
     protected $primaryKey = 'id';
-    public function sepedalistrik(): BelongsTo
+    public function sepeda(): BelongsTo
     {
-        return $this->BelongsTo(SepedaListrik::class);
+        return $this->BelongsTo(SepedaListrik::class,'alternatif_id');
     }
     
 }
