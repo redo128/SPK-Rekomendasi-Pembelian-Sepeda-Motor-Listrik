@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\BrandController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\KriteriaController;
 use App\Http\Controllers\KriteriaPerbandinganController;
 use App\Http\Controllers\LoginController;
@@ -47,6 +48,7 @@ Route::get('/login-auth',[LoginController::class,'login_auth'])->name('login-mas
 Route::middleware(['auth'])->group(function(){
     // Route::get('/uwu',[LoginController::class,'index'])->name('login');
     // Route::post('/uwu',[LoginController::class,'login'])->name('login.auth');
+    Route::get('dashboard',[DashboardController::class,'index'])->name('Dashboard')->middleware('userAkses:superadmin');
     Route::resource('toko', TokoController::class)->middleware('userAkses:superadmin');
     Route::resource('brand', BrandController::class)->middleware('userAkses:superadmin');
     Route::resource('sepeda_sa', SepedaSuperAdminController::class)->middleware('userAkses:superadmin');

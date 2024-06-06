@@ -14,7 +14,7 @@
           <div class="card-body">
             <h5 class="card-title">{{$data->nama_sepeda}}</h5>
             @foreach($data_alternatif->where("alternatif_id",$data->id) as $collect)
-            <p class="card-text" >{{$collect->kriteria->nama_kriteria}} : {{$collect->value}} <br></p>
+            <p class="card-text" >{{$collect->kriteria->nama_kriteria}} : {{number_format($collect->value,0,",",".")}} <br></p>
             @endforeach
             @if($data_katalog->where("alternatif_id",$data->id)->where("user_id",auth()->user()->id)->first()==null)
               <button type="submit" class="btn btn-primary" title="Tambah Data">Tambah ke List</button>
