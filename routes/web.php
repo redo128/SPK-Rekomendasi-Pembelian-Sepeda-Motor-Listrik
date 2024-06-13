@@ -32,10 +32,6 @@ Route::middleware(['guest'])->group(function (){
     Route::get('/', function () {
         return redirect('/login');
     });
-    // Route::get('/', function () {
-    //     return view('welcome');
-    // });
-    
     Route::get('/login',[LoginController::class,'index'])->name('login');
     Route::post('/login',[LoginController::class,'login'])->name('login.auth');
     Route::get('/register',[RegisterController::class,'index'])->name('register_account');
@@ -46,9 +42,7 @@ Route::get('/home',function(){
 });
 Route::get('/login-auth',[LoginController::class,'login_auth'])->name('login-masuk');
 Route::middleware(['auth'])->group(function(){
-    // Route::get('/uwu',[LoginController::class,'index'])->name('login');
-    // Route::post('/uwu',[LoginController::class,'login'])->name('login.auth');
-    Route::get('dashboard',[DashboardController::class,'index'])->name('Dashboard')->middleware('userAkses:superadmin');
+    Route::get('dashboard',[DashboardController::class,'index_sa'])->name('Dashboard')->middleware('userAkses:superadmin');
     Route::resource('toko', TokoController::class)->middleware('userAkses:superadmin');
     Route::resource('brand', BrandController::class)->middleware('userAkses:superadmin');
     Route::resource('sepeda_sa', SepedaSuperAdminController::class)->middleware('userAkses:superadmin');
@@ -63,13 +57,9 @@ Route::middleware(['auth'])->group(function(){
     Route::get('/superadmin/bobot/{id}',[SuperAdminController::class,'penentuan_bobot_edit'])->name('SuperAdmin.bobot_edit')->middleware('userAkses:superadmin');
     Route::put('/superadmin/bobot/{id}',[SuperAdminController::class,'penentuan_bobot_update'])->name('SuperAdmin.bobot_update')->middleware('userAkses:superadmin');
     Route::delete('/superadmin/bobot/{id}',[SuperAdminController::class,'penentuan_bobot_delete'])->name('SuperAdmin.bobot_delete')->middleware('userAkses:superadmin');
-    // Route::get('/superadmin/toko',[SuperAdminController::class,'toko_index'])->name('SuperAdmin.toko')->middleware('userAkses:superadmin');
-    // Route::get('/superadmin/toko/create',[SuperAdminController::class,'toko_create'])->name('Toko.create')->middleware('userAkses:superadmin');
-    // Route::POST('/superadmin/toko/store',[SuperAdminController::class,'toko_store'])->name('Toko.store')->middleware('userAkses:superadmin');
-    // Route::get('/penjual',[PenjualController::class,'index'])->name('Penjual.beranda')->middleware('userAkses:penjual');
-    // Route::get('/pembeli',[PembeliController::class,'index'])->name('Pembeli.beranda')->middleware('userAkses:pembeli');
     Route::resource('pembeli', Pembelicontroller::class)->middleware('userAkses:pembeli');
     Route::get('/list-antrian',[PembeliController::class,'list_antrian'])->name('list_antrian')->middleware('userAkses:pembeli');
+    Route::delete('/list-antrian-delete/{id}',[PembeliController::class,'list_antrian_delete'])->name('list_antrian_delete')->middleware('userAkses:pembeli');
     Route::get('/preferensi-kriteria',[PembeliController::class,'preferensi_kriteria'])->name('preferensi_kriteria')->middleware('userAkses:pembeli');
     Route::get('/perhitungan-pembeli/{id}',[PembeliController::class,'perhitungan'])->name('perhitungan_pembeli')->middleware('userAkses:pembeli');
     Route::post('/api/value-brand-dropdown', [PembeliController::class,'kriteria_brand']);

@@ -32,6 +32,9 @@ class BrandSeeder extends Seeder
         [
             'nama_brand' => 'SELIS',
         ],
+        [
+            'nama_brand' => 'EXOTIC'
+        ],
         ]);
     }
 }

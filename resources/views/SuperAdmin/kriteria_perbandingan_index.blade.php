@@ -123,7 +123,11 @@
       <th>CR</th>
       <td>{{$CR_Konsisten}}</td>
     </tr>
-
+    <tr>
+      <td >
+      </td>
+      <br><br><br>
+    </tr>
   </thead>
 </table>
 </div>

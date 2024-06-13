@@ -42,7 +42,17 @@ class SepedaSuperAdminController extends Controller
     {
         // dd($request->get('harga'));
         $value = $request->input('value'); 
-
+        // dd($request->image);
+        $request->validate([
+            'image' => 'required|image|mimes:jpeg,png,jpg|max:2048',
+        ]);
+        // $imageName = time().'.'.$request->image->extension();
+        // $uploadedImage = $request->image->move(public_path('images'), $imageName);
+        // $imagePath = 'images/' . $imageName;
+        if ($request->hasFile('image')) {
+            $file = $request->file('image');
+            $filePath = $file->store('images', 'public');
+        }
         //Inputan Sepeda listrik
         $sepeda=new SepedaListrik();
         $kriteria=Kriteria::all();
@@ -50,6 +60,7 @@ class SepedaSuperAdminController extends Controller
         $sepeda->tipe=$request->get('tipe');
         $sepeda->toko_id=$request->get('toko_id');
         $sepeda->brand_id=$request->get('brand_id');
+        $sepeda->image=$filePath;
         $sepeda->save();
         // dd($sepeda->id);
         //Inputan Spesifikasi Sepeda Listrik
@@ -86,8 +97,9 @@ class SepedaSuperAdminController extends Controller
         $data=SepedaListrik::find($id);
         $toko=Toko::all();
         $brand=Brand::all();
+        $kriteria_all=Kriteria::all();
         $value=AlternatifValue::where('alternatif_id',$id)->get();
-        return view('Superadmin.sepeda_listrik_edit',compact('data','toko','brand','value'));
+        return view('Superadmin.sepeda_listrik_edit',compact('data','toko','brand','value','kriteria_all'));
     }
 
     /**
@@ -100,14 +112,22 @@ class SepedaSuperAdminController extends Controller
         $sepeda->tipe=$request->get('tipe');
         $sepeda->toko_id=$request->get('toko_id');
         $sepeda->brand_id=$request->get('brand_id');
+        $kriteria_all=Kriteria::all();
         // $sepeda_value=AlternatifValue::where('alternatif_id',$id)->get();
         // dd($sepeda_value);
         $kriteria = $request->input('kriteria'); 
         // dd($kriteria);
-        foreach($kriteria as $index => $loop_k){
-            $sepeda_value=AlternatifValue::where('alternatif_id',$id)->where('kriteria_id',$index)->first();
-            // dd($sepeda_value);
-            $sepeda_value->value=$loop_k;
+        // dd($kriteria);
+        foreach($kriteria_all as $index => $loop_k){
+            
+            $sepeda_value=AlternatifValue::where('alternatif_id',$id)->where('kriteria_id',$loop_k->id)->first();
+            if($loop_k->nama_kriteria=="harga"){
+                $harga=str_replace(".", "", $kriteria[$loop_k->nama_kriteria]);
+                // dd($harga);
+                $sepeda_value->value=$harga;
+            }else{
+            $sepeda_value->value=$kriteria[$loop_k->nama_kriteria];
+            }
             $sepeda_value->save();
 
         }

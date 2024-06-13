@@ -9,10 +9,11 @@
     <div class="col-2">
         <form method="POST" action="{{route('pembeli.custom.store',['data' => $data->id])}}">
         @csrf
-        <div class="card" style="width: 18rem;">
-          <img src="{{asset('images.png')}}" class="card-img-top" alt="...">
+        <div class="card-body" style="width: 18rem;">
+          <img src="{{asset($data->image)}}" class="card-img-top" width="100px"  height="100px" alt="...">
           <div class="card-body">
             <h5 class="card-title">{{$data->nama_sepeda}}</h5>
+            <p class="card-text">Merk : {{$data->brand->nama_brand}}</p>
             @foreach($data_alternatif->where("alternatif_id",$data->id) as $collect)
             <p class="card-text" >{{$collect->kriteria->nama_kriteria}} : {{number_format($collect->value,0,",",".")}} <br></p>
             @endforeach

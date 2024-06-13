@@ -14,7 +14,7 @@
 <table class="table">
   <thead>
     <tr>  
-      <th scope="col">No</th>
+      <th scope="col">Image</th>
       <th scope="col">Nama Kendaraan</th>
       <th scope="col">Tipe</th>
       <th scope="col">Brand</th>
@@ -28,13 +28,13 @@
   <tbody>
     @foreach($index as $data)
     <tr>
-      <th scope="row">{{$data->id}}</th>
+      <th scope="row"><img src="{{asset('storage/'.$data->image)}}" class="img-thumbnail" style="width:100px" alt=""></th>
       <td>{{$data->nama_sepeda}}</td>
       <td>{{$data->tipe}}</td>
       <td>{{$data->brand->nama_brand}}</td>
       <td>{{$data->toko->nama_toko}}</td>
       @foreach($sepeda->where('alternatif_id',$data->id) as $data2)
-      <td>{{$data2->value}}</td>
+      <td>{{number_format($data2->value,0,",",".")}}</td>
       @endforeach
       <td>
       <form action="{{ route('sepeda_sa.destroy', $data->id) }}" method="POST">

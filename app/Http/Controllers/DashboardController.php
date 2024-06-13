@@ -20,4 +20,13 @@ class DashboardController extends Controller
         $sepeda_value=AlternatifValue::all();
         return view('Pembeli.beranda',compact('data_sepeda','data_toko','data_brand','kriteria_all','sepeda_lastest','sepeda_value'));
     }
+    public function index_sa(){
+        $data_sepeda=SepedaListrik::count();
+        $data_toko=Toko::count();
+        $data_brand=Brand::count();
+        $kriteria_all=Kriteria::all();
+        $sepeda_lastest = SepedaListrik::latest()->take(5)->get();
+        $sepeda_value=AlternatifValue::all();
+        return view('Superadmin.beranda',compact('data_sepeda','data_toko','data_brand','kriteria_all','sepeda_lastest','sepeda_value'));
+    }
 }

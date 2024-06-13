@@ -5,7 +5,7 @@
         <div class="col-8">
 <div class="card">
             <div class="card-body">
-              <h5 class="card-title">General Form Elements</h5>
+              <h5 class="card-title">Edit Form</h5>
               <!-- General Form Elements -->
               <form method="POST" action="{{route('SuperAdmin.bobot_update',$data->id)}}">
               @method('PUT')
@@ -40,4 +40,5 @@
         </div>
         </div>
     </div>
+    
 @endsection

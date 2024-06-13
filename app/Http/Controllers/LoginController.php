@@ -21,28 +21,17 @@ class LoginController extends Controller
         ]);
 
         if(Auth::attempt(['email' => $request->email, 'password' => $request->password])){
-            // $namauser=Auth::user()->name;
-        // return view('sukses',compact('namauser'));
-        $request->session()->regenerate();
-        if(Auth::user()->role=='superadmin'){
-            return redirect()->route('SuperAdmin.beranda');
-        }elseif(Auth::user()->role=='penjual'){
-            return redirect()->route('penjual.index');
-        }elseif(Auth::user()->role=='pembeli'){
-            return redirect()->route('pembeli.index');
-        }
-        else{
-            // return redirect('')->withErrors('Email dan Password tidak ada');
-            return back()->withErrors('Email dan Password tidak ada');
-        }
-        }else{
+            $request->session()->regenerate();
             if(Auth::user()->role=='superadmin'){
-                return redirect()->route('superadmin.beranda');
+                return redirect()->route('SuperAdmin.beranda');
             }elseif(Auth::user()->role=='penjual'){
                 return redirect()->route('penjual.index');
             }elseif(Auth::user()->role=='pembeli'){
                 return redirect()->route('pembeli.index');
             }
+        }else{
+                            // return redirect('')->withErrors('Email dan Password tidak ada');
+            return back()->withErrors('Email dan Password tidak ada');
         }
     }
     function logout(Request $request){

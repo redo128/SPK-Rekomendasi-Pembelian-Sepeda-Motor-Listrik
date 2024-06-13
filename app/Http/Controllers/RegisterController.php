@@ -12,6 +12,14 @@ class RegisterController extends Controller
         return view('register');
     }
     function store(Request $request){
+        $request->validate([
+            'email'=>'required|unique:users',
+            'password'=>'required'
+        ],[
+            'email.required'=>'email wajib diisi',
+            'email.unique'=> ' email telah digunakan',
+            'password.required'=>'password wajib diisi'
+        ]);
         $data=new User;
         $data->name=$request->name;
         $data->email=$request->email;

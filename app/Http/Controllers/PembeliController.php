@@ -9,6 +9,7 @@ use App\Models\Kriteria;
 use App\Models\KriteriaPerbandingan;
 use App\Models\KriteriaRating;
 use App\Models\SepedaListrik;
+use App\Models\Toko;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -21,8 +22,13 @@ class PembeliController extends Controller
     public function index()
     {
        
-        $namauser=Auth::user()->name;
-        return view('Pembeli.beranda',compact('namauser'));
+        $data_sepeda=SepedaListrik::count();
+        $data_toko=Toko::count();
+        $data_brand=Brand::count();
+        $kriteria_all=Kriteria::all();
+        $sepeda_lastest = SepedaListrik::latest()->take(5)->get();
+        $sepeda_value=AlternatifValue::all();
+        return view('Pembeli.beranda',compact('data_sepeda','data_toko','data_brand','kriteria_all','sepeda_lastest','sepeda_value'));
     }
     public function preferensi_kriteria()
     {
@@ -78,11 +84,13 @@ class PembeliController extends Controller
             return redirect()->route('sepeda_sa.index')->with('success', 'Data Sepeda Belum Ada');   
         }
         $kriteria_all=Kriteria::all();
+        
         $filter=array();
         $kriteria = $request->input('kriteria'); 
-        $data_seoeda=SepedaListrik::all();
+        // dd($kriteria);
+        $data_sepeda=SepedaListrik::all();
         $sepeda_view=array();
-        foreach($data_seoeda as $index => $data){
+        foreach($data_sepeda as $index => $data){
             foreach($kriteria as $index2 => $data2){
                 if($data2 == null){
                     
@@ -90,7 +98,7 @@ class PembeliController extends Controller
                 else{
                     $sepeda_value=AlternatifValue::where("kriteria_id",$index2)->where("alternatif_id",$data->id)->first();
                     $kriteria_check=KriteriaRating::where("kriteria_id",$index2)->where("id",$data2)->first();
-                    if($sepeda_value->value >= $kriteria_check->min_rating AND $sepeda_value->value < $kriteria_check->max_rating){
+                    if($sepeda_value->value >= $kriteria_check->min_rating AND $sepeda_value->value <= $kriteria_check->max_rating){
                         if(isset($sepeda_view[$index])){
                             if($sepeda_view[$index]==99){
                                 $sepeda_view[$index]==null;
@@ -117,6 +125,7 @@ class PembeliController extends Controller
                 }
             }
         }
+        // dd($sepeda_view);
         $data_alternatif=AlternatifValue::all();
         $sepeda_all=SepedaListrik::all();
         $kriteria_all=Kriteria::all();
@@ -216,15 +225,20 @@ class PembeliController extends Controller
         $sepeda_normalisasi=array();
         //===================================================================
         //NORMALISASI DATA MOTOR SEPEDA 
+        // dd($items, $sepeda_normalisasi);
         //index====all kriteria
         foreach($items as $a => $data){
             $sepeda_normalisasi[$a]["id"]=$data["id"];
+            // dd($sepeda_normalisasi);
             foreach($index as $a2 =>$data2){
                 $data3=AlternatifValue::where('kriteria_id',$data2->id)->where('alternatif_id',$data["id"])->first();
-                $data4=KriteriaRating::where('kriteria_id',$data2->id)->where('min_rating' ,'<=' ,$data3->value)->where('max_rating' ,'>' ,$data3->value)->first();
+                $data4=KriteriaRating::where('kriteria_id',$data2->id)->where('min_rating' ,'<=' ,$data3->value)->where('max_rating' ,'>=' ,$data3->value)->first();
                 $nilai=$data4->value;
                 $sepeda_normalisasi[$a][$data2->nama_kriteria]=$nilai;
+                // dd($data4, $data2, $sepeda_normalisasi);
             }
+            // dd($sepeda_normalisasi);
+
         }
         // dd($sepeda_normalisasi);
         //=====================================================================
@@ -263,6 +277,7 @@ class PembeliController extends Controller
         //=====================================================================
         //=====================================================================
         // CARI A+ dan A-
+        dd($sepeda_terbobot_y);
         $tahap_3_Solusi_Ideal_Positif=array();
         $tahap_3_Solusi_Ideal_Negatif=array();
 
@@ -277,14 +292,13 @@ class PembeliController extends Controller
             }else{
                 $tahap_3_Solusi_Ideal_Negatif[$data->nama_kriteria]=min($cari_Max_Min_Y[$data->nama_kriteria]);
             }
-
         }
-        // dd($tahap_3_Solusi_Ideal_Negatif);
+        // dd($tahap_3_Solusi_Ideal_Positif);
         //=====================================================================
         //Jarak Antara Nilai Terbobot D+ and D-
         $nilai_D_positif=array();
         $nilai_D_negatif=array();
-        // dd($sepeda_terbobot_y)
+        // dd($sepeda_terbobot_y);
         foreach($sepeda_terbobot_y as $angka => $data){
             foreach($index as $angka2 => $data2){
                 if(isset($nilai_D_positif[$angka])){
@@ -301,14 +315,18 @@ class PembeliController extends Controller
                 }
             }
 
+            // dd($nilai_D_positif);
             $nilai_D_positif[$angka]=sqrt($nilai_D_positif[$angka]);
             $nilai_D_negatif[$angka]=sqrt($nilai_D_negatif[$angka]);
         }
-        // dd($nilai_D_negatif);
+        dd($nilai_D_negatif);
         //=====================================================================
         ////RANKING OR NILAI PREFERENSI
+        // dd($items);
+        // dd($nilai_D_negatif);
         $nilai_preferensi=array();
         foreach($items as $angka => $data){
+            // dd($data["id"]);
             $nilai_preferensi[$angka]["Result"]=$nilai_D_negatif[$angka]/($nilai_D_negatif[$angka]+$nilai_D_positif[$angka]);
             $nilai_preferensi[$angka]["id"]=$data["id"];
         }
@@ -427,6 +445,12 @@ class PembeliController extends Controller
         $data_sepeda_all=SepedaListrik::all();
         $data_alternatif=AlternatifValue::all();
         return view('Pembeli.list_antrian',compact('spek','data_sepeda','data_alternatif','data_sepeda_all'));
+    }
+    public function list_antrian_delete(string $id)
+    {
+        $data=AlternatifSelectPembeli::find($id);
+        $data->delete();
+        return redirect()->route('list_antrian');
     }
 
 

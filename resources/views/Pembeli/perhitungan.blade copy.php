@@ -125,11 +125,11 @@
                     @foreach($data_sepeda as $data)
                     <tr>
                         <th scope="row">{{$data->id}}</th>
-                        <td>{{$data->nama_sepeda}}</td>
-                        <td>{{$data->brand->nama_brand}}</td>
-                        <td>{{$data->toko->nama_toko}}</td>
+                        <td>{{$data_sepeda_all->where("id",$data->alternatif_id)->first()->nama_sepeda}}</td>
+                        <td>{{$data_sepeda_all->where("id",$data->alternatif_id)->first()->brand->nama_brand}}</td>
+                        <td>{{$data_sepeda_all->where("id",$data->alternatif_id)->first()->toko->nama_toko}}</td>
                         @foreach($sepeda->where('alternatif_id',$data->id) as $data2)
-                        <td>{{number_format($data2->value,0,",",".")}}</td>
+                        <td>{{$data2->value}}</td>
                         @endforeach
                     </tr>
                     @endforeach
@@ -148,91 +148,29 @@
             <table class="table">
                 <thead>
                     <tr>
-                        <th scope="col"></th>
-                        <th scope="col">Nama Kendaraan</th>
-                        <th scope="col">Brand</th>
-                        <th scope="col">Toko</th>
-                         @foreach($index as $data)
-                        <th scope="col">{{$data->nama_kriteria}}</th>
-                        @endforeach
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach($data_sepeda as $a => $data)
-                    <tr>
-                        <th scope="row">{{$data->id}}</th>
-                        <td>{{$data->nama_sepeda}}</td>
-                        <td>{{$data->brand->nama_brand}}</td>
-                        <td>{{$data->toko->nama_toko}}</td>
-                        @foreach($sepeda_terbobot_x[$a] as $data2)
-                        <td>{{$data2}}</td>
-                        @endforeach
-                    </tr>
-                    @endforeach
-                    <tr>
-                        <th>Bobot</th>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        @foreach($total_terbobot_x as $angka=> $data)
-                        <td>{{round($data,3)}}</td>
-                        @endforeach
-                    </tr>
-                </tbody>
-            </table>
-            <br><br>
-            <h2>R Normalisasi</h2>
-            <table class="table">
-                <thead>
-                    <tr>
                         <th scope="col">Pembagi</th>
                         <td scope="col"></td>
                         <td scope="col"></td>
-                        @foreach($index as $data)
-                        <td scope="col">{{$data->nama_kriteria}}</td>
+                        @foreach($tahap_2_pembagi as $data)
+                        <td scope="col">{{round($data,3)}}</td>
                         @endforeach
                     </tr>
                 </thead>
                 <tbody>
-                @foreach($sepeda_terbobot_x as $a => $data)
+                @foreach($data_sepeda as $a => $data)
                     <tr>
                         <th scope="col">X</th>
                         <td scope="col"></td>
                         <td scope="col"></td>
-                            @foreach($index as $a2 => $data2)
-                            <td>{{$data[$data2->nama_kriteria]}}</td>
-                            @endforeach
-                    </tr>
+
+                        @foreach($tahap_2_R["Kolom".$a] as $a2 => $data2)
+                        <td>{{round($data2,3)}}</td>
                         @endforeach
-                </tbody>
-            </table>
-            <h2>R Normalisasi 2s</h2>
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th scope="col">Pembagi</th>
-                        <td scope="col"></td>
-                        <td scope="col"></td>
-                        @foreach($index as $data)
-                        <td scope="col">{{$data->nama_kriteria}}</td>
-                        @endforeach
-                    </tr>
-                </thead>
-                <tbody>
-                @foreach($sepeda_terbobot_x_2 as $a => $data)
-                    <tr>
-                        <th scope="col">X</th>
-                        <td scope="col"></td>
-                        <td scope="col"></td>
-                            @foreach($index as $a2 => $data2)
-                            <td>{{round($data[$data2->nama_kriteria],3)}}</td>
-                            @endforeach
                     </tr>
                         @endforeach
                 </tbody>
             </table>
             <br><br>
-            <h2>Y Normalisasi</h2>
             <table class="table">
                 <thead>
                     <tr>
@@ -242,13 +180,16 @@
                     </tr>
                 </thead>
                 <tbody>
-                @foreach($sepeda_terbobot_y as $a => $data)
+                @foreach($data_sepeda as $a => $data)
                     <tr>
                         <th scope="col">Y</th>
                         <td scope="col"></td>
                         <td scope="col"></td>
-                        @foreach($index as $a2 => $data2)
-                        <td>{{round($data[$data2->nama_kriteria],3)}}</td>
+                        <td scope="col"></td>
+                        <td scope="col"></td>
+                        <td scope="col"></td>
+                        @foreach($tahap_2_Y["Kolom".$a] as $a2 => $data2)
+                        <td>{{round($data2,3)}}</td>
                         @endforeach
                     </tr>
                         @endforeach
@@ -285,8 +226,8 @@
                 <tbody>
                     @foreach($data_sepeda as $angka => $data)
                     <tr>
-                        <td>{{$nilai_D_positif[$angka]}}</td>
-                        <td>{{$nilai_D_negatif[$angka]}}</td>
+                        <td>{{$nilai_D_positif["Row".$angka]}}</td>
+                        <td>{{$nilai_D_negatif["Row".$angka]}}</td>
                     </tr>
                     @endforeach
                 </tbody>

@@ -25,7 +25,7 @@ class KriteriaController extends Controller
      */
     public function create()
     {
-        return view('SuperAdmin.kriteria_create');
+        return view('Superadmin.kriteria_create');
     }
 
     /**
@@ -42,17 +42,18 @@ class KriteriaController extends Controller
             $perbandingan= new KriteriaPerbandingan;
             $perbandingan->kriteria_1=$temp->id;
             $perbandingan->kriteria_2=$count->id;
-            $perbandingan->rating=0;
+            $perbandingan->rating=1;
+            $perbandingan->save();
+        }
+        $getcountkriteria->pop();
+        foreach($getcountkriteria as $count){
+            $perbandingan= new KriteriaPerbandingan;
+            $perbandingan->kriteria_1=$count->id;
+            $perbandingan->kriteria_2=$temp->id;
+            $perbandingan->rating=1;
             $perbandingan->save();
         }
         return redirect()->route('kriteria.index');
-    }
-    public function storeget(){
-        $kriteria=Kriteria::all();
-
-    }
-    public function storenext(Request $request){
-
     }
     /**
      * Display the specified resource.

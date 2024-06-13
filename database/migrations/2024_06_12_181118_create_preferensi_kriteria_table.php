@@ -11,13 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('kriteria_rating', function (Blueprint $table) {
+        Schema::create('preferensi_kriteria', function (Blueprint $table) {
             $table->id();
             $table->foreignId('kriteria_id')->references('id')->on('kriteria_alternatif');
-            $table->enum('tipe',['sepeda listrik','sepeda motor listrik'])->default('sepeda listrik');
             $table->integer('min_rating');
             $table->integer('max_rating');
-            $table->integer('value');
             $table->timestamps();
         });
     }
@@ -27,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('range_harga');
+        Schema::dropIfExists('preferensi_kriteria');
     }
 };

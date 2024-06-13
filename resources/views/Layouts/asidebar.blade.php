@@ -1,11 +1,12 @@
 <ul class="sidebar-nav" id="sidebar-nav">
+  <!-- End Dashboard Nav -->
+  @if(auth()->user()->role=="superadmin")
   <li class="nav-item">
     <a class="nav-link " href="{{route('Dashboard')}}">
       <i class="bi bi-grid"></i>
       <span>Dashboard</span>
     </a>
-  </li><!-- End Dashboard Nav -->
-  @if(auth()->user()->role=="superadmin")
+  </li>
       <li class="nav-item">
         <a class="nav-link collapsed"  href="{{route('SuperAdmin.bobot')}}">
           <i class="bi bi-person"></i>
@@ -51,6 +52,12 @@
       @endif
       @if(auth()->user()->role=="pembeli")
       <li class="nav-item">
+      <a class="nav-link " href="{{route('pembeli.index')}}">
+        <i class="bi bi-grid"></i>
+        <span>Dashboard</span>
+      </a>
+    </li>
+      <li class="nav-item">
         <a class="nav-link collapsed" href="{{route('preferensi_kriteria')}}">
           <i class="bi bi-person"></i>
           <span>Preferensi Kriteria</span>
@@ -69,7 +76,7 @@
         </a>
       </li>
       <li class="nav-item">
-        <a class="nav-link collapsed" href="{{route('perhitungan_pembeli',auth()->user()->id)}}">
+        <a class="nav-link collapsed" hidden href="{{route('perhitungan_pembeli',auth()->user()->id)}}">
           <i class="bi bi-person"></i>
           <span>Perhitungan</span>
         </a>

@@ -7,7 +7,7 @@
                 <div class="card-body">
                     <h5 class="card-title">Add Sepeda</h5>
                 <!-- General Form Elements -->
-                    <form method="POST" action="{{route('sepeda_sa.store')}}">
+                    <form method="POST" action="{{route('sepeda_sa.store')}}" enctype="multipart/form-data">
                         @csrf
                         <div class="row">
                             <label for="inputText" class="col-sm-3 col-form-label">Nama Sepeda Listrik</label>
@@ -40,37 +40,22 @@
                                         @endforeach
                                     </select>
                                 </div>
-                                <!-- <label for="inputText" class="col-sm-3 col-form-label">Harga</label>
-                            <div class="col-sm-8">
-                                <div class="row">
-                                    <div class="col-sm-1">Rp.</div>
-                                    <div class="col-sm-11"><input type="text" name="harga" id="harga" class="form-control"></div>
-                                </div>
-                                
-                            </div>
-                                <label for="inputText" class="col-sm-3 col-form-label">Kecepatan</label>
-                            <div class="col-sm-8">
-                                <input type="c" min="0" name="kecepatan" class="form-control">
-                            </div>
-                                <label for="inputText" class="col-sm-3 col-form-label">jarak tempuh</label>
-                            <div class="col-sm-8">
-                                <input type="number" min="0" name="jarak tempuh" class="form-control">
-                            </div>
-                                <label for="inputText" class="col-sm-3 col-form-label">Maksimal Beban</label>
-                            <div class="col-sm-8">
-                                <input type="number" min="0" name="maksimal beban" max="200" class="form-control">
-                            </div> -->
                             @foreach($kriteria as $data)
                             <label for="inputText" class="col-sm-3 col-form-label">{{$data->nama_kriteria}}</label>
                             <div class="col-sm-8">
                                 @if($data->nama_kriteria == "harga")
-                                <input type="text" min="0" name="value[{{$data->nama_kriteria}}]" id="{{$data->nama_kriteria}}" class="form-control">
+                                <input type="text" min="0" max="5" name="value[{{$data->nama_kriteria}}]" id="{{$data->nama_kriteria}}" class="form-control">
                                 @else
                                 <input type="number" min="0" name="value[{{$data->nama_kriteria}}]" id="{{$data->nama_kriteria}}" class="form-control">
                                 @endif
                             </div>
                             @endforeach
+                            <label for="inputText" class="col-sm-3 col-form-label">Image</label>
+                            <div class="col-sm-8">
+                                <input class="form-control" type="file" name="image" >
+                            </div>
                         </div>
+
                         <br><br>
                             <div class="col-sm-10">
                                 <button type="submit" class="btn btn-primary">Submit Form</button>

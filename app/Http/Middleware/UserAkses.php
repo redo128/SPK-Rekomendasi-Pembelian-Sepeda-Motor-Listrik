@@ -18,6 +18,6 @@ class UserAkses
         if(auth()->user()->role==$role){
             return $next($request);
         }
-        return response()->json('Anda tidak Memiliki Akses');
+        return back()->with('error', 'Mohon Maaf Anda tidak memiliki izin untuk mengakses halaman tersebut.');
     }
 }

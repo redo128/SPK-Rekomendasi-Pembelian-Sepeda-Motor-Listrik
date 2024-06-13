@@ -24,8 +24,8 @@
               @foreach($index as $data)
               <tr>
                 <td>{{$data->kriteria->nama_kriteria}}</td>
-                <td>{{$data->min_rating}}</td>
-                <td>{{$data->max_rating}}</td>
+                <td>{{number_format($data->min_rating,0,",",".")}}</td>
+                <td>{{number_format($data->max_rating,0,",",".")}}</td>
                 <td>{{$data->value}}</td>
                 <td>
                 <form action="{{ route('SuperAdmin.bobot_edit', $data->id) }}" method="POST">

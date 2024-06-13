@@ -17,6 +17,7 @@ return new class extends Migration
             $table->enum('tipe',['sepeda listrik','sepeda motor listrik'])->default('sepeda listrik');
             $table->foreignId('toko_id')->references('id')->on('toko');
             $table->foreignId('brand_id')->references('id')->on('brand');
+            $table->string('image', 200);
             $table->timestamps();
         });
     }

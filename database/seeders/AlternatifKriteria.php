@@ -21,11 +21,7 @@ class AlternatifKriteria extends Seeder
             'id'=> 2,
             'nama_kriteria' => 'jarak tempuh',
             'type'=>'benefit'
-        ],[
-            'id'=> 3,
-            'nama_kriteria' => 'maksimal beban',
-            'type'=>'benefit'
-        ],['id'=> 4,
+        ],['id'=> 3,
             'nama_kriteria' => 'harga',
             'type'=>'cost'
         ]

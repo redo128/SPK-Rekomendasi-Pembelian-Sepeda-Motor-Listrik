@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\AlternatifValue;
+use App\Models\Brand;
 use App\Models\Kriteria;
 use App\Models\KriteriaRating;
+use App\Models\SepedaListrik;
 use App\Models\Toko;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -14,7 +17,13 @@ use Illuminate\Support\Facades\Redirect;
 class SuperAdminController extends Controller
 {
     function index(){
-        return view('SuperAdmin.beranda');
+        $data_sepeda=SepedaListrik::count();
+        $data_toko=Toko::count();
+        $data_brand=Brand::count();
+        $kriteria_all=Kriteria::all();
+        $sepeda_lastest = SepedaListrik::latest()->take(5)->get();
+        $sepeda_value=AlternatifValue::all();
+        return view('Superadmin.beranda',compact('data_sepeda','data_toko','data_brand','kriteria_all','sepeda_lastest','sepeda_value'));
     }
     function penentuan_bobot(){
         // $namauser=Auth::user()->name;

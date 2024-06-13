@@ -108,9 +108,10 @@ class PerhitunganSuperAdmin extends Controller
         //NORMALISASI DATA MOTOR SEPEDA 
         foreach($data_sepeda as $a => $data){
             $sepeda_normalisasi[$a]["id"]=$a;
+            // dump($data->id);
             foreach($index as $a2 =>$data2){
                 $data3=AlternatifValue::where('kriteria_id',$data2->id)->where('alternatif_id',$data->id)->first();
-                $data4=KriteriaRating::where('kriteria_id',$data2->id)->where('min_rating' ,'<=' ,$data3->value)->where('max_rating' ,'>' ,$data3->value)->first();
+                $data4=KriteriaRating::where('kriteria_id',$data2->id)->where('min_rating' ,'<=' ,$data3->value)->where('max_rating' ,'>=' ,$data3->value)->first();
                 $nilai=$data4->value;
                 $sepeda_normalisasi[$a][$data2->nama_kriteria]=$nilai;
             }

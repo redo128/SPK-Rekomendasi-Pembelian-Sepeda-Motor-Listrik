@@ -2,6 +2,12 @@
 @section('content')
 <section class="section dashboard">
       <div class="row">
+        <div class="col-2" style="background-color: white;">
+             <h1>Highlight Point</h1>
+        </div>
+        <div class="col-10">
+             <img src="{{asset('background4.png')}}" alt="">
+        </div>
         <!-- Left side columns -->
             <!-- Sales Card -->
             <div class="col-xxl-4 col-md-6">

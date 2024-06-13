@@ -23,7 +23,7 @@ class BrandController extends Controller
      */
     public function create()
     {
-        return view('SuperAdmin.brand_create');
+        return view('Superadmin.brand_create');
     }
 
     /**

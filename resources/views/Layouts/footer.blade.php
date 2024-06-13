@@ -1,6 +1,6 @@
-<div class="copyright">
+<!-- <div class="copyright">
     <strong>Find Problem ? Contact **************</strong>
-    </div>
+    </div> -->
     <!-- <div class="credits"> --> 
       <!-- All the links in the footer should remain intact. -->
       <!-- You can delete the links only if you purchased the pro version. -->

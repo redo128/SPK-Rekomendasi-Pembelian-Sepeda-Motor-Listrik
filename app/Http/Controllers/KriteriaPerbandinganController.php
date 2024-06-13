@@ -37,56 +37,6 @@ class KriteriaPerbandinganController extends Controller
             }  
          }
         }
-        // dd($total_per_kolom);
-        // $normalisasi=array();
-        // $total_after_normalisasi=array();
-        // foreach($index as $a => $text){
-        //    foreach($simpan["kriteria-".$a] as $a2 => $text2 ){
-        //        // dd($text2);
-        //        $normalisasi["kriteria-".$a][$a2]=$text2/$total_per_kolom["Kolom".$a2];
-        //        if(isset($total_after_normalisasi["kriteria-".$a2])){
-
-        //        $total_after_normalisasi["kriteria-".$a2]+=$normalisasi["kriteria-".$a][$a2];
-            
-        //     }else{
-        //        $total_after_normalisasi["kriteria-".$a2]=0;
-        //        $total_after_normalisasi["kriteria-".$a2]+=$normalisasi["kriteria-".$a][$a2];
-            
-        //     }  
-        //    }
-        // }
-        // dd($total_after_normalisasi);
-// dump($simpan->id);
-        // dd($simpan["kriteria-0"]);
-        // foreach($simpan["kriteria-0"] as $tes){
-        //     dd($tes);
-        // }
-        // dd($simpan["kriteria-0"][4]);
-        // if($simpan["kriteria-0"][3]==null){
-        //     dd("Kosong");
-        // }else{
-        //     dd("ada");
-        // }
-        // if(isset($simpan["kriteria-0"][4])){
-
-        //    dd("ada");
-        
-        // }else{
-        
-        //     dd("gaada");
-        
-        // }
-        // if(isset($test)){
-
-        //    dd("ada");
-        
-        // }else{
-        
-        //     dd("gaada");
-        
-        // }
-        // dd($simpan);
-        // dd($total_per_kolom);
         $ri=array();
         $ri=array(
             array(0.00),
@@ -149,50 +99,17 @@ class KriteriaPerbandinganController extends Controller
         $RI_Konsisten=$ri[$n-1];
         // dd($CI_Konsisten/$RI_Konsisten[0]);
         $CR_Konsisten=$CI_Konsisten/$RI_Konsisten[0];
-        // dd($ri);
-        // dd($CR_Konsisten);
-        // dd($nMax);
-        // dd($MatrixXEv);
-        // dd($total_per_row_normalisasi);
-        //Cari Eigen Vektor Pt 2
 
         
-        // dd($simpan_normalisasi);
-        // dd($total_per_row_normalisasi);
-        // dump($simpan_normalisasi);
-        // dump($simpan);
-        // dd($ri[0][0]);
-
-
-        
-        return view('SuperAdmin.kriteria_perbandingan_index',compact('simpan','index','total_per_kolom','ri','total_per_kolom_normalisasi','simpan_normalisasi',
+        return view('Superadmin.kriteria_perbandingan_index',compact('simpan','index','total_per_kolom','ri','total_per_kolom_normalisasi','simpan_normalisasi',
     'n','total_per_row_normalisasi','average_per_row_normalisasi','MatrixXEv','nMax','CI_Konsisten','RI_Konsisten','CR_Konsisten'));
         
     }
-    // public function normalisasi(){
-    //     $index=Kriteria::all();
-    //     $simpan=array();
-    //     $total_per_kolom=array();
-    //     foreach($index as $a => $text){
-    //     $temp=KriteriaPerbandingan::where('kriteria_1',$text->id)->get();
-    //      foreach($temp as $a2 => $text2){
-    //         $simpan["kriteria-".$a][$a2]=$text2->rating;
-    //         if(isset($total_per_kolom["Kolom".$a2])){
-
-    //             $total_per_kolom["Kolom".$a2]+=$text2->rating;
-            
-    //         }else{
-    //             $total_per_kolom["Kolom".$a2]=0;
-    //             $total_per_kolom["Kolom".$a2]+=$text2->rating;
-            
-    //         }  
-    //      }
-    //     }
-    // }
 
     /**
      * Show the form for creating a new resource.
      */
+    
     public function create()
     {
         //
@@ -224,7 +141,7 @@ class KriteriaPerbandinganController extends Controller
         // dd($index);
         $dataperbandingan=KriteriaPerbandingan::all()->where("kriteria_1",$id);
         $find=Kriteria::find($id);
-        return view('SuperAdmin.kriteria_perbandingan_edit',compact('index','dataperbandingan','find'));
+        return view('Superadmin.kriteria_perbandingan_edit',compact('index','dataperbandingan','find'));
     }
 
     /**

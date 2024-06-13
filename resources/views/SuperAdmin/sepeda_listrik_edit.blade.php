@@ -5,7 +5,7 @@
         <div class="col-10">
             <div class="card">
                 <div class="card-body">
-                    <h5 class="card-title">Add Sepeda</h5>
+                    <h5 class="card-title">Edit Data Sepeda</h5>
                 <!-- General Form Elements -->
                     <form method="POST" action="{{route('sepeda_sa.update',$data->id)}}">
                     @method('PUT')
@@ -45,7 +45,7 @@
                                 @foreach($value as $index => $value_alternatif)
                             <label for="inputText" class="col-sm-3 col-form-label">{{$value_alternatif->kriteria->nama_kriteria}}</label>
                                 <div class="col-sm-8">
-                                    <input type="number" value="{{$value_alternatif->value}}" name="kriteria[{{$value_alternatif->kriteria_id}}]" class="form-control">
+                                    <input type="text" value="{{$value_alternatif->value}}" name="kriteria[{{$value_alternatif->kriteria->nama_kriteria}}]"  id="{{$value_alternatif->kriteria->nama_kriteria}}" class="form-control">
                                 </div>
                                 @endforeach            
                         </div>
@@ -61,4 +61,36 @@
         </div>
     </div>
         </div>
+        <script>
+         var tanpa_rupiah = document.getElementById('harga');
+    tanpa_rupiah.addEventListener('keyup', function(e)
+    {
+        tanpa_rupiah.value = formatRupiah(this.value);
+    });
+    
+    /* Dengan Rupiah */
+    var dengan_rupiah = document.getElementById('dengan-rupiah');
+    dengan_rupiah.addEventListener('keyup', function(e)
+    {
+        dengan_rupiah.value = formatRupiah(this.value, 'Rp. ');
+    });
+    
+    /* Fungsi */
+    function formatRupiah(angka, prefix)
+    {
+        var number_string = angka.replace(/[^,\d]/g, '').toString(),
+            split    = number_string.split(','),
+            sisa     = split[0].length % 3,
+            rupiah     = split[0].substr(0, sisa),
+            ribuan     = split[0].substr(sisa).match(/\d{3}/gi);
+            
+        if (ribuan) {
+            separator = sisa ? '.' : '';
+            rupiah += separator + ribuan.join('.');
+        }
+        
+        rupiah = split[1] != undefined ? rupiah + ',' + split[1] : rupiah;
+        return prefix == undefined ? rupiah : (rupiah ? 'Rp. ' + rupiah : '');
+    }
+    </script>
 @endsection
