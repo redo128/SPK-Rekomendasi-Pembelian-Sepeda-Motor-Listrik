@@ -27,7 +27,7 @@ class SuperAdminController extends Controller
     }
     function penentuan_bobot(){
         // $namauser=Auth::user()->name;
-        $index=KriteriaRating::orderBy('kriteria_id','ASC')->get();
+        $index=KriteriaRating::orderBy('tipe','ASC')->get();
         return view('Superadmin.kriteria_rating',compact('index'));
     }
     function penentuan_bobot_create(){
@@ -37,6 +37,7 @@ class SuperAdminController extends Controller
     function penentuan_bobot_store(Request $request){
         $data=new KriteriaRating;
         $data->kriteria_id=$request->kriteria_id;
+        $data->tipe=$request->tipe;
         $data->min_rating=$request->min_rating;
         $data->max_rating=$request->max_rating;
         $data->value=$request->value;

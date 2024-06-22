@@ -14,6 +14,7 @@
             <thead>
               <tr>  
                 <th scope="col">Kriteria Nama</th>
+                <th scope="col">Tipe</th>
                 <th scope="col">Min Rating</th>
                 <th scope="col">Max Rating</th>
                 <th scope="col">Value</th>
@@ -24,6 +25,7 @@
               @foreach($index as $data)
               <tr>
                 <td>{{$data->kriteria->nama_kriteria}}</td>
+                <td>{{$data->tipe}}</td>
                 <td>{{number_format($data->min_rating,0,",",".")}}</td>
                 <td>{{number_format($data->max_rating,0,",",".")}}</td>
                 <td>{{$data->value}}</td>

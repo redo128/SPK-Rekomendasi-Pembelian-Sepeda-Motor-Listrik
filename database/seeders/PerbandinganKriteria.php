@@ -30,11 +30,6 @@ class PerbandinganKriteria extends Seeder
             'rating'=>'3'
         ],
             [
-            'kriteria_1' => 1,
-            'kriteria_2'=> 4,
-            'rating'=>'5'
-        ],
-            [
             'kriteria_1' => 2,
             'kriteria_2'=> 1,
             'rating'=>'0.33'
@@ -47,11 +42,6 @@ class PerbandinganKriteria extends Seeder
             [
             'kriteria_1' => 2,
             'kriteria_2'=> 3,
-            'rating'=>'3'
-        ],
-            [
-            'kriteria_1' => 2,
-            'kriteria_2'=> 4,
             'rating'=>'3'
         ],
             [
@@ -69,32 +59,7 @@ class PerbandinganKriteria extends Seeder
             'kriteria_2'=> 3,
             'rating'=>'1'
         ],
-            [
-            'kriteria_1' => 3,
-            'kriteria_2'=> 4,
-            'rating'=>'3'
-        ],
-            [
-            'kriteria_1' => 4,
-            'kriteria_2'=> 1,
-            'rating'=>'0.20'
-        ],
-            [
-            'kriteria_1' => 4,
-            'kriteria_2'=> 2,
-            'rating'=>'0.33'
-        ],
-            [
-            'kriteria_1' => 4,
-            'kriteria_2'=> 3,
-            'rating'=>'0.33'
-        ],
-            [
-            'kriteria_1' => 4,
-            'kriteria_2'=> 4,
-            'rating'=>'1'
-        ],
-         
+            
         ]);
     }
 }

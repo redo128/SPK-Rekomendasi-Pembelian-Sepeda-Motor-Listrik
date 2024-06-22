@@ -15,11 +15,6 @@ class KriteriaPerbandinganController extends Controller
     {
         $index=Kriteria::all();
         $n=Kriteria::all()->count();
-        // dd($index);
-        // $temp=KriteriaPerbandingan::all();
-        // $temp=KriteriaPerbandingan::where('kriteria_1',1)->count();
-        // dd($temp);
-        //Panggil Perbandingan antar kriteria
         $simpan=array();
         $total_per_kolom=array();
         foreach($index as $a => $text){
@@ -112,7 +107,7 @@ class KriteriaPerbandinganController extends Controller
     
     public function create()
     {
-        //
+        return view('Superadmin.kriteria_perbandingan_create');
     }
 
     /**
@@ -120,7 +115,10 @@ class KriteriaPerbandinganController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data= new Kriteria() ;
+        $data->nama_kriteria=$request->nama_kriteria;
+        $data->save();
+        return redirect()->route('kriteriaperbandingan.index')->with('success','Kriteria Berhasil DIbuat');
     }
 
     /**
@@ -136,10 +134,9 @@ class KriteriaPerbandinganController extends Controller
      */
     public function edit(string $id)
     {
-        // dd("TEST");
         $index=Kriteria::all();
-        // dd($index);
         $dataperbandingan=KriteriaPerbandingan::all()->where("kriteria_1",$id);
+        // dd($dataperbandingan);
         $find=Kriteria::find($id);
         return view('Superadmin.kriteria_perbandingan_edit',compact('index','dataperbandingan','find'));
     }
@@ -150,14 +147,16 @@ class KriteriaPerbandinganController extends Controller
     public function update(Request $request, string $id)
     {
         $rating = $request->input('rating'); 
-        // dd($rating);
+        // dd($rating[3]);
         // dd($id);
+        // dd($rating);
         $kriteria=Kriteria::all();
         foreach($kriteria as $loop){
-            // $dataperbandingan=KriteriaPerbandingan::where("kriteria_1",$id)->where("kriteria_2",$loop->id)->first();
+            // dd($loop); << Nama Kriteria
             if(KriteriaPerbandingan::where("kriteria_1",$id)->where("kriteria_2",$loop->id)->exists()){
-            $dataperbandingan=KriteriaPerbandingan::where("kriteria_1",$id)->where("kriteria_2",$loop->id)->first();
-                $dataperbandingan->rating=$rating[$id][$loop->id];
+                $dataperbandingan=KriteriaPerbandingan::where("kriteria_1",$id)->where("kriteria_2",$loop->id)->first();
+                // dd($dataperbandingan);
+                $dataperbandingan->rating=$rating[$id][$dataperbandingan->id];
                 // dd($dataperbandingan);
                 $dataperbandingan->save();
             }else{

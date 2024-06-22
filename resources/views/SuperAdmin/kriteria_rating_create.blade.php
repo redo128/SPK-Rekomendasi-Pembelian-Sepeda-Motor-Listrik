@@ -9,6 +9,14 @@
               <!-- General Form Elements -->
               <form method="POST" action="{{route('SuperAdmin.bobot_store')}}">
                 @csrf
+                <label for="inputText" class="col-sm-3"> Tipe Sepeda</label>
+                                <div class="col-sm-8">
+                                    <select name="tipe" class="form-select" required>
+                                        <option value="" selected>Open this select menu</option>
+                                        <option value="sepeda listrik">Sepeda Listrik</option>
+                                        <option value="sepeda motor listrik">Sepeda Motor Listrik</option>
+                                    </select>
+                                </div>
                 <label for="inputText" class="col-sm-3"> Kriteria</label>
                                 <div class="col-sm-8">
                                     <select name="kriteria_id" class="form-select" required>

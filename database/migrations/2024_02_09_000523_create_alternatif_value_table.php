@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('kriteria_id')->references('id')->on('kriteria_alternatif')->onDelete('cascade');
             $table->foreignId('alternatif_id')->references('id')->on('sepeda_listrik')->onDelete('cascade');
-            $table->integer('value');
+            $table->integer('value')->default(1);
             $table->timestamps();
         });
     }

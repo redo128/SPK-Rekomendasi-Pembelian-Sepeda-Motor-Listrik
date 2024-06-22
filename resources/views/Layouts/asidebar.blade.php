@@ -44,11 +44,22 @@
         </a>
       </li>
       <li class="nav-item">
-        <a class="nav-link collapsed" href="{{route('Sa.perhitungan')}}">
-          <i class="bi bi-person"></i>
-          <span>Perhitungan</span>
+        <a class="nav-link collapsed" data-bs-target="#tables-nav" data-bs-toggle="collapse" href="#">
+          <i class="bi bi-layout-text-window-reverse"></i><span>Perhitungan</span><i class="bi bi-chevron-down ms-auto"></i>
         </a>
-      </li>
+        <ul id="tables-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+          <li>
+            <a href="{{route('Sa.perhitungan.sepeda.listrik')}}">
+              <i class="bi bi-circle"></i><span>Sepeda Listrik</span>
+            </a>
+          </li>
+          <li>
+            <a href="{{route('Sa.perhitungan.sepeda.motor.listrik')}}">
+              <i class="bi bi-circle"></i><span>Sepeda Motor Listrik</span>
+            </a>
+          </li>
+        </ul>
+      </li><!-- End Tables Nav -->
       @endif
       @if(auth()->user()->role=="pembeli")
       <li class="nav-item">

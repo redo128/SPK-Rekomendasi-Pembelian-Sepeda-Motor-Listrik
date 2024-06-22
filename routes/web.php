@@ -49,7 +49,8 @@ Route::middleware(['auth'])->group(function(){
     Route::resource('kriteria', KriteriaController::class)->middleware('userAkses:superadmin');
     Route::resource('kriteriaperbandingan', KriteriaPerbandinganController::class)->middleware('userAkses:superadmin');
     Route::get('/logout',[LoginController::class,'logout'])->name('logout');
-    Route::get('/perhitungan',[PerhitunganSuperAdmin::class,'index'])->name('Sa.perhitungan')->middleware('userAkses:superadmin');
+    Route::get('/perhitungan-sepeda-listrik',[PerhitunganSuperAdmin::class,'index_sepeda_listrik'])->name('Sa.perhitungan.sepeda.listrik')->middleware('userAkses:superadmin');
+    Route::get('/perhitungan-sepeda-motor-listrik',[PerhitunganSuperAdmin::class,'index_sepeda_motor_listrik'])->name('Sa.perhitungan.sepeda.motor.listrik')->middleware('userAkses:superadmin');
     Route::get('/superadmin',[SuperAdminController::class,'index'])->name('SuperAdmin.beranda')->middleware('userAkses:superadmin');
     Route::get('/superadmin/bobot',[SuperAdminController::class,'penentuan_bobot'])->name('SuperAdmin.bobot')->middleware('userAkses:superadmin');
     Route::get('/superadmin/bobot-create',[SuperAdminController::class,'penentuan_bobot_create'])->name('SuperAdmin.bobot_create')->middleware('userAkses:superadmin');

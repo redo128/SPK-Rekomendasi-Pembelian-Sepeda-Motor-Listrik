@@ -122,7 +122,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach($data_sepeda as $data)
+                    @foreach($data_sepeda->where('tipe' ,"==", "sepeda motor listrik") as $data)
                     <tr>
                         <th scope="row">{{$data->id}}</th>
                         <td>{{$data->nama_sepeda}}</td>
@@ -158,26 +158,17 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach($data_sepeda as $a => $data)
+                    @foreach($data_sepeda->where("tipe","==","sepeda motor listrik") as $a => $data)
                     <tr>
                         <th scope="row">{{$data->id}}</th>
                         <td>{{$data->nama_sepeda}}</td>
                         <td>{{$data->brand->nama_brand}}</td>
                         <td>{{$data->toko->nama_toko}}</td>
-                        @foreach($sepeda_terbobot_x[$a] as $data2)
-                        <td>{{$data2}}</td>
+                        @foreach($index as $data2)
+                        <td>{{$sepeda_normalisasi[$a][$data2->nama_kriteria]}}</td>
                         @endforeach
                     </tr>
                     @endforeach
-                    <tr>
-                        <th>Bobot</th>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        @foreach($total_terbobot_x as $angka=> $data)
-                        <td>{{round($data,3)}}</td>
-                        @endforeach
-                    </tr>
                 </tbody>
             </table>
             <br><br>
@@ -194,16 +185,24 @@
                     </tr>
                 </thead>
                 <tbody>
-                @foreach($sepeda_terbobot_x as $a => $data)
+                @foreach($sepeda_terbobot_x["sepeda motor listrik"] as $a => $data)
                     <tr>
                         <th scope="col">X</th>
                         <td scope="col"></td>
                         <td scope="col"></td>
-                            @foreach($index as $a2 => $data2)
+                        @foreach($index as $a2 => $data2)
                             <td>{{$data[$data2->nama_kriteria]}}</td>
-                            @endforeach
-                    </tr>
                         @endforeach
+                    </tr>
+                @endforeach
+                <tr>
+                        <th>Bobot</th>
+                        <td></td>
+                        <td></td>
+                        @foreach($total_terbobot_x["sepeda motor listrik"] as $angka=> $data)
+                        <td>{{round($data,3)}}</td>
+                        @endforeach
+                    </tr>
                 </tbody>
             </table>
             <h2>R Normalisasi 2s</h2>
@@ -219,7 +218,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                @foreach($sepeda_terbobot_x_2 as $a => $data)
+                @foreach($sepeda_terbobot_x_2["sepeda motor listrik"] as $a => $data)
                     <tr>
                         <th scope="col">X</th>
                         <td scope="col"></td>
@@ -242,7 +241,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                @foreach($sepeda_terbobot_y as $a => $data)
+                @foreach($sepeda_terbobot_y["sepeda motor listrik"] as $a => $data)
                     <tr>
                         <th scope="col">Y</th>
                         <td scope="col"></td>
@@ -259,7 +258,7 @@
                 <thead>
                     <tr>
                         <th scope="col">A+</th>
-                        @foreach($tahap_3_Solusi_Ideal_Positif as $a => $data)
+                        @foreach($tahap_3_Solusi_Ideal_Positif["sepeda motor listrik"] as $a => $data)
                         <td>{{$data}}</td>
                         @endforeach
                     </tr>
@@ -267,7 +266,7 @@
                 <tbody>
                 <tr>
                         <th scope="col">A-</th>
-                        @foreach($tahap_3_Solusi_Ideal_Negatif as $a => $data)
+                        @foreach($tahap_3_Solusi_Ideal_Negatif["sepeda motor listrik"] as $a => $data)
                         <td>{{$data}}</td>
                         @endforeach
                     </tr>
@@ -283,10 +282,10 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach($data_sepeda as $angka => $data)
+                    @foreach($data_sepeda->where('tipe' ,"==", "sepeda motor listrik") as $angka => $data)
                     <tr>
-                        <td>{{$nilai_D_positif[$angka]}}</td>
-                        <td>{{$nilai_D_negatif[$angka]}}</td>
+                        <td>{{$nilai_D_positif["sepeda motor listrik"][$angka]}}</td>
+                        <td>{{$nilai_D_negatif["sepeda motor listrik"][$angka]}}</td>
                     </tr>
                     @endforeach
                 </tbody>
@@ -302,7 +301,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach($nilai_preferensi as $a => $data)
+                    @foreach($nilai_preferensi["sepeda motor listrik"] as $a => $data)
                     <tr>
                         <th>V{{$a}}</th>
                         <td>{{$data["Result"]}}</td>
@@ -313,4 +312,5 @@
             </table>
         </div>
 </div>
+
 @endsection

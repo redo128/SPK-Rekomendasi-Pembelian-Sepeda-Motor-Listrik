@@ -7,7 +7,7 @@
 
         </div>
         <div class="col-2">
-            <a href="{{route('kriteriaperbandingan.create')}}"><button type="button" class="btn btn-primary">Tambah Data</button></a>
+            <!-- <a href="{{route('kriteriaperbandingan.create')}}"><button type="button" class="btn btn-primary">Tambah Data</button></a> -->
             <br><br>
         </div>
 
@@ -29,12 +29,12 @@
       <td>{{$data2}}</td>
       @endforeach
       <td>
-      <form action="{{ route('kriteriaperbandingan.destroy', $data->id) }}" method="POST">
+      <!-- <form action="{{ route('kriteriaperbandingan.destroy', $data->id) }}" method="POST">
     @csrf
-    @method('DELETE')
+    @method('DELETE') -->
     <a href="{{route('kriteriaperbandingan.edit',$data->id)}}" class="btn btn-success">Edit</a>
-    <button class="btn btn-danger" type="submit">Delete</button>
-  </form>
+    <!-- <button class="btn btn-danger" type="submit">Delete</button> -->
+  <!-- </form> -->
   </td>
 </tr>
   @endforeach
@@ -74,12 +74,12 @@
       
 </tr>
   @endforeach
-  <tr>
+  <!-- <tr>
     <th scope="row">Total per Kolom</th>
     @foreach($total_per_kolom_normalisasi as $temp)
     <td>{{$temp}}</td>
     @endforeach
-  </tr>
+  </tr> -->
   </tbody>
 </table>
 <br><br>

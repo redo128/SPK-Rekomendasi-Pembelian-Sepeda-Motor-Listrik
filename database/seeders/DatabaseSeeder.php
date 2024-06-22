@@ -23,7 +23,8 @@ class DatabaseSeeder extends Seeder
             TokoSeeder::class,
             UserSeeder::class,
             PerbandinganKriteria::class,
-            BrandSeeder::class
+            BrandSeeder::class,
+            RangeValueSeeder::class
             ]);
 
     }
