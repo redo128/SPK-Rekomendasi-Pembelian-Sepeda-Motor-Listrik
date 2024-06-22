@@ -16,6 +16,16 @@
                     <input type="text" name="nama_kriteria" class="form-control" value="{{$data->nama_kriteria}}">
                   </div>
                 </div>
+                <div class="row mb-3">
+                  <label for="inputText" class="col-sm-2 col-form-label"> Tipe Kriteria</label>
+                  <div class="col-sm-10">
+                    <select name="type" class="form-control" required disabled>
+                      <option value="" selected>Open this select menu</option>
+                      <option value="benefit" {{$data->type=="benefit" ? 'selected':''}} >Benefit</option>
+                      <option value="cost" {{$data->type=="cost" ? 'selected':''}}>Cost</option>
+                    </select>
+                  </div>
+                </div>
                   <div class="col-sm-10">
                     <button type="submit" class="btn btn-primary">Submit Form</button>
                   </div>

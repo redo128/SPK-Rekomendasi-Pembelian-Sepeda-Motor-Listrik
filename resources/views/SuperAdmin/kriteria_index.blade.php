@@ -7,7 +7,7 @@
 
         </div>
         <div class="col-2">
-            <a href="{{route('kriteria.create')}}"><button type="button" class="btn btn-primary">Tambah Data</button></a>
+            <!-- <a href="{{route('kriteria.create')}}"><button type="button" class="btn btn-primary">Tambah Data</button></a> -->
             <br><br>
         </div>
 
@@ -16,6 +16,7 @@
     <tr>
       <th>No</th>
       <th>Nama Kriteria</th>
+      <th>Type Kriteria</th>
       <th scope="col">Action</th>
     </tr>
   </thead>
@@ -24,6 +25,7 @@
     @foreach($index as $data)
       <th scope="row">{{$data->id}}</th>
       <td>{{$data->nama_kriteria}}</td>
+      <td>{{$data->type}}</td>
       <td>
       <form action="{{ route('kriteria.destroy', $data->id) }}" method="POST">
     @csrf

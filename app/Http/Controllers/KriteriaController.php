@@ -79,6 +79,7 @@ class KriteriaController extends Controller
     {
         $kriteria=Kriteria::find($id);
         $kriteria->nama_kriteria=$request->get('nama_kriteria');
+        $kriteria->type=$request->get('type');
         $kriteria->save();
         return redirect()->route('kriteria.index');
     }
