@@ -39,15 +39,6 @@ class PembeliController extends Controller
        $data_rating=KriteriaRating::all();
         return view('Pembeli.preferensi_kriteria',compact('data','data_rating'),['test'=>$test]);
     }
-    public function preferensi_kriteria2()
-    {
-       $data=Kriteria::all();
-       foreach($data as $index => $ril){
-           $test[$index]=$ril->nama_kriteria;
-       }
-       $data_rating=KriteriaRating::all();
-        return view('Pembeli.preferensi_kriteria',compact('data','data_rating'),['test'=>$test]);
-    }
     public function kriteria_brand(Request $request)
     {
         $data =  Brand::all();
@@ -56,16 +47,6 @@ class PembeliController extends Controller
     public function kriteria_value(Request $request)
     {
         $data = KriteriaRating::where("kriteria_id", $request->kriteria_id)->get(["id","min_rating", "max_rating","value"]);
-        return response()->json($data);
-    }
-    public function fetchkriteria(Request $request)
-    {
-        // $data=KriteriaRating::where("tipe",$request->kriteria_tipe)->get();
-        $index=Kriteria::all();
-        foreach($index as $a => $value){
-            $data[$value->nama_kriteria]=KriteriaRating::where("tipe",$request->kriteria_tipe)->where('kriteria_id',$value->id)->get(["id","min_rating", "max_rating","value"]);
-        }
-        // $data = KriteriaRating::where("kriteria_id", $request->kriteria_id)->get(["id","min_rating", "max_rating","value"]);
         return response()->json($data);
     }
     public function preferensi_kriteria_view(Request $request){
@@ -90,6 +71,13 @@ class PembeliController extends Controller
     }
 
     //PREFERENSI KRITERIA
+
+
+
+
+
+
+
     public function perhitungan_preferensi_kriteria_view(Request $request){
         $temp_data_check=SepedaListrik::all();
         if($temp_data_check->isEmpty()){
@@ -98,13 +86,12 @@ class PembeliController extends Controller
         $kriteria_all=Kriteria::all();
         
         $filter=array();
+        $kriteria = $request->input('kriteria'); 
+        // dd($kriteria);
         $data_sepeda=SepedaListrik::all();
         $sepeda_view=array();
         foreach($data_sepeda as $index => $data){
-            // dump($data->id);
-            // dd($request->data);
-            foreach($request->data as $index2 => $data2){
-                // dd($data2);
+            foreach($kriteria as $index2 => $data2){
                 if($data2 == null){
                     
                 }
@@ -148,11 +135,224 @@ class PembeliController extends Controller
             }else if($request->order == "DESC"){
                 $items = collect($filter)->sortByDesc($request->kriteria_order)->values()->all();
             }
-        }else{
-            $items="kosong";
+            $nilai="ada";
+        //PERHITUNGAN
+        if(count($items)!=1){
+        $index=Kriteria::all();
+        $n=Kriteria::all()->count();
+        //Panggil Perbandingan antar kriteria table 1
+        $simpan=array();
+        $total_per_kolom=array();
+        foreach($index as $a => $text){
+        $temp=KriteriaPerbandingan::where('kriteria_1',$text->id)->get();
+         foreach($temp as $a2 => $text2){
+            $simpan["kriteria-".$a][$a2]=$text2->rating;
+            if(isset($total_per_kolom["Kolom".$a2])){
+
+                $total_per_kolom["Kolom".$a2]+=$text2->rating;
+            
+            }else{
+                $total_per_kolom["Kolom".$a2]=0;
+                $total_per_kolom["Kolom".$a2]+=$text2->rating;
+            
+            }  
+         }
+        }
+        $ri=array();
+        $ri=array(
+            array(0.00),
+            array(0.00),
+            array(0.58),
+            array(0.90),
+            array(1.12),
+            array(1.24),
+            array(1.32),
+            array(1.41),
+            array(1.45),
+            array(1.49),
+            array(1.51),
+            array(1.48),
+            array(1.56),
+            array(1.57),
+            array(1.59),
+        );
+        //Mencari Eigen Vektor Table 2
+        $simpan_normalisasi=array();
+        $total_per_kolom_normalisasi=array();
+        $total_per_row_normalisasi=array();
+        $average_per_row_normalisasi=array();
+        foreach($index as $a => $data){
+            foreach($simpan["kriteria-".$a] as $a2 => $data2){
+                $simpan_normalisasi["kriteria-".$a][$a2]=$data2/$total_per_kolom["Kolom".$a2];
+                if(isset($total_per_kolom_normalisasi["Kolom".$a2])){
+                    $total_per_kolom_normalisasi["Kolom".$a2]+=$simpan_normalisasi["kriteria-".$a][$a2];
+                
+                }else{
+                    $total_per_kolom_normalisasi["Kolom".$a2]=0;
+                    $total_per_kolom_normalisasi["Kolom".$a2]+=$simpan_normalisasi["kriteria-".$a][$a2];
+                
+                }
+                if(isset($total_per_row_normalisasi["Row".$a])){
+                    $total_per_row_normalisasi["Row".$a]+=$simpan_normalisasi["kriteria-".$a][$a2];
+                
+                }else{
+                    $total_per_row_normalisasi["Row".$a]=0;
+                    $total_per_row_normalisasi["Row".$a]+=$simpan_normalisasi["kriteria-".$a][$a2];
+                
+                }  
+            }
+            $average_per_row_normalisasi["Row".$a]=$total_per_row_normalisasi["Row".$a]/$n;
+        };
+        $MatrixXEv=array();
+        $nMax=0;
+        //Table 3
+        foreach($index as $a => $data){
+            $MatrixXEv["Row".$a]=0;
+            foreach($simpan["kriteria-".$a] as $a2 => $data2){
+                $MatrixXEv["Row".$a]+=$data2*$average_per_row_normalisasi["Row".$a2];
+            }
+            $nMax+=$MatrixXEv["Row".$a]/$average_per_row_normalisasi["Row".$a];
+        }
+        $nMax=$nMax/$n;
+        $CI_Konsisten=($nMax-$n)/($n-1);
+        $RI_Konsisten=$ri[$n-1];
+        $CR_Konsisten=$CI_Konsisten/$RI_Konsisten[0];
+        //----------------------------------------------------------
+        $data_sepeda = SepedaListrik::all();
+        $sepeda = AlternatifValue::all();
+        //Tahap Pembagi dan X Y
+        $tahap_2_pembagi=array();
+        $sepeda_normalisasi=array();
+        //===================================================================
+        //NORMALISASI DATA MOTOR SEPEDA 
+        // dd($items, $sepeda_normalisasi);
+        //index====all kriteria
+        foreach($items as $a => $data){
+            $sepeda_normalisasi[$a]["id"]=$data["id"];
+            // dd($sepeda_normalisasi);
+            foreach($index as $a2 =>$data2){
+                $data3=AlternatifValue::where('kriteria_id',$data2->id)->where('alternatif_id',$data["id"])->first();
+                $data4=KriteriaRating::where('kriteria_id',$data2->id)->where('min_rating' ,'<=' ,$data3->value)->where('max_rating' ,'>=' ,$data3->value)->first();
+                $nilai=$data4->value;
+                $sepeda_normalisasi[$a][$data2->nama_kriteria]=$nilai;
+                // dd($data4, $data2, $sepeda_normalisasi);
+            }
+            // dd($sepeda_normalisasi);
+
+        }
+        // dd($sepeda_normalisasi);
+        //=====================================================================
+        //Tahap Cari R/X
+        $sepeda_terbobot_x=array();
+        $total_terbobot_x=array();
+        foreach($items as $a => $data){
+            foreach($index as $a2 =>$data2){
+                $sepeda_terbobot_x[$a][$data2->nama_kriteria]=$sepeda_normalisasi[$a][$data2->nama_kriteria]*$sepeda_normalisasi[$a][$data2->nama_kriteria];
+                if(isset($total_terbobot_x[$a2])){
+                    $total_terbobot_x[$a2]+=$sepeda_terbobot_x[$a][$data2->nama_kriteria];
+                }else{
+                    $total_terbobot_x[$a2]=0;
+                    $total_terbobot_x[$a2]+=$sepeda_terbobot_x[$a][$data2->nama_kriteria];
+
+                }
+            }
+        }
+        //Tahap Cari R/X 2
+        $sepeda_terbobot_x_2=array();
+        foreach($items as $a => $data){
+            foreach($index as $a2 =>$data2){
+                $sepeda_terbobot_x_2[$a][$data2->nama_kriteria]=$sepeda_normalisasi[$a][$data2->nama_kriteria]/sqrt($total_terbobot_x[$a2]);
+            }
         }
         //=====================================================================
-        return view('Pembeli.preferensi_kriteria_view',compact('kriteria_all','data_alternatif','sepeda_all','items'),['sepeda_view' => $sepeda_view]);
+        //Tahap Cari R/Y
+        $sepeda_terbobot_y=array();
+        $cari_Max_Min_Y=array();
+        foreach($sepeda_terbobot_x_2 as $a => $data){
+            foreach($index as $a2 =>$data2){
+                $sepeda_terbobot_y[$a][$data2->nama_kriteria]=$data[$data2->nama_kriteria]*$average_per_row_normalisasi["Row".$a2];
+                $cari_Max_Min_Y[$data2->nama_kriteria][$a]=$sepeda_terbobot_y[$a][$data2->nama_kriteria];
+            }
+        }
+        //=====================================================================
+        //=====================================================================
+        // CARI A+ dan A-
+        dd($sepeda_terbobot_y);
+        $tahap_3_Solusi_Ideal_Positif=array();
+        $tahap_3_Solusi_Ideal_Negatif=array();
+
+        foreach($index as $angka => $data ){
+            if($data->type == "benefit"){
+                $tahap_3_Solusi_Ideal_Positif[$data->nama_kriteria]=max($cari_Max_Min_Y[$data->nama_kriteria]);
+            }else{
+                $tahap_3_Solusi_Ideal_Positif[$data->nama_kriteria]=min($cari_Max_Min_Y[$data->nama_kriteria]);
+            }
+            if($data->type == "cost"){
+                $tahap_3_Solusi_Ideal_Negatif[$data->nama_kriteria]=max($cari_Max_Min_Y[$data->nama_kriteria]);
+            }else{
+                $tahap_3_Solusi_Ideal_Negatif[$data->nama_kriteria]=min($cari_Max_Min_Y[$data->nama_kriteria]);
+            }
+        }
+        // dd($tahap_3_Solusi_Ideal_Positif);
+        //=====================================================================
+        //Jarak Antara Nilai Terbobot D+ and D-
+        $nilai_D_positif=array();
+        $nilai_D_negatif=array();
+        // dd($sepeda_terbobot_y);
+        foreach($sepeda_terbobot_y as $angka => $data){
+            foreach($index as $angka2 => $data2){
+                if(isset($nilai_D_positif[$angka])){
+                    $nilai_D_positif[$angka]+=($data[$data2->nama_kriteria]-$tahap_3_Solusi_Ideal_Positif[$data2->nama_kriteria])*($data[$data2->nama_kriteria]-$tahap_3_Solusi_Ideal_Positif[$data2->nama_kriteria]);
+                }else{
+                    $nilai_D_positif[$angka]=0;
+                    $nilai_D_positif[$angka]+=($data[$data2->nama_kriteria]-$tahap_3_Solusi_Ideal_Positif[$data2->nama_kriteria])*($data[$data2->nama_kriteria]-$tahap_3_Solusi_Ideal_Positif[$data2->nama_kriteria]);
+                }
+                if(isset($nilai_D_negatif[$angka])){
+                    $nilai_D_negatif[$angka]+=pow($data[$data2->nama_kriteria]-$tahap_3_Solusi_Ideal_Negatif[$data2->nama_kriteria],2);
+                }else{
+                    $nilai_D_negatif[$angka]=0;
+                    $nilai_D_negatif[$angka]+=pow($data[$data2->nama_kriteria]-$tahap_3_Solusi_Ideal_Negatif[$data2->nama_kriteria],2);
+                }
+            }
+
+            // dd($nilai_D_positif);
+            $nilai_D_positif[$angka]=sqrt($nilai_D_positif[$angka]);
+            $nilai_D_negatif[$angka]=sqrt($nilai_D_negatif[$angka]);
+        }
+        dd($nilai_D_negatif);
+        //=====================================================================
+        ////RANKING OR NILAI PREFERENSI
+        // dd($items);
+        // dd($nilai_D_negatif);
+        $nilai_preferensi=array();
+        foreach($items as $angka => $data){
+            // dd($data["id"]);
+            $nilai_preferensi[$angka]["Result"]=$nilai_D_negatif[$angka]/($nilai_D_negatif[$angka]+$nilai_D_positif[$angka]);
+            $nilai_preferensi[$angka]["id"]=$data["id"];
+        }
+        $descending_nilai=$nilai_preferensi;
+        // dd($nilai_preferensi);
+        rsort($descending_nilai);
+        // dd($nilai_preferensi);
+        // dd($descending_nilai);
+        foreach($descending_nilai as $angka => $data){
+            foreach($nilai_preferensi as $angka2 => $data2){
+                if($nilai_preferensi[$angka2]["id"]==$data["id"]){
+                    $nilai_preferensi[$angka2]["Rank"]=$angka+1;
+
+                }
+            }
+        }
+            //  dd($nilai_preferensi);
+        }else{
+            return view('Pembeli.preferensi_kriteria_view',compact('kriteria_all','data_alternatif','sepeda_all','items','nilai'),['sepeda_view' => $sepeda_view]);
+        }
+        //=====================================================================
+        return view('Pembeli.preferensi_kriteria_view',compact('kriteria_all','data_alternatif','sepeda_all','items','nilai_preferensi','nilai'),['sepeda_view' => $sepeda_view]);
+    }else{
+        $nilai="kosong";
+        return view('Pembeli.preferensi_kriteria_view',compact('kriteria_all','data_alternatif','sepeda_all','nilai'),['sepeda_view' => $sepeda_view]);
+    }
     }
     
     public function orderby(Request $request){

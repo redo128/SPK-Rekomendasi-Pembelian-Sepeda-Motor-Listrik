@@ -335,10 +335,6 @@ class PerhitunganSuperAdmin extends Controller
                     }
                 }
         }
-        // dd($sepeda_terbobot_x_2);
-        // dd($nilai_preferensi);
-        // dd($sepeda_terbobot_y);
-        // dd($sepeda_normalisasi);
         //=====================================================================
         return view('SuperAdmin.perhitungan_sepeda_listrik',compact('simpan','index','total_per_kolom','ri','total_per_kolom_normalisasi','simpan_normalisasi','sepeda_normalisasi','sepeda_terbobot_x','total_terbobot_x','n','total_per_row_normalisasi','average_per_row_normalisasi','MatrixXEv','nMax','CI_Konsisten','RI_Konsisten','CR_Konsisten','data_sepeda','sepeda',
     'tahap_2_pembagi','sepeda_terbobot_x','sepeda_terbobot_x_2','sepeda_terbobot_y','tahap_3_Solusi_Ideal_Positif','tahap_3_Solusi_Ideal_Negatif','nilai_D_negatif','nilai_D_positif','nilai_preferensi'));

@@ -122,7 +122,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach($data_sepeda->where('tipe' ,"==", "sepeda listrik") as $data)
+                    @foreach($data_sepeda->where('tipe' ,"==", "sepeda listrik") as $a => $data)
                     <tr>
                         <th scope="row">{{$data->id}}</th>
                         <td>{{$data->nama_sepeda}}</td>
@@ -295,7 +295,12 @@
             <table class="table">
                 <thead>
                     <tr>
-                        <th></th>
+                        <th scope="col">Nama Kendaraan</th>
+                        <th scope="col">Brand</th>
+                        <th scope="col">Toko</th>
+                         @foreach($index as $data)
+                        <th scope="col">{{$data->nama_kriteria}}</th>
+                        @endforeach
                         <th>Nilai</th>
                         <th>Rank</th>
                     </tr>
@@ -303,8 +308,16 @@
                 <tbody>
                     @foreach($nilai_preferensi["sepeda listrik"] as $a => $data)
                     <tr>
-                        <th>V{{$a}}</th>
-                        <td>{{$data["Result"]}}</td>
+                        @foreach($data_sepeda->where('id', $data["id"]) as $a2 => $data2)
+                        <td>{{$data2->nama_sepeda}}</td>
+                        <td>{{$data2->brand->nama_brand}}</td>
+                        <td>{{$data2->toko->nama_toko}}</td>
+                        @foreach($sepeda->where('alternatif_id',$data2->id) as $a3 => $data3)
+                        <td>{{number_format($data3->value,0,",",".")}}</td>
+                        @endforeach
+                        @endforeach
+                        <!-- <th>V{{$a}}</th> -->
+                        <td>{{number_format($data["Result"],3)}}</td>
                         <td>{{$data["Rank"]}}</td>
                     </tr>
                     @endforeach

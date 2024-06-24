@@ -70,6 +70,7 @@ Route::middleware(['auth'])->group(function(){
     Route::post('/api/orderby-users', [PembeliController::class,'testorder']);
     Route::post('/pembeli/sepeda/{data}', [PembeliController::class,'custom_store'])->name('pembeli.custom.store');
     Route::resource('sepeda_pembeli', SepedaPembeliController::class)->middleware('userAkses:pembeli');
+    Route::post('api/kriteria', [PembeliController::class, 'fetchkriteria']);
     Route::resource('penjual', PenjualController::class)->middleware('userAkses:penjual');
     Route::resource('sepeda_penjual', SepedaPenjualController::class)->middleware('userAkses:penjual');
     Route::get('/wishlist-pembeli',[PenjualController::class, 'wishlist_pembeli'])->name('penjual.wishlist.pebeli')->middleware('userAkses:penjual');

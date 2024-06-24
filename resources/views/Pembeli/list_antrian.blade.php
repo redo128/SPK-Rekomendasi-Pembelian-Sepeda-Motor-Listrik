@@ -33,7 +33,7 @@
     <tr>
         <th scope="row">{{$angka}}</th>
         @foreach($data_sepeda_all->where('id',$data->alternatif_id) as $angka2 => $data2)
-        <td scope="row"><img src="{{asset($data2->image)}}" width="100px"  height="100px" alt=""></td>
+        <td scope="row"><img src="{{asset('storage/'.$data2->image)}}" width="100px"  height="100px" alt=""></td>
         <td scope="row">{{$data2->nama_sepeda}}</td>
         <td scope="row">{{$data2->tipe}}</td>
         <td scope="row">{{$data2->toko->nama_toko}}</td>

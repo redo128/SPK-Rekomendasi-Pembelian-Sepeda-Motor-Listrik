@@ -81,6 +81,23 @@
         </a>
       </li>
       <li class="nav-item">
+        <a class="nav-link collapsed" data-bs-target="#charts-nav" data-bs-toggle="collapse" href="#" aria-expanded="false">
+          <i class="bi bi-bar-chart"></i><span>List Sepeda</span><i class="bi bi-chevron-down ms-auto"></i>
+        </a>
+        <ul id="charts-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+          <li>
+            <a href="charts-chartjs.html">
+              <i class="bi bi-circle"></i><span>Sepeda Listrik</span>
+            </a>
+          </li>
+          <li>
+            <a href="charts-apexcharts.html">
+              <i class="bi bi-circle"></i><span>Sepeda Motor Listrik</span>
+            </a>
+          </li>
+        </ul>
+      </li>
+      <li class="nav-item">
         <a class="nav-link collapsed" href="{{route('list_antrian')}}">
           <i class="bi bi-person"></i>
           <span>List Antrian</span>
@@ -92,6 +109,7 @@
           <span>Perhitungan</span>
         </a>
       </li>
+      
       @endif
       @if(auth()->user()->role=="penjual")
       <li class="nav-item">

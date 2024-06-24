@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('preferensi_kriteria', function (Blueprint $table) {
             $table->id();
             $table->foreignId('kriteria_id')->references('id')->on('kriteria_alternatif');
+            $table->enum('tipe',['sepeda listrik','sepeda motor listrik'])->default('sepeda listrik');
             $table->integer('min_rating');
             $table->integer('max_rating');
             $table->timestamps();
