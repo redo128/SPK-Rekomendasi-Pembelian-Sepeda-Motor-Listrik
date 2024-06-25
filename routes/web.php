@@ -70,6 +70,10 @@ Route::middleware(['auth'])->group(function(){
     Route::post('/api/orderby-users', [PembeliController::class,'testorder']);
     Route::post('/pembeli/sepeda/{data}', [PembeliController::class,'custom_store'])->name('pembeli.custom.store');
     Route::resource('sepeda_pembeli', SepedaPembeliController::class)->middleware('userAkses:pembeli');
+    Route::get('/list-sepeda-motor-listrik',[SepedaPembeliController::class,'index_sepeda_motor_listrik'])->name('list_sepeda_motor_listrik')->middleware('userAkses:pembeli');
+    Route::get('/list-sepeda-listrik',[SepedaPembeliController::class,'index_sepeda_listrik'])->name('list_sepeda_listrik')->middleware('userAkses:pembeli');
+    Route::post('/pembeli/sepeda-listrik/{data}', [SepedaPembeliController::class,'custom_store_sepeda_listrik'])->name('pembeli.custom.sepeda.listrik.store');
+    Route::post('/pembeli/sepeda-motor-listrik/{data}', [SepedaPembeliController::class,'custom_store_sepeda_motor_listrik'])->name('pembeli.custom.sepeda.motor.listrik.store');
     Route::post('api/kriteria', [PembeliController::class, 'fetchkriteria']);
     Route::resource('penjual', PenjualController::class)->middleware('userAkses:penjual');
     Route::resource('sepeda_penjual', SepedaPenjualController::class)->middleware('userAkses:penjual');

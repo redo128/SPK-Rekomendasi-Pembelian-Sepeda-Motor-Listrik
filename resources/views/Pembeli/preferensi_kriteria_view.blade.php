@@ -17,6 +17,7 @@
                   @foreach($kriteria_all as $data)
                   <th scope="col">{{$data->nama_kriteria}}</th>
                   @endforeach
+                  <th>Aksi</th>
                 </tr>
               </thead>
               <tbody>
@@ -31,6 +32,16 @@
                     @foreach($kriteria_all as $data3)
                     <td scope="row">{{$data[$data3->nama_kriteria]}}</td>
                     @endforeach
+                    <td scope="row">
+                    <form method="POST" action="{{route('pembeli.custom.store',['data' => $data2->id])}}">
+                    @csrf
+                    @if($data_katalog->where("alternatif_id",$data2->id)->where("user_id",auth()->user()->id)->first()==null)
+                      <button type="submit" class="btn btn-primary" title="Tambah Data">Tambah ke List</button>
+                    @else
+                    <button type="submit" class="btn btn-primary"  disabled>Telah ditambahkan</button>
+                    @endif
+                    </form>
+                    </td>
                 </tr>
                 @endforeach
               </tbody>

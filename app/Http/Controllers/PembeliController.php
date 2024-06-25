@@ -98,14 +98,14 @@ class PembeliController extends Controller
         $kriteria_all=Kriteria::all();
         
         $filter=array();
-        $data_sepeda=SepedaListrik::all();
+        $data_sepeda=SepedaListrik::where('tipe',$request->kriteria)->get();
         $sepeda_view=array();
         foreach($data_sepeda as $index => $data){
             // dump($data->id);
             // dd($request->data);
             foreach($request->data as $index2 => $data2){
                 // dd($data2);
-                if($data2 == null){
+                if($data2 == "null"){
                     
                 }
                 else{
@@ -151,8 +151,9 @@ class PembeliController extends Controller
         }else{
             $items="kosong";
         }
+        $data_katalog=AlternatifSelectPembeli::all();
         //=====================================================================
-        return view('Pembeli.preferensi_kriteria_view',compact('kriteria_all','data_alternatif','sepeda_all','items'),['sepeda_view' => $sepeda_view]);
+        return view('Pembeli.preferensi_kriteria_view',compact('kriteria_all','data_alternatif','sepeda_all','items','data_katalog'),['sepeda_view' => $sepeda_view]);
     }
     
     public function orderby(Request $request){

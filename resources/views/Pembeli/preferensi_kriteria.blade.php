@@ -70,17 +70,17 @@
                     },
                     dataType: 'json',
                     success: function (result) {
-                      var kecepatanOptions = '<option value="">-- Select Preferensi --</option>';
+                      var kecepatanOptions = '<option value="null">-- Select Preferensi --</option>';
                       $.each(result.kecepatan, function (key, value) {
                           kecepatanOptions += '<option value="' + value.id + '">' + value.min_rating +' - '+value.max_rating+ '</option>';
                       });
 
-                      var jaraktempuhOptions = '<option value="">-- Select Preferensi --</option>';
+                      var jaraktempuhOptions = '<option value="null">-- Select Preferensi --</option>';
                       $.each(result["jarak tempuh"], function (key, value) {
                           jaraktempuhOptions += '<option value="' + value.id + '">' + value.min_rating +' - '+value.max_rating+ '</option>';
                       });
 
-                      var hargaOptions = '<option value="">-- Select Preferensi --</option>';
+                      var hargaOptions = '<option value="null">-- Select Preferensi --</option>';
                       $.each(result["harga"], function (key, value) {
                           hargaOptions += '<option value="' + value.id + '">' + new Intl.NumberFormat(["ban", "id"]).format(value.min_rating) +' - '+ new Intl.NumberFormat(["ban", "id"]).format(value.max_rating)+ '</option>';
                       });

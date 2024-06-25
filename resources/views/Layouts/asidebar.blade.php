@@ -74,24 +74,24 @@
           <span>Preferensi Kriteria</span>
         </a>
       </li>
-      <li class="nav-item">
+      <!-- <li class="nav-item">
         <a class="nav-link collapsed" href="{{route('sepeda_pembeli.index')}}">
           <i class="bi bi-person"></i>
           <span>List Sepeda Listrik</span>
         </a>
-      </li>
+      </li> -->
       <li class="nav-item">
         <a class="nav-link collapsed" data-bs-target="#charts-nav" data-bs-toggle="collapse" href="#" aria-expanded="false">
           <i class="bi bi-bar-chart"></i><span>List Sepeda</span><i class="bi bi-chevron-down ms-auto"></i>
         </a>
         <ul id="charts-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
           <li>
-            <a href="charts-chartjs.html">
+            <a href="{{route('list_sepeda_listrik')}}">
               <i class="bi bi-circle"></i><span>Sepeda Listrik</span>
             </a>
           </li>
           <li>
-            <a href="charts-apexcharts.html">
+            <a href="{{route('list_sepeda_motor_listrik')}}">
               <i class="bi bi-circle"></i><span>Sepeda Motor Listrik</span>
             </a>
           </li>

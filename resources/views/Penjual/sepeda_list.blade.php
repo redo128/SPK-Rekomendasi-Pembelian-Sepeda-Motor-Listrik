@@ -9,7 +9,7 @@
     @foreach($data_sepeda as $data)
     <div class="col-2">
         <div class="card" style="width: 18rem;">
-          <img src="{{asset('storage/'.$data->image)}}" class="card-img-top" alt="...">
+          <img src="{{asset('storage/'.$data->image)}}" width="100px"  height="200px" class="card-img-top" alt="...">
           <!-- <th scope="row"><img src="{{asset('storage/'.$data->image)}}" class="img-thumbnail" style="width:100px" alt=""></th> -->
           <div class="card-body">
             <h5 class="card-title">{{$data->nama_sepeda}}</h5>
