@@ -24,6 +24,21 @@ class SepedaPenjualController extends Controller
         return view('Penjual.sepeda_list',compact('data_sepeda','data_alternatif'));
     }
 
+    public function index_sepeda_listrik()
+    {
+        $index = SepedaListrik::where('tipe',"sepeda listrik")->get();
+        $kriteria= Kriteria::all();
+        $sepeda = AlternatifValue::all();
+        return view('Penjual.sepeda_listrik_list',compact('index','sepeda','kriteria'));
+    }
+    public function index_sepeda_motor_listrik()
+    {
+        $index = SepedaListrik::where('tipe',"sepeda motor listrik")->get();
+        $kriteria= Kriteria::all();
+        $sepeda = AlternatifValue::all();
+        return view('Penjual.sepeda_listrik_list',compact('index','sepeda','kriteria'));
+    }
+
     /**
      * Show the form for creating a new resource.
      */
@@ -42,12 +57,20 @@ class SepedaPenjualController extends Controller
         $value = $request->input('value'); 
 
         //Inputan Sepeda listrik
+        $request->validate([
+            'image' => 'required|image|mimes:jpeg,png,jpg|max:2048',
+        ]);
+        if ($request->hasFile('image')) {
+            $file = $request->file('image');
+            $filePath = $file->store('images', 'public');
+        }
         $sepeda=new SepedaListrik();
         $kriteria=Kriteria::all();
         $sepeda->nama_sepeda=$request->get('nama_sepeda');
         $sepeda->tipe=$request->get('tipe');
         $sepeda->toko_id=Auth::user()->toko_id;
         $sepeda->brand_id=$request->get('brand_id');
+        $sepeda->image=$filePath;
         $sepeda->save();
         // dd($sepeda->id);
         //Inputan Spesifikasi Sepeda Listrik

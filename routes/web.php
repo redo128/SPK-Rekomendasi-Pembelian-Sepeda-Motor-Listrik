@@ -78,6 +78,8 @@ Route::middleware(['auth'])->group(function(){
     Route::resource('penjual', PenjualController::class)->middleware('userAkses:penjual');
     Route::resource('sepeda_penjual', SepedaPenjualController::class)->middleware('userAkses:penjual');
     Route::get('/wishlist-pembeli',[PenjualController::class, 'wishlist_pembeli'])->name('penjual.wishlist.pebeli')->middleware('userAkses:penjual');
+    Route::get('/penjual-list-sepeda-listrik',[SepedaPenjualController::class, 'index_sepeda_listrik'])->name('penjual.sepeda.listrik')->middleware('userAkses:penjual');
+    Route::get('/penjual-list-sepeda-motor-listrik',[SepedaPenjualController::class, 'index_sepeda_motor_listrik'])->name('penjual.list.sepeda.motor.listrik')->middleware('userAkses:penjual');
 });
 Route::get('/tw',function(){
     return view('Layouts.main');
