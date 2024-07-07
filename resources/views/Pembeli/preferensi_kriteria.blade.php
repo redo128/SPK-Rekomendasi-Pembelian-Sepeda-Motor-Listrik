@@ -27,7 +27,6 @@
                       <label class="col-sm-2 col-form-label">Urutan Data</label>
                         <div class="col-sm-5">
                         <select id="kriteria-dropdown" name="kriteria_order" class="form-select" aria-label="Default select example">
-                            <option value="">Pilih Kriteria</option>
                             @foreach($data as $index => $d)
                             <option value="{{$d->nama_kriteria}}">{{$d->nama_kriteria}}</option>
                             @endforeach

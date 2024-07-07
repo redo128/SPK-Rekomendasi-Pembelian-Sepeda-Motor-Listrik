@@ -29,4 +29,7 @@ class DashboardController extends Controller
         $sepeda_value=AlternatifValue::all();
         return view('Superadmin.beranda',compact('data_sepeda','data_toko','data_brand','kriteria_all','sepeda_lastest','sepeda_value'));
     }
+    public function rangkuman(){
+        return view('rangkuman');
+    }
 }

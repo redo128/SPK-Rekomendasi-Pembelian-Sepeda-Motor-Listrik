@@ -13,13 +13,13 @@
                 <div class="row mb-3">
                   <label for="inputText" class="col-sm-2 col-form-label">Nama Toko</label>
                   <div class="col-sm-10">
-                    <input type="text" name="nama_toko" class="form-control" value="{{$data->nama_toko}}">
+                    <input type="text" name="nama_toko" class="form-control" value="{{$data->nama_toko}}" required>
                   </div>
                 </div>
                 <div class="row mb-3">
                   <label for="inputText" class="col-sm-2 col-form-label">Alamat Toko</label>
                   <div class="col-sm-10">
-                    <input type="text" name="alamat_toko" class="form-control" value="{{$data->alamat}}">
+                    <input type="text" name="alamat_toko" class="form-control" value="{{$data->alamat}}" required>
                   </div>
                 </div>
                   <div class="col-sm-10">

@@ -7,7 +7,7 @@
                 <div class="card-body">
                     <h5 class="card-title">Add Sepeda</h5>
                 <!-- General Form Elements -->
-                    <form method="POST" action="{{route('sepeda_sa.update',$data->id)}}">
+                    <form method="POST" action="{{route('sepeda_penjual.update',$data->id)}}">
                     @method('PUT')
                         @csrf
                         <div class="row">
@@ -32,6 +32,13 @@
                                         @endforeach
                                     </select>
                                 </div>
+                                
+                                @foreach($value as $index => $value_alternatif)
+                            <label for="inputText" class="col-sm-3 col-form-label">{{$value_alternatif->kriteria->nama_kriteria}}</label>
+                                <div class="col-sm-8">
+                                    <input type="text" value="{{$value_alternatif->value}}" name="kriteria[{{$value_alternatif->kriteria->nama_kriteria}}]"  id="{{$value_alternatif->kriteria->nama_kriteria}}" class="form-control">
+                                </div>
+                                @endforeach            
                         </div>
                         <br><br>
                             <div class="col-sm-10">

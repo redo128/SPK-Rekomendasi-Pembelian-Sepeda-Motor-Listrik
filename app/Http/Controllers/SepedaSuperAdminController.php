@@ -46,9 +46,6 @@ class SepedaSuperAdminController extends Controller
         $request->validate([
             'image' => 'required|image|mimes:jpeg,png,jpg|max:2048',
         ]);
-        // $imageName = time().'.'.$request->image->extension();
-        // $uploadedImage = $request->image->move(public_path('images'), $imageName);
-        // $imagePath = 'images/' . $imageName;
         if ($request->hasFile('image')) {
             $file = $request->file('image');
             $filePath = $file->store('images', 'public');
@@ -113,11 +110,8 @@ class SepedaSuperAdminController extends Controller
         $sepeda->toko_id=$request->get('toko_id');
         $sepeda->brand_id=$request->get('brand_id');
         $kriteria_all=Kriteria::all();
-        // $sepeda_value=AlternatifValue::where('alternatif_id',$id)->get();
-        // dd($sepeda_value);
         $kriteria = $request->input('kriteria'); 
-        // dd($kriteria);
-        // dd($kriteria);
+
         foreach($kriteria_all as $index => $loop_k){
             
             $sepeda_value=AlternatifValue::where('alternatif_id',$id)->where('kriteria_id',$loop_k->id)->first();

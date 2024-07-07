@@ -14,9 +14,9 @@
 <table class="table">
   <thead>
     <tr>
-        @foreach($columns as $data =>$name)
-      <th scope="col">{{$name}}</th>
-      @endforeach
+      <th scope="col">No</th>
+      <th scope="col">Nama Toko</th>
+      <th scope="col">Alamat Toko</th>
       <th scope="col">Action</th>
     </tr>
   </thead>
@@ -26,8 +26,6 @@
       <th scope="row">{{$data->id}}</th>
       <td>{{$data->nama_toko}}</td>
       <td>{{$data->alamat}}</td>
-      <td>28</td>
-      <td>2016-05-25</td>
       <td>
       <form action="{{ route('toko.destroy', $data->id) }}" method="POST">
     @csrf

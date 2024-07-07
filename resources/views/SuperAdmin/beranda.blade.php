@@ -33,7 +33,7 @@
                     </div>
                     <div class="ps-3">
                       <h6>{{$data_brand}}</h6>
-                      <span class="text-success small pt-1 fw-bold"><a href="">See Detail >>></a></span>
+                      <span class="text-success small pt-1 fw-bold"><a href="">Total</a></span>
 
                     </div>
                   </div>
@@ -55,7 +55,8 @@
                     </div>
                     <div class="ps-3">
                       <h6>{{$data_toko}}</h6>
-                      <span class="text-success small pt-1 fw-bold"><a href="">See Detail >>></a></span>
+                      <!-- <span class="text-success small pt-1 fw-bold"><a href="">See Detail >>></a></span> -->
+                      <span class="text-success small pt-1 fw-bold"><a href="">Totala></span>
 
                     </div>
                   </div>

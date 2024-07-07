@@ -16,6 +16,8 @@
         <div class="card" style="border-radius: 1rem;">
           <div class="row g-0">
             <div class="col-md-6 col-lg-5 d-none d-md-block" style="background-color: white;">
+              <h1 style="text-align: center; padding-top: 20%;">Welcome to </h1>
+              <h2 style="text-align: center; padding-top: 20%;color: blue;">Sistem Rekomendasi Pembelian Sepeda Motor Listrik </h2>
               <!-- <img src="{{asset('background3.jpg')}}" width="500px" height="500px"
                 alt="login form" class="img-fluid" style="border-radius: 1rem 0 0 1rem;" /> -->
             </div>

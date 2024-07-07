@@ -49,17 +49,17 @@
         </a>
         <ul id="tables-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
           <li>
-            <a href="{{route('Sa.perhitungan.sepeda.listrik')}}">
+            <a href="{{route('sa.perhitungan.sepeda.listrik')}}">
               <i class="bi bi-circle"></i><span>Sepeda Listrik</span>
             </a>
           </li>
           <li>
-            <a href="{{route('Sa.perhitungan.sepeda.motor.listrik')}}">
+            <a href="{{route('sa.perhitungan.sepeda.motor.listrik')}}">
               <i class="bi bi-circle"></i><span>Sepeda Motor Listrik</span>
             </a>
           </li>
         </ul>
-      </li><!-- End Tables Nav -->
+      </li>
       @endif
       @if(auth()->user()->role=="pembeli")
       <li class="nav-item">
@@ -109,7 +109,23 @@
           <span>Perhitungan</span>
         </a>
       </li>
-      
+      <li class="nav-item">
+        <a class="nav-link collapsed" data-bs-target="#tables-nav" data-bs-toggle="collapse" href="#">
+          <i class="bi bi-layout-text-window-reverse"></i><span>Perhitungan</span><i class="bi bi-chevron-down ms-auto"></i>
+        </a>
+        <ul id="tables-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+          <li>
+            <a href="{{route('pembeli.perhitungan.sepeda.listrik')}}">
+              <i class="bi bi-circle"></i><span>Sepeda Listrik</span>
+            </a>
+          </li>
+          <li>
+            <a href="{{route('pembeli.perhitungan.sepeda.motor.listrik')}}">
+              <i class="bi bi-circle"></i><span>Sepeda Motor Listrik</span>
+            </a>
+          </li>
+        </ul>
+      </li>
       @endif
       @if(auth()->user()->role=="penjual")
       <li class="nav-item">

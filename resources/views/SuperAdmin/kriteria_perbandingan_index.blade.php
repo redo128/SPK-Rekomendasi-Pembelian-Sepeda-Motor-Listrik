@@ -1,7 +1,7 @@
 @extends('Layouts.index')
 @section('content')
 <div class="container">
-    <h1>List Brand</h1>
+    <h1> Perbandingan Kriteria</h1>
     <div class="row">
         <div class="col-10">
 

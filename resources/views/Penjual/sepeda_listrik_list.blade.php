@@ -37,10 +37,10 @@
       <td>{{number_format($data2->value,0,",",".")}}</td>
       @endforeach
       <td>
-      <form action="{{ route('sepeda_sa.destroy', $data->id) }}" method="POST">
+      <form action="{{ route('sepeda_penjual.destroy', $data->id) }}" method="POST">
     @csrf
     @method('DELETE')
-    <a href="{{route('sepeda_sa.edit',$data->id)}}" class="btn btn-success">Edit</a>
+    <a href="{{route('sepeda_penjual.edit',$data->id)}}" class="btn btn-success">Edit</a>
     <button class="btn btn-danger" type="submit">Delete</button>
   </form>
   </td>

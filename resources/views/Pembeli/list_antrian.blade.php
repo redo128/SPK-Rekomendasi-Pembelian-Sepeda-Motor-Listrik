@@ -8,7 +8,7 @@
 
   </div>
   <div class="col-2">
-  <a href="{{route('perhitungan_pembeli',auth()->user()->id)}}"><button type="button" class="btn btn-primary">Ranking Sepeda</button></a>
+  <!-- <a href="{{route('perhitungan_pembeli',auth()->user()->id)}}"><button type="button" class="btn btn-primary">Ranking Sepeda</button></a> -->
     </div>
 </div>
 

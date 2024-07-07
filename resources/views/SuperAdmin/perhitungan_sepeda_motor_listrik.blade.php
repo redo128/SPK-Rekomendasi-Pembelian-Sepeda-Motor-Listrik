@@ -295,7 +295,12 @@
             <table class="table">
                 <thead>
                     <tr>
-                        <th></th>
+                    <th scope="col">Nama Kendaraan</th>
+                        <th scope="col">Brand</th>
+                        <th scope="col">Toko</th>
+                         @foreach($index as $data)
+                        <th scope="col">{{$data->nama_kriteria}}</th>
+                        @endforeach
                         <th>Nilai</th>
                         <th>Rank</th>
                     </tr>
@@ -303,7 +308,14 @@
                 <tbody>
                     @foreach($nilai_preferensi["sepeda motor listrik"] as $a => $data)
                     <tr>
-                        <th>V{{$a}}</th>
+                        @foreach($data_sepeda->where('id', $data["id"]) as $a2 => $data2)
+                        <td>{{$data2->nama_sepeda}}</td>
+                        <td>{{$data2->brand->nama_brand}}</td>
+                        <td>{{$data2->toko->nama_toko}}</td>
+                        @foreach($sepeda->where('alternatif_id',$data2->id) as $a3 => $data3)
+                        <td>{{number_format($data3->value,0,",",".")}}</td>
+                        @endforeach
+                        @endforeach
                         <td>{{$data["Result"]}}</td>
                         <td>{{$data["Rank"]}}</td>
                     </tr>

@@ -7,6 +7,7 @@ use App\Http\Controllers\KriteriaPerbandinganController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\PembeliController;
 use App\Http\Controllers\PenjualController;
+use App\Http\Controllers\PerhitunganPembeli;
 use App\Http\Controllers\PerhitunganSuperAdmin;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\SepedaPembeliController;
@@ -49,8 +50,8 @@ Route::middleware(['auth'])->group(function(){
     Route::resource('kriteria', KriteriaController::class)->middleware('userAkses:superadmin');
     Route::resource('kriteriaperbandingan', KriteriaPerbandinganController::class)->middleware('userAkses:superadmin');
     Route::get('/logout',[LoginController::class,'logout'])->name('logout');
-    Route::get('/perhitungan-sepeda-listrik',[PerhitunganSuperAdmin::class,'index_sepeda_listrik'])->name('Sa.perhitungan.sepeda.listrik')->middleware('userAkses:superadmin');
-    Route::get('/perhitungan-sepeda-motor-listrik',[PerhitunganSuperAdmin::class,'index_sepeda_motor_listrik'])->name('Sa.perhitungan.sepeda.motor.listrik')->middleware('userAkses:superadmin');
+    Route::get('/perhitungan-sepeda-listrik-admin',[PerhitunganSuperAdmin::class,'index_sepeda_listrik'])->name('sa.perhitungan.sepeda.listrik')->middleware('userAkses:superadmin');
+    Route::get('/perhitungan-sepeda-motor-listrik-admin',[PerhitunganSuperAdmin::class,'index_sepeda_motor_listrik'])->name('sa.perhitungan.sepeda.motor.listrik')->middleware('userAkses:superadmin');
     Route::get('/superadmin',[SuperAdminController::class,'index'])->name('SuperAdmin.beranda')->middleware('userAkses:superadmin');
     Route::get('/superadmin/bobot',[SuperAdminController::class,'penentuan_bobot'])->name('SuperAdmin.bobot')->middleware('userAkses:superadmin');
     Route::get('/superadmin/bobot-create',[SuperAdminController::class,'penentuan_bobot_create'])->name('SuperAdmin.bobot_create')->middleware('userAkses:superadmin');
@@ -63,6 +64,7 @@ Route::middleware(['auth'])->group(function(){
     Route::delete('/list-antrian-delete/{id}',[PembeliController::class,'list_antrian_delete'])->name('list_antrian_delete')->middleware('userAkses:pembeli');
     Route::get('/preferensi-kriteria',[PembeliController::class,'preferensi_kriteria'])->name('preferensi_kriteria')->middleware('userAkses:pembeli');
     Route::get('/perhitungan-pembeli/{id}',[PembeliController::class,'perhitungan'])->name('perhitungan_pembeli')->middleware('userAkses:pembeli');
+    Route::get('/rangkuman-perihal',[DashboardController::class,'rangkuman'])->name('rangkuman_kriteria')->middleware('userAkses:pembeli');
     Route::post('/api/value-brand-dropdown', [PembeliController::class,'kriteria_brand']);
     Route::post('/api/value-kriteria-dropdown', [PembeliController::class,'kriteria_value']);
     Route::get('/preferensi/kriteria-value', [PembeliController::class,'preferensi_kriteria_view'])->name('preferensi.value');
@@ -74,6 +76,8 @@ Route::middleware(['auth'])->group(function(){
     Route::get('/list-sepeda-listrik',[SepedaPembeliController::class,'index_sepeda_listrik'])->name('list_sepeda_listrik')->middleware('userAkses:pembeli');
     Route::post('/pembeli/sepeda-listrik/{data}', [SepedaPembeliController::class,'custom_store_sepeda_listrik'])->name('pembeli.custom.sepeda.listrik.store');
     Route::post('/pembeli/sepeda-motor-listrik/{data}', [SepedaPembeliController::class,'custom_store_sepeda_motor_listrik'])->name('pembeli.custom.sepeda.motor.listrik.store');
+    Route::get('/perhitungan-sepeda-listrik',[PerhitunganPembeli::class,'index_sepeda_listrik'])->name('pembeli.perhitungan.sepeda.listrik')->middleware('userAkses:pembeli');
+    Route::get('/perhitungan-sepeda-motor-listrik',[PerhitunganPembeli::class,'index_sepeda_motor_listrik'])->name('pembeli.perhitungan.sepeda.motor.listrik')->middleware('userAkses:pembeli');
     Route::post('api/kriteria', [PembeliController::class, 'fetchkriteria']);
     Route::resource('penjual', PenjualController::class)->middleware('userAkses:penjual');
     Route::resource('sepeda_penjual', SepedaPenjualController::class)->middleware('userAkses:penjual');

@@ -24,7 +24,7 @@
                         <th>{{$find->nama_kriteria }}</th>
                       @foreach($dataperbandingan as $angka => $data)
                 <th scope="row">
-                  <input type="text" name="rating[{{$find->id}}][{{$data->id}}]" class="form-control" value="{{$data->rating}}">
+                  <input type="text" name="rating[{{$find->id}}][{{$data->id}}]" class="form-control" value="{{$data->rating}}" required>
                 </th>
                 @endforeach
               </tr>

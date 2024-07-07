@@ -96,15 +96,21 @@ class PembeliController extends Controller
             return redirect()->route('sepeda_sa.index')->with('success', 'Data Sepeda Belum Ada');   
         }
         $kriteria_all=Kriteria::all();
+        $data_sepeda=SepedaListrik::where('tipe',$request->kriteria)->get();
         
         $filter=array();
-        $data_sepeda=SepedaListrik::where('tipe',$request->kriteria)->get();
         $sepeda_view=array();
+        $allNull=true;
+        // dd($request->data);
+        foreach($request->data as $item) {
+            if ($item!="null") {
+                $allNull = false;
+                break;
+            }
+        }
+        if($allNull==false){
         foreach($data_sepeda as $index => $data){
-            // dump($data->id);
-            // dd($request->data);
             foreach($request->data as $index2 => $data2){
-                // dd($data2);
                 if($data2 == "null"){
                     
                 }
@@ -138,7 +144,6 @@ class PembeliController extends Controller
                 }
             }
         }
-        // dd($sepeda_view);
         $data_alternatif=AlternatifValue::all();
         $sepeda_all=SepedaListrik::all();
         $kriteria_all=Kriteria::all();
@@ -152,8 +157,35 @@ class PembeliController extends Controller
             $items="kosong";
         }
         $data_katalog=AlternatifSelectPembeli::all();
+        $value_kriteria="exist";
+        return view('Pembeli.preferensi_kriteria_view',compact('kriteria_all','data_alternatif','sepeda_all','items','data_katalog','value_kriteria'),['sepeda_view' => $sepeda_view]);
+    }
+    else{
+        $kriteria_all=Kriteria::all();
+        $sepeda_all=SepedaListrik::all();
+        $items=SepedaListrik::where('tipe',$request->kriteria)->get();
+        foreach($items as $angka => $data){
+            $data_sepeda_satu=SepedaListrik::find($data->id);
+            $filter[$angka]["id"]=$data_sepeda_satu->id;
+            foreach($kriteria_all as $angka2 => $data_index){
+                $value=AlternatifValue::where("kriteria_id",$data_index->id)->where('alternatif_id',$data->id)->first();
+                $filter[$angka][$data_index->nama_kriteria]=$value->value;
+            }
+
+        }
+        // dd($request->kriteria_order);
+        if($request->order == "ASC"){
+            $items = collect($filter)->sortBy($request->kriteria_order)->values()->all();
+        }else if($request->order == "DESC"){
+            $items = collect($filter)->sortByDesc($request->kriteria_order)->values()->all();
+        }
+        // dd($items);
+        $data_alternatif=AlternatifValue::all();
+        $data_katalog=AlternatifSelectPembeli::all();
+        $value_kriteria="non";
+        return view('Pembeli.preferensi_kriteria_view',compact('kriteria_all','sepeda_all','data_alternatif','items','data_katalog','value_kriteria'),['sepeda_view' => $sepeda_view]);
+    }
         //=====================================================================
-        return view('Pembeli.preferensi_kriteria_view',compact('kriteria_all','data_alternatif','sepeda_all','items','data_katalog'),['sepeda_view' => $sepeda_view]);
     }
     
     public function orderby(Request $request){
@@ -236,7 +268,7 @@ class PembeliController extends Controller
         $data->alternatif_id=$id;
         $data->user_id=Auth::user()->id;
         $data->save();
-        return redirect()->route('sepeda_pembeli.index');
+        return redirect()->back()->with('success','berhasil ditambahkan');
     }
     public function list_antrian()
     {
