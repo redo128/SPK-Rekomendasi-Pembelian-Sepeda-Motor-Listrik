@@ -36,11 +36,17 @@
         <td scope="row"><img src="{{asset('storage/'.$data2->image)}}" width="100px"  height="100px" alt=""></td>
         <td scope="row">{{$data2->nama_sepeda}}</td>
         <td scope="row">{{$data2->tipe}}</td>
-        <td scope="row">{{$data2->toko->nama_toko}}</td>
+        <td scope="row"><a href="{{route('toko.show',$data2->toko->id)}}">{{$data2->toko->nama_toko}}</a></td>
         <td scope="row">{{$data2->brand->nama_brand}}</td>
         @endforeach
         @foreach($data_alternatif->where('alternatif_id',$data->alternatif_id) as $data3)
-        <td scope="row">{{number_format($data3->value,0,",",".")}}</td>
+        @if($data3->kriteria->nama_kriteria == "kecepatan" )
+                                <td>{{number_format($data3->value,0,",",".")}} KM </td> 
+                                @elseif($data3->kriteria->nama_kriteria == "jarak tempuh")
+                                <td>{{number_format($data3->value,0,",",".")}} KM </td> 
+                                @elseif($data3->kriteria->nama_kriteria == "harga")
+                                <td>RP. {{number_format($data3->value,0,",",".")}} </td>
+                                @endif
         @endforeach
         <td scope="row">
         <form action="{{ route('list_antrian_delete', $data->id) }}" method="POST">

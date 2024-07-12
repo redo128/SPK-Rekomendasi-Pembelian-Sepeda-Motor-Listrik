@@ -5,7 +5,7 @@
         <div class="col-10">
             <div class="card">
                 <div class="card-body">
-                    <h5 class="card-title">Add Sepeda</h5>
+                    <h5 class="card-title">Edit Sepeda</h5>
                 <!-- General Form Elements -->
                     <form method="POST" action="{{route('sepeda_penjual.update',$data->id)}}">
                     @method('PUT')

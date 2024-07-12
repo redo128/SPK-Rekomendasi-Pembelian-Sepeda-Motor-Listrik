@@ -7,7 +7,7 @@
             <div class="card-body">
               <h5 class="card-title">General Form Elements</h5>
               <!-- General Form Elements -->
-              <form method="POST" action="{{route('toko.update',$data->id)}}">
+              <form method="POST" action="{{route('toko.update',$data->id)}}" enctype="multipart/form-data">
               @method('PUT')
                 @csrf
                 <div class="row mb-3">
@@ -21,6 +21,12 @@
                   <div class="col-sm-10">
                     <input type="text" name="alamat_toko" class="form-control" value="{{$data->alamat}}" required>
                   </div>
+                </div>
+                <div class="row mb-3">
+                <label for="inputText" class="col-sm-2 col-form-label">Image</label>
+                <div class="col-sm-10">
+                    <input class="form-control" type="file" name="image" >
+                </div>
                 </div>
                   <div class="col-sm-10">
                     <button type="submit" class="btn btn-primary">Submit Form</button>

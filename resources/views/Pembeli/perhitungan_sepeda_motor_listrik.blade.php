@@ -2,7 +2,7 @@
 @section('content')
 <div class="container">
         <div class="row">
-            <h1>Rank</h1>
+            <h1>Ranking Preferensi</h1>
             <table class="table">
                 <thead>
                     <tr>
@@ -26,10 +26,16 @@
                         <td>{{$data2->brand->nama_brand}}</td>
                         <td>{{$data2->toko->nama_toko}}</td>
                         @foreach($sepeda->where('alternatif_id',$data2->id) as $a3 => $data3)
-                        <td>{{number_format($data3->value,0,",",".")}}</td>
+                        @if($data3->kriteria->nama_kriteria == "kecepatan" )
+                                <td>{{number_format($data3->value,0,",",".")}} KM </td> 
+                                @elseif($data3->kriteria->nama_kriteria == "jarak tempuh")
+                                <td>{{number_format($data3->value,0,",",".")}} KM </td> 
+                                @elseif($data3->kriteria->nama_kriteria == "harga")
+                                <td>RP. {{number_format($data3->value,0,",",".")}} </td>
+                                @endif
                         @endforeach
                         @endforeach
-                        <td>{{$data["Result"]}}</td>
+                        <td>{{number_format($data["Result"],3)}}</td>
                         <td>{{$data["Rank"]}}</td>
                     </tr>
                     @endforeach

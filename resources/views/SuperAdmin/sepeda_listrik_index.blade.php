@@ -32,9 +32,15 @@
       <td>{{$data->nama_sepeda}}</td>
       <td>{{$data->tipe}}</td>
       <td>{{$data->brand->nama_brand}}</td>
-      <td>{{$data->toko->nama_toko}}</td>
+      <td><a href="{{route('toko.show',$data->toko->id)}}">{{$data->toko->nama_toko}}</a></td> 
       @foreach($sepeda->where('alternatif_id',$data->id) as $data2)
-      <td>{{number_format($data2->value,0,",",".")}}</td>
+      @if($data2->kriteria->nama_kriteria == "kecepatan" )
+                                <td>{{number_format($data2->value,0,",",".")}} KM/h </td> 
+                                @elseif($data2->kriteria->nama_kriteria == "jarak tempuh")
+                                <td>{{number_format($data2->value,0,",",".")}} KM </td> 
+                                @elseif($data2->kriteria->nama_kriteria == "harga")
+                                <td>RP. {{number_format($data2->value,0,",",".")}} </td>
+                                @endif
       @endforeach
       <td>
       <form action="{{ route('sepeda_sa.destroy', $data->id) }}" method="POST">

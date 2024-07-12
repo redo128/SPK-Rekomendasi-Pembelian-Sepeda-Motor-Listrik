@@ -128,12 +128,18 @@
       </li>
       @endif
       @if(auth()->user()->role=="penjual")
-      <li class="nav-item">
+      <!-- <li class="nav-item">
         <a class="nav-link collapsed" href="{{route('sepeda_penjual.index')}}">
           <i class="bi bi-person"></i>
           <span>List Sepeda Listrik </span>
         </a>
-      </li>
+      </li> -->
+      <li class="nav-item">
+    <a class="nav-link " href="{{route('penjual.index')}}">
+      <i class="bi bi-grid"></i>
+      <span>Dashboard</span>
+    </a>
+  </li>
       <li class="nav-item">
         <a class="nav-link collapsed" data-bs-target="#charts-nav" data-bs-toggle="collapse" href="#" aria-expanded="false">
           <i class="bi bi-bar-chart"></i><span>List Sepeda</span><i class="bi bi-chevron-down ms-auto"></i>
@@ -157,12 +163,12 @@
           <span>Sepeda yang banyak diinginkan </span>
         </a>
       </li>
-      <li class="nav-item">
+      <!-- <li class="nav-item">
         <a class="nav-link collapsed" href="{{route('list_antrian')}}">
           <i class="bi bi-person"></i>
           <span>List Sub Admin</span>
         </a>
-      </li>
+      </li> -->
 
       @endif
     </ul>

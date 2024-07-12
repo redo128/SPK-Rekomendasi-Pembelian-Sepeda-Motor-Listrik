@@ -104,11 +104,19 @@ class SepedaSuperAdminController extends Controller
      */
     public function update(Request $request, string $id)
     {
+        $request->validate([
+            'image' => 'required|image|mimes:jpeg,png,jpg|max:2048',
+        ]);
+        if ($request->hasFile('image')) {
+            $file = $request->file('image');
+            $filePath = $file->store('images', 'public');
+        }
         $sepeda=SepedaListrik::find($id);
         $sepeda->nama_sepeda=$request->get('nama_sepeda');
         $sepeda->tipe=$request->get('tipe');
         $sepeda->toko_id=$request->get('toko_id');
         $sepeda->brand_id=$request->get('brand_id');
+        $sepeda->image=$filePath;
         $kriteria_all=Kriteria::all();
         $kriteria = $request->input('kriteria'); 
 

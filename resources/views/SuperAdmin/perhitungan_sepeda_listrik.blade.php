@@ -311,9 +311,16 @@
                         @foreach($data_sepeda->where('id', $data["id"]) as $a2 => $data2)
                         <td>{{$data2->nama_sepeda}}</td>
                         <td>{{$data2->brand->nama_brand}}</td>
-                        <td>{{$data2->toko->nama_toko}}</td>
+                        <td><a href="{{route('toko.show',$data2->toko->id)}}">{{$data2->toko->nama_toko}}</a></td> 
                         @foreach($sepeda->where('alternatif_id',$data2->id) as $a3 => $data3)
-                        <td>{{number_format($data3->value,0,",",".")}}</td>
+                        @if($data3->kriteria->nama_kriteria == "kecepatan" )
+                                <td>{{number_format($data3->value,0,",",".")}} KM/h </td> 
+                                @elseif($data3->kriteria->nama_kriteria == "jarak tempuh")
+                                <td>{{number_format($data3->value,0,",",".")}} KM </td> 
+                                @elseif($data3->kriteria->nama_kriteria == "harga")
+                                <td>RP. {{number_format($data3->value,0,",",".")}} </td>
+                                @endif
+                      
                         @endforeach
                         @endforeach
                         <!-- <th>V{{$a}}</th> -->

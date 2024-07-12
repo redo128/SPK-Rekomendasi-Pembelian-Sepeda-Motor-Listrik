@@ -44,7 +44,7 @@ Route::get('/home',function(){
 Route::get('/login-auth',[LoginController::class,'login_auth'])->name('login-masuk');
 Route::middleware(['auth'])->group(function(){
     Route::get('dashboard',[DashboardController::class,'index_sa'])->name('Dashboard')->middleware('userAkses:superadmin');
-    Route::resource('toko', TokoController::class)->middleware('userAkses:superadmin');
+    Route::resource('toko', TokoController::class);
     Route::resource('brand', BrandController::class)->middleware('userAkses:superadmin');
     Route::resource('sepeda_sa', SepedaSuperAdminController::class)->middleware('userAkses:superadmin');
     Route::resource('kriteria', KriteriaController::class)->middleware('userAkses:superadmin');
@@ -65,6 +65,7 @@ Route::middleware(['auth'])->group(function(){
     Route::get('/preferensi-kriteria',[PembeliController::class,'preferensi_kriteria'])->name('preferensi_kriteria')->middleware('userAkses:pembeli');
     Route::get('/perhitungan-pembeli/{id}',[PembeliController::class,'perhitungan'])->name('perhitungan_pembeli')->middleware('userAkses:pembeli');
     Route::get('/rangkuman-perihal',[DashboardController::class,'rangkuman'])->name('rangkuman_kriteria')->middleware('userAkses:pembeli');
+    Route::get('/rangkuman-perihalp',[DashboardController::class,'rangkuman'])->name('rangkuman_kriteria_penjual')->middleware('userAkses:penjual');
     Route::post('/api/value-brand-dropdown', [PembeliController::class,'kriteria_brand']);
     Route::post('/api/value-kriteria-dropdown', [PembeliController::class,'kriteria_value']);
     Route::get('/preferensi/kriteria-value', [PembeliController::class,'preferensi_kriteria_view'])->name('preferensi.value');

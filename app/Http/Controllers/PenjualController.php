@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\AlternatifSelectPembeli;
 use App\Models\AlternatifValue;
+use App\Models\Brand;
 use App\Models\Kriteria;
 use App\Models\SepedaListrik;
 use App\Models\User;
@@ -17,8 +18,14 @@ class PenjualController extends Controller
      */
     public function index()
     {
-        $namauser=Auth::user()->name;
-        return view('Penjual.beranda',compact('namauser'));
+        $admin_toko=User::find(Auth::id());
+        $data_sepeda_listrik=SepedaListrik::where('toko_id',$admin_toko->toko_id)->where('tipe','sepeda listrik')->count();
+        $data_sepeda_motor_listrik=SepedaListrik::where('toko_id',$admin_toko->toko_id)->where('tipe','sepeda motor listrik')->count();
+        $data_brand=Brand::count();
+        $kriteria_all=Kriteria::all();
+        $sepeda_lastest = SepedaListrik::where('toko_id',$admin_toko->toko_id)->latest()->take(5)->get();
+        $sepeda_value=AlternatifValue::all();
+        return view('Penjual.beranda',compact('data_sepeda_listrik','data_sepeda_motor_listrik','data_brand','kriteria_all','sepeda_lastest','sepeda_value'));
     }
 
     public function wishlist_pembeli()

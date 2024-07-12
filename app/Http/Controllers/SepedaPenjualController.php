@@ -151,6 +151,6 @@ class SepedaPenjualController extends Controller
     {
         $data=SepedaListrik::find($id);
         $data->delete();
-        return redirect()->route('sepeda_penjualindex');
+        return redirect()->back()->with('success','berhasil dihapus');
     }
 }

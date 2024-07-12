@@ -84,7 +84,7 @@
                 <tr>
                     <td scope="row">{{$data->nama_sepeda}}</td>
                     <td scope="row">{{$data->tipe}}</td>
-                    <td scope="row">{{$data->toko->nama_toko}}</td>
+                    <td><a href="{{route('toko.show',$data->toko->id)}}">{{$data->toko->nama_toko}}</a></td> 
                     <td scope="row">{{$data->brand->nama_brand}}</td>
                     @foreach($kriteria_all as $data2)
                     <td scope="row">{{number_format($sepeda_value->where('alternatif_id',$data->id)->where('kriteria_id',$data2->id)->first()->value,0,",",".")}}</td>

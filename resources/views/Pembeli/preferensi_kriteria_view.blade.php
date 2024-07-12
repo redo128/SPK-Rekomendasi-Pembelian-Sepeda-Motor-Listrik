@@ -11,6 +11,7 @@
             <table class="table table-hover" id="contentDiv" >
               <thead>
                 <tr>
+                  <th scope="col">Gambar Sepeda</th>
                   <th scope="col">Nama Sepeda</th>
                   <th scope="col">Tipe</th>
                   <th scope="col">Toko</th>
@@ -25,13 +26,20 @@
                 @foreach($items as $angka => $data)
                 <tr>
                 @foreach($sepeda_all->where('id',$data["id"]) as $angka2 => $data2)
+                <td scope="row"><img src="{{asset('storage/'.$data2->image)}}" width="100px"  height="100px" alt=""></td>
                     <td scope="row">{{$data2->nama_sepeda}}</td>
                     <td scope="row">{{$data2->tipe}}</td>
                     <td scope="row">{{$data2->toko->nama_toko}}</td>
                     <td scope="row">{{$data2->brand->nama_brand}}</td>
                   @endforeach
                     @foreach($kriteria_all as $data3)
-                      <td scope="row">{{$data[$data3->nama_kriteria]}}</td>
+                    @if($data3->nama_kriteria == "kecepatan" )
+                        <td scope="row"> {{number_format($data[$data3->nama_kriteria],0,",",".")}} KM</td>
+                        @elseif($data3->nama_kriteria == "jarak tempuh")
+                        <td scope="row"> {{number_format($data[$data3->nama_kriteria],0,",",".")}} KM</td>
+                        @elseif($data3->nama_kriteria == "harga")
+                        <td scope="row">  RP. {{number_format($data[$data3->nama_kriteria],0,",",".")}}</td>
+                        @endif
                     @endforeach
                     <td scope="row">
                     <form method="POST" action="{{route('pembeli.custom.store',['data' => $data['id']])}}">
@@ -51,6 +59,7 @@
     <table class="table table-hover" id="contentDiv" >
               <thead>
                 <tr>
+                  <th scope="col">Gambar</th>
                   <th scope="col">Nama Sepeda</th>
                   <th scope="col">Tipe</th>
                   <th scope="col">Toko</th>
@@ -65,13 +74,20 @@
                 @foreach($items as $angka => $data)
                 <tr>
                     @foreach($sepeda_all->where('id',$data["id"]) as $angka2 => $data2)
+                    <td scope="row"><img src="{{asset('storage/'.$data2->image)}}" width="100px"  height="100px" alt=""></td>
                     <td scope="row">{{$data2->nama_sepeda}}</td>
                     <td scope="row">{{$data2->tipe}}</td>
                     <td scope="row">{{$data2->toko->nama_toko}}</td>
                     <td scope="row">{{$data2->brand->nama_brand}}</td>
                     @endforeach
                     @foreach($kriteria_all as $data3)
-                    <td scope="row">{{$data[$data3->nama_kriteria]}}</td>
+                        @if($data3->nama_kriteria == "kecepatan" )
+                        <td scope="row"> {{number_format($data[$data3->nama_kriteria],0,",",".")}} KM</td>
+                        @elseif($data3->nama_kriteria == "jarak tempuh")
+                        <td scope="row"> {{number_format($data[$data3->nama_kriteria],0,",",".")}} KM</td>
+                        @elseif($data3->nama_kriteria == "harga")
+                        <td scope="row">  RP. {{number_format($data[$data3->nama_kriteria],0,",",".")}}</td>
+                        @endif
                     @endforeach
                     <td scope="row">
                     <form method="POST" action="{{route('pembeli.custom.store',['data' => $data2->id])}}">

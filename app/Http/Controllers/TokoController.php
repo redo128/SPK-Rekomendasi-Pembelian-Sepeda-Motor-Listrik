@@ -33,8 +33,16 @@ class TokoController extends Controller
     public function store(Request $request)
     {
         $toko=new Toko;
+        $request->validate([
+            'image' => 'required|image|mimes:jpeg,png,jpg|max:2048',
+        ]);
+        if ($request->hasFile('image')) {
+            $file = $request->file('image');
+            $filePath = $file->store('toko', 'public');
+        }
         $toko->nama_toko=$request->get('nama_toko');
         $toko->alamat=$request->get('alamat_toko');
+        $toko->image=$filePath;
         $toko->save();
         return redirect()->route('toko.index');
     }
@@ -44,7 +52,8 @@ class TokoController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $data=Toko::find($id);
+        return view('Superadmin.toko_detail',compact('data'));
     }
 
     /**
@@ -61,15 +70,17 @@ class TokoController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $validated = $request->validate([
-            'nama_toko' => 'required|unique:Toko,nama_toko,'.$id,'|max:255',
-        ],[
-            'nama_toko.unique'=>'This Brand Name Already Taken',
-            
+        $request->validate([
+            'image' => 'required|image|mimes:jpeg,png,jpg|max:2048',
         ]);
+        if ($request->hasFile('image')) {
+            $file = $request->file('image');
+            $filePath = $file->store('toko', 'public');
+        }
         $toko=Toko::find($id);
         $toko->nama_toko=$request->get('nama_toko');
         $toko->alamat=$request->get('alamat_toko');
+        $toko->image=$filePath;
         $toko->save();
         return redirect()->route('toko.index');
     }

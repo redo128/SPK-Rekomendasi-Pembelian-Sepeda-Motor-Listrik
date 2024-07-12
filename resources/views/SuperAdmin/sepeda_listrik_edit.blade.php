@@ -7,7 +7,7 @@
                 <div class="card-body">
                     <h5 class="card-title">Edit Data Sepeda</h5>
                 <!-- General Form Elements -->
-                    <form method="POST" action="{{route('sepeda_sa.update',$data->id)}}">
+                    <form method="POST" action="{{route('sepeda_sa.update',$data->id)}}"  enctype="multipart/form-data">
                     @method('PUT')
                         @csrf
                         <div class="row">
@@ -49,6 +49,12 @@
                                 </div>
                                 @endforeach            
                         </div>
+                        <div class="row mb-3">
+                <label for="inputText" class="col-sm-3 col-form-label">Image</label>
+                <div class="col-sm-8">
+                    <input class="form-control" type="file" name="image" >
+                </div>
+                </div>
                         <br><br>
                             <div class="col-sm-10">
                                 <button type="submit" class="btn btn-primary">Submit Form</button>

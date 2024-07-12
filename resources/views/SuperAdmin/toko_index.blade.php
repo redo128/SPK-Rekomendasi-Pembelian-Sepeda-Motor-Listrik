@@ -15,6 +15,7 @@
   <thead>
     <tr>
       <th scope="col">No</th>
+      <th scope="col">Gambar Toko</th>
       <th scope="col">Nama Toko</th>
       <th scope="col">Alamat Toko</th>
       <th scope="col">Action</th>
@@ -24,6 +25,7 @@
     <tr>
     @foreach($index as $data)
       <th scope="row">{{$data->id}}</th>
+      <th scope="row"><img src="{{asset('storage/'.$data->image)}}" class="img-thumbnail" style="width:100px" alt=""></th>
       <td>{{$data->nama_toko}}</td>
       <td>{{$data->alamat}}</td>
       <td>

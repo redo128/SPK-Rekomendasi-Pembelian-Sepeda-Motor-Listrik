@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('nama_toko');
             $table->string('alamat');
+            $table->string('image', 200);
             $table->timestamps();
         });
     }
