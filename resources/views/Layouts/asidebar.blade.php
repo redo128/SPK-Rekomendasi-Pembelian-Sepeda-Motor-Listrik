@@ -44,6 +44,12 @@
         </a>
       </li>
       <li class="nav-item">
+        <a class="nav-link collapsed" href="{{route('SuperAdmin.sub.admin')}}">
+          <i class="bi bi-person"></i>
+          <span>Sub Admin Toko</span>
+        </a>
+      </li>
+      <li class="nav-item">
         <a class="nav-link collapsed" data-bs-target="#tables-nav" data-bs-toggle="collapse" href="#">
           <i class="bi bi-layout-text-window-reverse"></i><span>Perhitungan</span><i class="bi bi-chevron-down ms-auto"></i>
         </a>

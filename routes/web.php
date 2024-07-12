@@ -53,6 +53,10 @@ Route::middleware(['auth'])->group(function(){
     Route::get('/perhitungan-sepeda-listrik-admin',[PerhitunganSuperAdmin::class,'index_sepeda_listrik'])->name('sa.perhitungan.sepeda.listrik')->middleware('userAkses:superadmin');
     Route::get('/perhitungan-sepeda-motor-listrik-admin',[PerhitunganSuperAdmin::class,'index_sepeda_motor_listrik'])->name('sa.perhitungan.sepeda.motor.listrik')->middleware('userAkses:superadmin');
     Route::get('/superadmin',[SuperAdminController::class,'index'])->name('SuperAdmin.beranda')->middleware('userAkses:superadmin');
+    Route::get('/superadmin-admin-sub',[SuperAdminController::class,'sub_admin'])->name('SuperAdmin.sub.admin')->middleware('userAkses:superadmin');
+    Route::get('/superadmin-admin-sub-edit/{id}',[SuperAdminController::class,'sub_admin_edit'])->name('SuperAdmin.sub.admin.edit')->middleware('userAkses:superadmin');
+    Route::put('/superadmin-admin-sub-update/{id}',[SuperAdminController::class,'sub_admin_update'])->name('SuperAdmin.sub.admin.update')->middleware('userAkses:superadmin');
+    Route::delete('/superadmin-admin-sub-delete/{id}',[SuperAdminController::class,'sub_admin_delete'])->name('SuperAdmin.sub.admin.delete')->middleware('userAkses:superadmin');
     Route::get('/superadmin/bobot',[SuperAdminController::class,'penentuan_bobot'])->name('SuperAdmin.bobot')->middleware('userAkses:superadmin');
     Route::get('/superadmin/bobot-create',[SuperAdminController::class,'penentuan_bobot_create'])->name('SuperAdmin.bobot_create')->middleware('userAkses:superadmin');
     Route::post('/superadmin/bobot-store',[SuperAdminController::class,'penentuan_bobot_store'])->name('SuperAdmin.bobot_store')->middleware('userAkses:superadmin');

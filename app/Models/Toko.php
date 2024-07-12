@@ -17,4 +17,8 @@ class Toko extends Model
     {
         return $this->hasMany(SepedaListrik::class);
     }
+    public function user(): HasMany
+    {
+        return $this->hasMany(User::class);
+    }
 }

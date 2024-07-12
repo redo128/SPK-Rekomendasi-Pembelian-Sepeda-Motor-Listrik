@@ -8,6 +8,7 @@ use App\Models\Kriteria;
 use App\Models\KriteriaRating;
 use App\Models\SepedaListrik;
 use App\Models\Toko;
+use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -72,10 +73,27 @@ class SuperAdminController extends Controller
  
         return redirect('/users');
     }
-    function toko_edit(){
-
+    function sub_admin(){
+        $user=User::all();
+        return view('SuperAdmin.sub_admin_toko',compact('user'));
     }
-    function toko_delete(){
-
+    function sub_admin_edit(String $id){
+        $data=User::find($id);
+        $toko=Toko::all();
+        return view('SuperAdmin.sub_admin_toko_edit',compact('data','toko'));
+    }
+    function sub_admin_update(Request $request ,String $id){
+        $data=User::find($id);
+        $data->name=$request->name;
+        $data->email=$request->email;
+        $data->role=$request->role;
+        $data->toko_id=$request->toko_id;
+        $data->save();
+        return redirect()->route('SuperAdmin.sub.admin')->with('success','Data Berhasil Di ubah');
+    }
+    function sub_admin_delete(String $id){
+        $user=User::find($id);
+        $user->delete();
+        return redirect()->back()->with('success','berhasil dihapus');
     }
 }
