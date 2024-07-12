@@ -41,7 +41,7 @@
         @endforeach
         @foreach($data_alternatif->where('alternatif_id',$data->alternatif_id) as $data3)
         @if($data3->kriteria->nama_kriteria == "kecepatan" )
-                                <td>{{number_format($data3->value,0,",",".")}} KM </td> 
+                                <td>{{number_format($data3->value,0,",",".")}} KM/h </td> 
                                 @elseif($data3->kriteria->nama_kriteria == "jarak tempuh")
                                 <td>{{number_format($data3->value,0,",",".")}} KM </td> 
                                 @elseif($data3->kriteria->nama_kriteria == "harga")
