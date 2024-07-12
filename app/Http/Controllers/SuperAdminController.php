@@ -13,6 +13,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Redirect;
 
 class SuperAdminController extends Controller
@@ -81,6 +82,16 @@ class SuperAdminController extends Controller
         $data=User::find($id);
         $toko=Toko::all();
         return view('SuperAdmin.sub_admin_toko_edit',compact('data','toko'));
+    }
+    function sub_admin_edit_password(String $id){
+        $data=User::find($id);
+        return view('SuperAdmin.sub_admin_toko_edit_password',compact('data'));
+    }
+    function sub_admin_update_password(Request $request,String $id){
+        $data=User::find($id);
+        $data->password=Hash::make($request->password);
+        $data->save();
+        return redirect()->route('SuperAdmin.sub.admin')->with('success','Password Berhasil Di ubah');
     }
     function sub_admin_update(Request $request ,String $id){
         $data=User::find($id);

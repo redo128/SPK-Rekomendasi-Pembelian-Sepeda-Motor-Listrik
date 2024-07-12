@@ -33,6 +33,7 @@
     @csrf
     @method('DELETE')
     <a href="{{route('SuperAdmin.sub.admin.edit',$data->id)}}" class="btn btn-success">Edit</a>
+    <a href="{{route('SuperAdmin.sub.admin.edit.password',$data->id)}}" class="btn btn-warning">Change Password</a>
     <button class="btn btn-danger" type="submit">Delete</button>
   </form>
   </td>

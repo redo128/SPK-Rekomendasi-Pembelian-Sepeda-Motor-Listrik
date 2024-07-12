@@ -7,7 +7,7 @@
                 <div class="card-body">
                     <h5 class="card-title">Edit Sepeda</h5>
                 <!-- General Form Elements -->
-                    <form method="POST" action="{{route('sepeda_penjual.update',$data->id)}}">
+                    <form method="POST" action="{{route('sepeda_penjual.update',$data->id)}}" enctype="multipart/form-data">
                     @method('PUT')
                         @csrf
                         <div class="row">
@@ -38,7 +38,11 @@
                                 <div class="col-sm-8">
                                     <input type="text" value="{{$value_alternatif->value}}" name="kriteria[{{$value_alternatif->kriteria->nama_kriteria}}]"  id="{{$value_alternatif->kriteria->nama_kriteria}}" class="form-control">
                                 </div>
-                                @endforeach            
+                                @endforeach   
+                                <label for="inputText" class="col-sm-3 col-form-label">Image</label>
+                <div class="col-sm-8">
+                    <input class="form-control" type="file" name="image" >
+                </div>         
                         </div>
                         <br><br>
                             <div class="col-sm-10">

@@ -34,7 +34,7 @@
                   @endforeach
                     @foreach($kriteria_all as $data3)
                     @if($data3->nama_kriteria == "kecepatan" )
-                        <td scope="row"> {{number_format($data[$data3->nama_kriteria],0,",",".")}} KM</td>
+                        <td scope="row"> {{number_format($data[$data3->nama_kriteria],0,",",".")}} KM/h</td>
                         @elseif($data3->nama_kriteria == "jarak tempuh")
                         <td scope="row"> {{number_format($data[$data3->nama_kriteria],0,",",".")}} KM</td>
                         @elseif($data3->nama_kriteria == "harga")
@@ -82,7 +82,7 @@
                     @endforeach
                     @foreach($kriteria_all as $data3)
                         @if($data3->nama_kriteria == "kecepatan" )
-                        <td scope="row"> {{number_format($data[$data3->nama_kriteria],0,",",".")}} KM</td>
+                        <td scope="row"> {{number_format($data[$data3->nama_kriteria],0,",",".")}} KM/h</td>
                         @elseif($data3->nama_kriteria == "jarak tempuh")
                         <td scope="row"> {{number_format($data[$data3->nama_kriteria],0,",",".")}} KM</td>
                         @elseif($data3->nama_kriteria == "harga")
