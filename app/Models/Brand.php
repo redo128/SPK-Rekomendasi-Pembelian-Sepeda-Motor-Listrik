@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class Brand extends Model
 {
     use HasFactory;
-    protected $table = 'Brand';
+    protected $table = 'brand';
     protected $primaryKey = 'id';
     protected $fillable = ['nama_brand'];
 

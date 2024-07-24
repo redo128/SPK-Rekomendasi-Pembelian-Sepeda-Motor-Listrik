@@ -16,7 +16,7 @@ class TokoController extends Controller
     {
         $index = Toko::all();
         $columns = DB::getSchemaBuilder()->getColumnListing('toko');
-        return view('Superadmin.toko_index',compact('index','columns'));
+        return view('SuperAdmin.toko_index',compact('index','columns'));
     }
 
     /**
@@ -53,7 +53,7 @@ class TokoController extends Controller
     public function show(string $id)
     {
         $data=Toko::find($id);
-        return view('Superadmin.toko_detail',compact('data'));
+        return view('SuperAdmin.toko_detail',compact('data'));
     }
 
     /**
@@ -62,7 +62,7 @@ class TokoController extends Controller
     public function edit(string $id)
     {
         $data=Toko::find($id);
-        return view('Superadmin.toko_edit',compact('data'));
+        return view('SuperAdmin.toko_edit',compact('data'));
     }
 
     /**

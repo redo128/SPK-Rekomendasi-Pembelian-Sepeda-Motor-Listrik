@@ -132,6 +132,12 @@
           </li>
         </ul>
       </li>
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="{{route('list_antrian')}}">
+          <i class="bi bi-person"></i>
+          <span>Custom Perhitungan</span>
+        </a>
+      </li>
       @endif
       @if(auth()->user()->role=="penjual")
       <!-- <li class="nav-item">

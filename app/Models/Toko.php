@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class Toko extends Model
 {
     use HasFactory;
-    protected $table = 'Toko';
+    protected $table = 'toko';
     protected $primaryKey = 'id';
     protected $fillable = ['nama_toko','alamat'];
 

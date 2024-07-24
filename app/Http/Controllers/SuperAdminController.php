@@ -25,16 +25,16 @@ class SuperAdminController extends Controller
         $kriteria_all=Kriteria::all();
         $sepeda_lastest = SepedaListrik::latest()->take(5)->get();
         $sepeda_value=AlternatifValue::all();
-        return view('Superadmin.beranda',compact('data_sepeda','data_toko','data_brand','kriteria_all','sepeda_lastest','sepeda_value'));
+        return view('SuperAdmin.beranda',compact('data_sepeda','data_toko','data_brand','kriteria_all','sepeda_lastest','sepeda_value'));
     }
     function penentuan_bobot(){
         // $namauser=Auth::user()->name;
         $index=KriteriaRating::orderBy('tipe','ASC')->get();
-        return view('Superadmin.kriteria_rating',compact('index'));
+        return view('SuperAdmin.kriteria_rating',compact('index'));
     }
     function penentuan_bobot_create(){
         $kriteria=Kriteria::all();
-        return view('Superadmin.kriteria_rating_create',compact('kriteria'));
+        return view('SuperAdmin.kriteria_rating_create',compact('kriteria'));
     }
     function penentuan_bobot_store(Request $request){
         $data=new KriteriaRating;
@@ -49,7 +49,7 @@ class SuperAdminController extends Controller
     function penentuan_bobot_edit(String $id){
         $data=KriteriaRating::find($id);
         $kriteria=Kriteria::all();
-        return view('Superadmin.kriteria_rating_edit',compact('data','kriteria'));
+        return view('SuperAdmin.kriteria_rating_edit',compact('data','kriteria'));
     }
     function penentuan_bobot_update(Request $request, String $id){
         $data=KriteriaRating::find($id);

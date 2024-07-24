@@ -15,7 +15,7 @@ class BrandController extends Controller
     {
         $index = Brand::all();
         $columns = DB::getSchemaBuilder()->getColumnListing('brand');
-        return view('Superadmin.brand_index',compact('index','columns'));
+        return view('SuperAdmin.brand_index',compact('index','columns'));
     }
 
     /**
@@ -23,7 +23,7 @@ class BrandController extends Controller
      */
     public function create()
     {
-        return view('Superadmin.brand_create');
+        return view('SuperAdmin.brand_create');
     }
 
     /**
@@ -51,7 +51,7 @@ class BrandController extends Controller
     public function edit(string $id)
     {
         $data=Brand::find($id);
-        return view('Superadmin.brand_edit',compact('data'));
+        return view('SuperAdmin.brand_edit',compact('data'));
     }
 
     /**
