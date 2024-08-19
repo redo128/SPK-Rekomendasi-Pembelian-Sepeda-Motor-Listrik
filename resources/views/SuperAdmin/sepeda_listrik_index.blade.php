@@ -38,8 +38,10 @@
                                 <td>{{number_format($data2->value,0,",",".")}} KM/h </td> 
                                 @elseif($data2->kriteria->nama_kriteria == "jarak tempuh")
                                 <td>{{number_format($data2->value,0,",",".")}} KM </td> 
-                                @elseif($data2->kriteria->nama_kriteria == "harga")
+                                @elseif($data2->kriteria->nama_kriteria == "harga" || $data2->kriteria->nama_kriteria == "biaya cas")
                                 <td>RP. {{number_format($data2->value,0,",",".")}} </td>
+                                @else
+                                <td>{{$data2->value}}</td>
                                 @endif
       @endforeach
       <td>

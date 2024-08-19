@@ -3,10 +3,12 @@
 use App\Http\Controllers\BrandController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\KriteriaController;
+use App\Http\Controllers\KriteriaDinamisController;
 use App\Http\Controllers\KriteriaPerbandinganController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\PembeliController;
 use App\Http\Controllers\PenjualController;
+use App\Http\Controllers\PerhitunganDinamisKriteria;
 use App\Http\Controllers\PerhitunganPembeli;
 use App\Http\Controllers\PerhitunganSuperAdmin;
 use App\Http\Controllers\RegisterController;
@@ -66,6 +68,9 @@ Route::middleware(['auth'])->group(function(){
     Route::put('/superadmin/bobot/{id}',[SuperAdminController::class,'penentuan_bobot_update'])->name('SuperAdmin.bobot_update')->middleware('userAkses:superadmin');
     Route::delete('/superadmin/bobot/{id}',[SuperAdminController::class,'penentuan_bobot_delete'])->name('SuperAdmin.bobot_delete')->middleware('userAkses:superadmin');
     Route::resource('pembeli', Pembelicontroller::class)->middleware('userAkses:pembeli');
+    Route::resource('dinamis-bobot', PerhitunganDinamisKriteria::class)->middleware('userAkses:pembeli');
+    Route::resource('dinamis-kriteria', KriteriaDinamisController::class)->middleware('userAkses:pembeli');
+    Route::get('/perhitungan-dinamis/sepeda-motor-listrik', [PerhitunganDinamisKriteria::class,'perhitungan_dinamis'])->name('perhitungan_dinamis')->middleware('userAkses:pembeli');
     Route::get('/list-antrian',[PembeliController::class,'list_antrian'])->name('list_antrian')->middleware('userAkses:pembeli');
     Route::delete('/list-antrian-delete/{id}',[PembeliController::class,'list_antrian_delete'])->name('list_antrian_delete')->middleware('userAkses:pembeli');
     Route::get('/preferensi-kriteria',[PembeliController::class,'preferensi_kriteria'])->name('preferensi_kriteria')->middleware('userAkses:pembeli');

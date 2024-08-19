@@ -7,7 +7,7 @@
 
         </div>
         <div class="col-2">
-            <!-- <a href="{{route('kriteria.create')}}"><button type="button" class="btn btn-primary">Tambah Data</button></a> -->
+            <a href="{{route('kriteria.create')}}"><button type="button" class="btn btn-primary">Tambah Data</button></a>
             <br><br>
         </div>
 

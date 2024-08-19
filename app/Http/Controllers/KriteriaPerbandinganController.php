@@ -147,9 +147,6 @@ class KriteriaPerbandinganController extends Controller
     public function update(Request $request, string $id)
     {
         $rating = $request->input('rating'); 
-        // dd($rating[3]);
-        // dd($id);
-        // dd($rating);
         $kriteria=Kriteria::all();
         foreach($kriteria as $loop){
             // dd($loop); << Nama Kriteria

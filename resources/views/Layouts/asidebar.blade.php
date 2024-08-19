@@ -133,10 +133,26 @@
         </ul>
       </li>
       <li class="nav-item">
-        <a class="nav-link collapsed" href="{{route('list_antrian')}}">
-          <i class="bi bi-person"></i>
-          <span>Custom Perhitungan</span>
+        <a class="nav-link collapsed" data-bs-target="#tables-nav-2" data-bs-toggle="collapse" href="#">
+          <i class="bi bi-layout-text-window-reverse"></i><span>Custom Perhitungan</span><i class="bi bi-chevron-down ms-auto"></i>
         </a>
+        <ul id="tables-nav-2" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+          <li>
+            <a href="{{route('dinamis-kriteria.index')}}">
+              <i class="bi bi-circle"></i><span>Select Kriteria</span>
+            </a>
+          </li>
+          <li>
+            <a href="{{route('dinamis-bobot.index')}}">
+              <i class="bi bi-circle"></i><span>Edit Bobot Kriteria</span>
+            </a>
+          </li>
+          <li>
+            <a href="{{route('perhitungan_dinamis')}}">
+              <i class="bi bi-circle"></i><span>Hitung Hasil Pembobotan</span>
+            </a>
+          </li>
+        </ul>
       </li>
       @endif
       @if(auth()->user()->role=="penjual")

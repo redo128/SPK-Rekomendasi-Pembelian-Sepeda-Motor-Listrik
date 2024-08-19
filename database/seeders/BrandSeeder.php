@@ -21,9 +21,6 @@ class BrandSeeder extends Seeder
             'nama_brand' => 'GESITS',
         ],
         [
-            'nama_brand' => 'VOLTA',
-        ],
-        [
             'nama_brand' => 'ECGO',
         ],
         [

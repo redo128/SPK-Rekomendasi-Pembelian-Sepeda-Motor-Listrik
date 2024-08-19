@@ -16,15 +16,32 @@ class AlternatifKriteria extends Seeder
         DB::table('kriteria_alternatif')->insert([[
             'id'=> 1,
             'nama_kriteria' => 'kecepatan',
-            'type'=>'benefit'
+            'type'=>'benefit',
         ],[
             'id'=> 2,
             'nama_kriteria' => 'jarak tempuh',
             'type'=>'benefit'
-        ],['id'=> 3,
+        ],
+        ['id'=> 3,
+            'nama_kriteria' => 'lama pengisian baterai',
+            'type'=>'cost'
+        ],
+        ['id'=> 4,
+            'nama_kriteria' => 'biaya cas',
+            'type'=>'cost'
+        ],
+        ['id'=> 5,
+            'nama_kriteria' => 'keamanan',
+            'type'=>'benefit'
+        ],
+        ['id'=> 6,
+            'nama_kriteria' => 'desain',
+            'type'=>'benefit'
+        ],
+        ['id'=> 7,
             'nama_kriteria' => 'harga',
             'type'=>'cost'
-        ]
+        ],
         ]);
     }
 }

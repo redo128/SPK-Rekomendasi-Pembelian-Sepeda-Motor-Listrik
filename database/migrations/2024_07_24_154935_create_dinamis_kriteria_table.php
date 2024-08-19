@@ -11,11 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('toko', function (Blueprint $table) {
+        Schema::create('dinamis_kriteria', function (Blueprint $table) {
             $table->id();
-            $table->string('nama_toko');
-            $table->string('alamat');
-            $table->string('image', 200)->default("");
+            $table->foreignId('user_id')->references('id')->on('users');
+            $table->foreignId('kriteria_id')->references('id')->on('kriteria_alternatif');
+            $table->enum('status',['dipilih','tidak dipilih'])->default('dipilih');
             $table->timestamps();
         });
     }
@@ -25,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('toko');
+        Schema::dropIfExists('dinamis_kriteria');
     }
 };
